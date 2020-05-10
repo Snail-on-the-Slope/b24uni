@@ -8,10 +8,10 @@
 <body>
     <h1>
         <?php
-        echo "hello world";
+        echo "hello world\n";
         $output = shell_exec("python myscript.py");
         var_dump($output);
-        echo "succes";
+        echo "\nsucces";
         ?>
     </h1>
 </body>
