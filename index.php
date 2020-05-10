@@ -10,7 +10,7 @@
         <?php
         echo "hello world\n";
         $output = shell_exec("python myscript.py");
-        var_dump($output);
+        echo $output;
         echo "\nsucces";
         ?>
     </h1>
