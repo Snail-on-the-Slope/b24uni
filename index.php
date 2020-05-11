@@ -18,7 +18,7 @@
             <input type="text" id="id-table" name="id-table" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
             <label for="id-sheet">ID листа:</label>
             <input type="text" id="id-sheet" name="id-sheet" value="332621208">
-            <input type="button" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
+            <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
         </form>
         <h1>
         <?php
@@ -30,7 +30,7 @@
 
     <div class="import-data"  method="post">
         <form action="#">
-            <input type="button" value="Импортировать данные из Google Sheets">
+            <input type="submit" value="Импортировать данные из Google Sheets">
         </form>
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled></textarea>
         <h1></h1>

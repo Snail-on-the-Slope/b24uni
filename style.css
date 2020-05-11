@@ -29,7 +29,7 @@ body {
     resize: vertical;
 }
 
-.parsing-google-sheets input[type=button] {
+.parsing-google-sheets input[type=submit] {
     background-color: #00BFFF;
     color: white;
     padding: 12px 20px;
@@ -45,7 +45,7 @@ body {
     padding: 5px 10px;
 }
 
-.import-data input[type=button] {
+.import-data input[type=submit] {
     background-color: #4CAF50;
     width: 100%;
     color: white;
