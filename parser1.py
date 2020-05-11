@@ -1,11 +1,13 @@
+import json
+import re
+import sys
 import threading
 import time
+
 import openpyxl
 import requests
 from bs4 import BeautifulSoup
-import re
-import json
-import sys
+
 import parser2
 
 headers = {

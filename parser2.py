@@ -1,11 +1,12 @@
+import csv
 import json
-import threading
-from bs4 import BeautifulSoup
-import requests
 import re
 import string
-import csv
-import pandas as pd 
+import threading
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 
 n1_10 = (2, 4, 10, 3, 5, 9, 4, 6, 8, 0)
 n1_12 = (7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0)
