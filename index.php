@@ -2,7 +2,8 @@
     if(isset($_POST['SubmitButton'])){
         $idTable = $_POST['idTable'];
         $idSheet = $_POST['idSheet'];
-        $out = "python myscript.py " . $idTable . " " . $idSheet;
+        $cells = $_POST['cells'];
+        $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
         $output = shell_exec($out);
     }
 ?>
@@ -21,6 +22,8 @@
             <input type="text" id="idTable" name="idTable" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
             <label for="idSheet">ID листа:</label>
             <input type="text" id="idSheet" name="idSheet" value="332621208">
+            <label for="cells">Ячейки URL:</label>
+            <input type="text" id="cells" name="cells" value="A4:A181">
             <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
         </form>
         <h1>
