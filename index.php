@@ -1,4 +1,8 @@
-
+<?php
+    if(isset($_POST['SubmitButton'])){
+        $output = shell_exec($out);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,13 +23,7 @@
         <h1>
         <?php
         echo "hello world\n";
-        ?>
-        <?php
-                $in = "sort";
-                $out = "python myscript.py " . $in;
-                echo $out;
-                $output = shell_exec($out);
-                echo $output;
+        echo $output;
         ?>
         </h1>
     </div>
