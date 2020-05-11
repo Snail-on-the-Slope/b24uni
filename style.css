@@ -1,0 +1,81 @@
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3%;
+    box-sizing: border-box;
+}
+
+.parsing-google-sheets {
+    width: 40%;
+    height: auto;
+    padding: 5px 10px;
+    margin-bottom: 3%;
+    margin-right: 10%;
+}
+
+.parsing-google-sheets form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px auto;
+}
+
+/* placeholder */
+.parsing-google-sheets input[type=text] {
+    padding: 10px 2px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.parsing-google-sheets input[type=button] {
+    background-color: #00BFFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.import-data {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+}
+
+.import-data input[type=button] {
+    background-color: #4CAF50;
+    width: 100%;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.import-data textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+@media screen and (min-width: 1100px) {
+    .parsing-google-sheets {
+      width: 30%;
+    }
+    .import-data {
+      width: 30%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .parsing-google-sheets {
+      width: 100%;
+    }
+    .import-data {
+      width: 100%;
+    }
+}
