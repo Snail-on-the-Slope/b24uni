@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="parsing-google-sheets">
-        <form action=""  method="post">
+        <form action="parsing.php"  method="post">
             <label for="id-table">ID таблицы:</label>
             <input type="text" id="id-table" name="id-table" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
             <label for="id-sheet">ID листа:</label>
@@ -19,10 +19,6 @@
         <?php
         echo "hello world\n";
         ?>
-        <?php if(isset($_POST['SubmitButton'])){
-            $output = shell_exec("python myscript.py sort");
-            echo $output;
-        } ?>
         </h1>
     </div>
 
