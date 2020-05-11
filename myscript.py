@@ -136,7 +136,8 @@ def main(idTable, idSheet, cells):
     #uploading_data_to_table(result[0], idTable, result[1], urls, id_cell)
 '''
 def main(idTable, idSheet, cells):
-    print(len(cells))
+    strr = str(len(cells))
+    print(strr)
 
 if __name__ == '__main__':
     #main(sys.argv[1], sys.argv[2], sys.argv[3])
