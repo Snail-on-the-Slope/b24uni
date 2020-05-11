@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json
+import sys
 import parser2
 
 headers = {
@@ -146,4 +147,4 @@ def main(urls):
 
 
 if __name__ == '__main__':
-    main(urls)
+    main(sys.argv[1])

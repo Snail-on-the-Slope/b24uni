@@ -29,7 +29,7 @@
         <h1>
         <?php
         echo "hello world\n";
-        echo $output;
+        echo $output, "\n succes";
         ?>
         </h1>
     </div>
