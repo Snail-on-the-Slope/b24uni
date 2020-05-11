@@ -1,6 +1,8 @@
 <?php
     if(isset($_POST['SubmitButton'])){
         $in = "sort";
+        $idTable = $_POST['idTable'];
+        $idSheet = $_POST['idSheet'];
         $out = "python myscript.py " . $in;
         $output = shell_exec($out);
     }
@@ -16,16 +18,17 @@
 <body>
     <div class="parsing-google-sheets">
         <form action=""  method="post">
-            <label for="id-table">ID таблицы:</label>
-            <input type="text" id="id-table" name="id-table" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
-            <label for="id-sheet">ID листа:</label>
-            <input type="text" id="id-sheet" name="id-sheet" value="332621208">
+            <label for="idTable">ID таблицы:</label>
+            <input type="text" id="idTable" name="idTable" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
+            <label for="idSheet">ID листа:</label>
+            <input type="text" id="idSheet" name="idSheet" value="332621208">
             <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
         </form>
         <h1>
         <?php
         echo "hello world\n";
         echo $output;
+        echo $idTable, "  ",$idSheet;
         ?>
         </h1>
     </div>
