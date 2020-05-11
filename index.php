@@ -18,7 +18,7 @@
         <h1>
         <?php
         echo "hello world\n";
-        $output = shell_exec("python myscript.py "sort"");
+        $output = shell_exec("python myscript.py sort");
         echo $output;
         echo "\nsucces";
         ?>
