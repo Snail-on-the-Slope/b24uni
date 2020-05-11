@@ -19,7 +19,7 @@
         <?php
         echo "hello world\n";
         ?>
-        <?php if(!empty($_POST['id-table'])){
+        <?php if(isset($_POST['id-table'])){
             $output = shell_exec("python myscript.py sort");
             echo $output;
         } ?>
