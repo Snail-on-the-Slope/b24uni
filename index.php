@@ -24,6 +24,8 @@
                 $in = "sort";
                 $out = "python myscript.py " . $in;
                 echo $out;
+                $output = shell_exec($out);
+                echo $output;
         ?>
         </h1>
     </div>
