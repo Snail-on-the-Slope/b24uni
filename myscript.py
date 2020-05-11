@@ -1,7 +1,8 @@
+import sys
+'''
 import json
 import pickle
 import re
-import sys
 
 import apiclient.discovery
 import gspread
@@ -133,7 +134,7 @@ def main(idTable, idSheet, cells):
     print(len(urls))
     #parser1.main(urls)
     #uploading_data_to_table(result[0], idTable, result[1], urls, id_cell)
-
+'''
 def new(idTable, idSheet, cells):
     print(len(cells))
 
