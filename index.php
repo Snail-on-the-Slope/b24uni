@@ -1,9 +1,8 @@
 <?php
     if(isset($_POST['SubmitButton'])){
-        $in = "sort";
         $idTable = $_POST['idTable'];
         $idSheet = $_POST['idSheet'];
-        $out = "python myscript.py " . $in;
+        $out = "python myscript.py " . $idTable . " " . $idSheet;
         $output = shell_exec($out);
     }
 ?>
@@ -28,7 +27,6 @@
         <?php
         echo "hello world\n";
         echo $output;
-        echo $idTable, "  ",$idSheet;
         ?>
         </h1>
     </div>
