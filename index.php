@@ -1,5 +1,7 @@
 <?php
     if(isset($_POST['SubmitButton'])){
+        $in = "sort";
+        $out = "python myscript.py " . $in;
         $output = shell_exec($out);
     }
 ?>
