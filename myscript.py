@@ -3,6 +3,8 @@ import json
 import pickle
 import re
 
+import gspread
+import httplib2
 
 def main(idTable, idSheet, cells):
     strr = str(len(cells))
