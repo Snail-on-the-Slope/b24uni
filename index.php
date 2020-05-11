@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="parsing-google-sheets">
-        <form action="#">
+        <form action=""  method="post">
             <label for="id-table">ID таблицы:</label>
             <input type="text" id="id-table" name="id-table" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
             <label for="id-sheet">ID листа:</label>
@@ -18,14 +18,15 @@
         <h1>
         <?php
         echo "hello world\n";
-        $output = shell_exec("python myscript.py sort");
-        echo $output;
-        echo "\nsucces";
         ?>
+        <?php if(!empty($_POST['id-table'])){
+            $output = shell_exec("python myscript.py sort");
+            echo $output;
+        } ?>
         </h1>
     </div>
 
-    <div class="import-data">
+    <div class="import-data"  method="post">
         <form action="#">
             <input type="button" value="Импортировать данные из Google Sheets">
         </form>
