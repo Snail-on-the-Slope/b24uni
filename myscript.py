@@ -135,9 +135,9 @@ def main(idTable, idSheet, cells):
     #parser1.main(urls)
     #uploading_data_to_table(result[0], idTable, result[1], urls, id_cell)
 '''
-def new(idTable, idSheet, cells):
+def main(idTable, idSheet, cells):
     print(len(cells))
 
 if __name__ == '__main__':
     #main(sys.argv[1], sys.argv[2], sys.argv[3])
-    new(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
