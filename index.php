@@ -15,12 +15,12 @@
             <input type="text" id="idSheet" name="idSheet" value="332621208">
             <label for="cells">Ячейки URL:</label>
             <input type="text" id="cells" name="cells" value="A4:A181">
-            <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
+            <input type="submit" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
             <p>процесс займет некоторое время...</p>
         </form>
         <h1>  
         <?php
-            if(isset($_POST['SubmitButton'])){
+            if(isset($_POST['SubmitParsing'])){
                 $idTable = $_POST['idTable'];
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
@@ -34,7 +34,7 @@
 
     <div class="import-data"  method="post">
         <form action="#">
-            <input type="submit" value="Импортировать данные из Google Sheets">
+            <input type="submit" name="SubmitImport"  value="Импортировать данные из Google Sheets">
         </form>
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled></textarea>
         <h1></h1>
