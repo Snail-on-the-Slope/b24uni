@@ -21,6 +21,11 @@
         <?php
             if(isset($_POST['SubmitButton'])){
                 echo "Процесс займет некоторое время...";
+            }
+        ?>    
+        <?php
+            if(isset($_POST['SubmitButton'])){
+                echo "Процесс займет некоторое время...";
                 $idTable = $_POST['idTable'];
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
