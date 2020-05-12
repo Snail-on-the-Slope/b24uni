@@ -46,7 +46,7 @@ def get_urls(service, spreadsheetId, name, cells):
     id_cell = re.findall(r'\d+',cells)[0]
     for i in sheet_values:
         for j in i:
-            urls.append([len(urls)+id_cell,j])
+            urls.append([len(urls)+int(id_cell),j])
     return urls, id_cell
 
 def get_data():
