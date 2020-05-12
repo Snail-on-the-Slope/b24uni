@@ -20,6 +20,13 @@ body {
     margin: 5px auto;
 }
 
+.parsing-google-sheets p {
+    margin-top: -2px;
+    font-size: 12px;
+    text-align: right;
+    color: #808080;
+}
+
 /* placeholder */
 .parsing-google-sheets input[type=text] {
     padding: 10px 2px;
@@ -36,13 +43,6 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-p {
-    margin-top: -2px;
-    font-size: 12px;
-    text-align: right;
-    color: #808080;
 }
 
 .import-data {

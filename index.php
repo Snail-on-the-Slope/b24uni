@@ -32,8 +32,8 @@
         </h1>
     </div>
 
-    <div class="import-data"  method="post">
-        <form action="#">
+    <div class="import-data">
+        <form action="#" method="post">
             <input type="submit" name="SubmitImport"  value="Импортировать данные из Google Sheets">
         </form>
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled></textarea>
