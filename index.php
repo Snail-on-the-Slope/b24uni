@@ -16,7 +16,7 @@
             <label for="cells">Ячейки URL:</label>
             <input type="text" id="cells" name="cells" value="A4:A181">
             <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
-            <з>процесс займет некоторое время...</з>
+            <p>процесс займет некоторое время...</p>
         </form>
         <h1>  
         <?php
