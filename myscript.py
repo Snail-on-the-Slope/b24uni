@@ -138,4 +138,4 @@ def new(idTable, idSheet, cells):
     print(strr)
 
 if __name__ == '__main__':
-    new(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
