@@ -3,7 +3,7 @@ import json
 import pickle
 import re
 
-import apiclient.discovery
+from googleapiclient import discovery
 import gspread
 import httplib2
 from oauth2client.service_account import ServiceAccountCredentials
