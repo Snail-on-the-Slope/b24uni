@@ -38,7 +38,7 @@ body {
     cursor: pointer;
 }
 
-.parsing-google-sheets p {
+p {
     margin-top: -2px;
     font-size: 12px;
     text-align: right;
