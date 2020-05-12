@@ -126,7 +126,7 @@ def main(idTable, idSheet, cells):
     result = []
     result.append(connection_to_API(idTable, idSheet))
     if len(result) == 1:
-        print('Error connection to Google Sheets Table')
+        print('Error connection to Google Sheets Table ', result)
         return
     urls, id_cell = get_urls(result[0], idTable, result[1], cells)
     print(len(urls))
