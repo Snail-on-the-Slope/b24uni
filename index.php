@@ -1,12 +1,3 @@
-<?php
-    if(isset($_POST['SubmitButton'])){
-        $idTable = $_POST['idTable'];
-        $idSheet = $_POST['idSheet'];
-        $cells = $_POST['cells'];
-        $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
-        $output = shell_exec($out);
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +19,15 @@
         </form>
         <h1>
         <?php
-        echo "hello world\n";
-        echo $output;
+            if(isset($_POST['SubmitButton'])){
+                echo "Процесс займет некоторое время...";
+                $idTable = $_POST['idTable'];
+                $idSheet = $_POST['idSheet'];
+                $cells = $_POST['cells'];
+                $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
+                $output = shell_exec($out);
+                echo "Парсинг завершен";
+            }
         ?>
         </h1>
     </div>
