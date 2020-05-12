@@ -123,19 +123,14 @@ def uploading_data_to_table(service, spreadsheetId, name, urls, id_cell):
     
 
 def main(idTable, idSheet, cells):
-    result = []
-    result.append(connection_to_API(idTable, int(idSheet)))
-    if result[0]==None:
-        print('Error connection to Google Sheets Table ', result)
+    service, name = connection_to_API(idTable, int(idSheet))
+    if service==None:
+        print('Error connection to Google Sheets Table ')
         return
-    urls, id_cell = get_urls(result[0], idTable, result[1], cells)
+    urls, id_cell = get_urls(service, idTable, name, cells)
     print(len(urls))
     #parser1.main(urls)
-    #uploading_data_to_table(result[0], idTable, result[1], urls, id_cell)
-
-def new(idTable, idSheet, cells):
-    strr = str(len(cells))
-    print(strr)
+    #uploading_data_to_table(service, idTable, name, urls, id_cell)
 
 if __name__ == '__main__':
     main(sys.argv[1], sys.argv[2], sys.argv[3])
