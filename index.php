@@ -16,16 +16,11 @@
             <label for="cells">Ячейки URL:</label>
             <input type="text" id="cells" name="cells" value="A4:A181">
             <input type="submit" name="SubmitButton" value="Парсинг и категоризация данных в таблице">
+            <з>процесс займет некоторое время...</з>
         </form>
-        <h1>
+        <h1>  
         <?php
             if(isset($_POST['SubmitButton'])){
-                echo "Процесс займет некоторое время...";
-            }
-        ?>    
-        <?php
-            if(isset($_POST['SubmitButton'])){
-                echo "Процесс займет некоторое время...";
                 $idTable = $_POST['idTable'];
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
