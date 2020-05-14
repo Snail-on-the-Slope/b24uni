@@ -75,7 +75,8 @@
                             $k+=1;
                         }
                     }
-                    echo ' || ', $array;
+                    echo ' || ';
+                    print_r($array);
                 }
             ?>
         </textarea>
