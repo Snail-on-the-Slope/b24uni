@@ -25,10 +25,12 @@
                 $idTable = $_POST['idTable'];
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
-                $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
-                $output = shell_exec($out);
-                $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
-                echo "Парсинг завершен ", $time;
+                if ($idTable != null && $idSheet != null && $cells != null) {
+                    $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
+                    $output = shell_exec($out);
+                    $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
+                    echo "Парсинг завершен ", $time;
+                }
             }
         ?>
         </h1>
@@ -58,11 +60,19 @@
                 </div>
                 <div class="error"></div>
             </div>
-            <div id="new_fields">
-            </div>
+            <div id="new_fields"></div>
             <input type="submit" name="SubmitImport" value="Импортировать данные из Google Sheets">
         </form>
-        <textarea name="import-area" id="import-area" cols="30" rows="10" disabled></textarea>
+        <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
+            <?php
+                if(isset($_POST['SubmitImport'])){
+                    $idTableImport = $_POST['idTableImport'];
+                    $idSheetImport = $_POST['idSheetImport'];
+                    $cellsImport = $_POST['cellsimport'];
+                    echo $idTableImport,'  ',$idSheetImport,'  ',$cellsImport,'  ',$_POST['cellsimport2'];
+                }
+            ?>
+        </textarea>
     </div>
 
     <script>
