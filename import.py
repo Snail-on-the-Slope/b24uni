@@ -50,11 +50,6 @@ def get_urls(service, spreadsheetId, name, cells):
 
 def main(array):
     print(array)
-    #service, name = connection_to_API(idTable, int(idSheet))
-    #if service==None:
-    #    print('Error connection to Google Sheets Table ')
-    #    return
-    #urls, id_cell = get_urls(service, idTable, name, cells)
 
 if __name__ == '__main__':
     main(sys.argv[1])

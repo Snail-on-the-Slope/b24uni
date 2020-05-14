@@ -74,11 +74,9 @@
                             $k+=1;
                         }
                     }
-                    print_r($array);
                     $outImport = "python import.py " . $array;
                     $outputImport = shell_exec($outImport);
-                    echo '  || ';
-                    print_r($outputImport);
+                    var_dump($outputImport);
                 }
             ?>
         </textarea>
