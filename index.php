@@ -71,10 +71,10 @@
                     $cellsImport = $_POST['cellsimport'];
                     echo $idTableImport,'  ',$idSheetImport,'  ',$cellsImport,'  ||';
                     $k = 0;
-                    $end = count($_POST)-1;
                     foreach($_POST as $value) {
-                        if (k>3 && k<$end) {
+                        if ($k>2 && $k<count($_POST)) {
                             echo $value, " ";
+                            $k=$k+1;
                         }
                     }
                 }
