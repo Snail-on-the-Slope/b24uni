@@ -76,7 +76,7 @@
                     }
                     echo ' || ';
                     print_r($array);
-                    $outImport = "python myscript.py " . $array;
+                    $outImport = "python import.py " . $array;
                     $outputImport = shell_exec($outImport);
                     echo '  || ';
                     print_r($outputImport);
