@@ -74,7 +74,7 @@
                             $k+=1;
                         }
                     }
-                    $outImport = "python import.py " . $array;
+                    $outImport = "python import.py " . json_encode($array);
                     $outputImport = shell_exec($outImport);
                     echo $outputImport;
                     $arr = json_decode($outputImport);
