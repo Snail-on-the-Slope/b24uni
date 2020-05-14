@@ -55,6 +55,7 @@ def get_urls(service, spreadsheetId, name, cells):
                 item_table.append(j)
         table_data.append(item_table)
 
+    return table_data
     leng = len(table_data[0])
     for i in table_data:
         if len(i) != leng:
@@ -82,6 +83,9 @@ def main(array):
         return
 
     table_data = get_urls(service, idTable, name, cells)
+    if isinstance(table_data, str):
+        print(table_data)
+        return
     print(len(table_data), json.dumps(table_data))
 
     #print('OKK')
