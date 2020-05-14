@@ -61,7 +61,9 @@ def get_urls(service, spreadsheetId, name, cells):
             else:
                 item_table.append(i)
         table_data.append(item_table)
+        print(len(item_table))
 
+    return table_data
     leng = len(table_data[0])
     for i in table_data:
         if len(i) != leng:
