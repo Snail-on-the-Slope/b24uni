@@ -69,14 +69,17 @@
                     $array = [];
                     $k = 0;
                     foreach($_POST as $value) {
-                        if ($k<count($_POST)) {
-                            echo $value," ";
+                        if ($k<(count($_POST)-1)) {
                             $array[] =  $value;
                             $k+=1;
                         }
                     }
                     echo ' || ';
                     print_r($array);
+                    $outImport = "python myscript.py " . $array;
+                    $outputImport = shell_exec($outImport);
+                    echo '  || ';
+                    print_r($outputImport);
                 }
             ?>
         </textarea>
