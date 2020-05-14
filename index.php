@@ -71,8 +71,10 @@
                     $cellsImport = $_POST['cellsimport'];
                     echo $idTableImport,'  ',$idSheetImport,'  ',$cellsImport,'  ',$_POST['cellsimport2'];
                     print_r($_POST);
-                    echo " - ";
-                    var_dump($_POST);
+                    echo ' - ', count($_POST),' \n ';
+                    foreach($_POST as $value) {
+                        echo $value, " ";
+                    }
                 }
             ?>
         </textarea>
