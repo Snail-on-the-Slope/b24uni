@@ -41,16 +41,15 @@ def get_urls(service, spreadsheetId, name, cells):
                                         dateTimeRenderOption = 'FORMATTED_STRING').execute() 
     sheet_values = results['valueRanges'][0]['values']
     urls = []
-    id_cell = re.findall(r'\d+',cells)[0]
     for i in sheet_values:
         for j in i:
-            urls.append([len(urls)+int(id_cell),j])
-    return urls, id_cell
+            urls.append([j])
+    return urls
 
     
 
 def main(array):
-    print
+    print(array)
     #service, name = connection_to_API(idTable, int(idSheet))
     #if service==None:
     #    print('Error connection to Google Sheets Table ')

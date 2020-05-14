@@ -74,7 +74,6 @@
                             $k+=1;
                         }
                     }
-                    echo ' || ';
                     print_r($array);
                     $outImport = "python import.py " . $array;
                     $outputImport = shell_exec($outImport);
@@ -133,7 +132,6 @@
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
                     error.innerHTML = "";
-
                 }
             };
 
@@ -147,7 +145,6 @@
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
                     error.innerHTML = "";
-
                 }
             };
             return false;
