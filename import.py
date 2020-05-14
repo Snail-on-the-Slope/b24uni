@@ -70,6 +70,7 @@ def get_urls(service, spreadsheetId, name, cells):
     leng = len(table_data[0])
     for i in table_data:
         if len(i) != leng:
+            print(i, leng)
             return "Error list cells building"
 
     if len(table_data)>1:
