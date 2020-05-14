@@ -38,9 +38,10 @@ def get_urls(service, spreadsheetId, name, cells):
     table_data = []
     for cell in cells:
         x = ''
+        quantity = re.findall(r'\d+',cell)
         for item in re.findall(r'\w+',cell):
             x+=item
-        if len(re.findall(r'\d+',cell))!=len(re.findall(r'\D+', x)):
+        if len(quantity)!=len(re.findall(r'\D+', x)):
             return "Error cells "+cell
 
         ranges = [name+"!"+cell]
@@ -60,10 +61,12 @@ def get_urls(service, spreadsheetId, name, cells):
                 item_table.append(temp[:-1])
             else:
                 item_table.append(i)
-        table_data.append(item_table)
-        print(len(item_table))
 
-    return table_data
+        if len(item_table)< (quantity[1]-quantity[0]):
+            item_table.extend(['']*(quantity[1]-quantity[0]))
+
+        table_data.append(item_table)
+
     leng = len(table_data[0])
     for i in table_data:
         if len(i) != leng:
