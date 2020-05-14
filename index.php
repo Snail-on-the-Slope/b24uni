@@ -76,9 +76,7 @@
                     }
                     $outImport = "python import.py " . json_encode($array);
                     $outputImport = shell_exec($outImport);
-                    echo $outputImport;
-                    $arr = json_decode($outputImport);
-                    var_dump($arr); 
+                    echo json_decode($outputImport);
                 }
             ?>
         </textarea>
