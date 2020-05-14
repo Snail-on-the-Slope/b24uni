@@ -38,7 +38,7 @@ def get_urls(service, spreadsheetId, name, cells):
     table_data = []
     for cell in cells:
         x = ''
-        quantity = re.findall(r'\d+',cell)
+        quantity = list(map(int, re.findall(r'\d+',cell)))
         for item in re.findall(r'\w+',cell):
             x+=item
         if len(quantity)!=len(re.findall(r'\D+', x)):
