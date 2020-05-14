@@ -26,7 +26,8 @@
                 $cells = $_POST['cells'];
                 $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
                 $output = shell_exec($out);
-                echo "Парсинг завершен ", date("H:i:s");
+                $time  = mktime(date("H")+2, date("i")+3, date("s")+3, 0, 0, 0);
+                echo "Парсинг завершен", $time;
             }
         ?>
         </h1>
