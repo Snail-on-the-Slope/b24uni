@@ -35,7 +35,7 @@
     </div>
 
     <div class="import-data">
-        <form action="#" method="post" id="form-import">
+        <form action="#" method="post">
             <div class="obligatory">
                 <label for="idTableImport">ID таблицы</label>
                 <input type="text" id="idTableImport" name="idTableImport" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
@@ -134,7 +134,7 @@
         }
 
         function deleteField(a) {
-            var contDiv = a.parentNode;
+            var contDiv = a.parentNode.parentNode;
             contDiv.parentNode.removeChild(contDiv);
             k--;
             return false;
