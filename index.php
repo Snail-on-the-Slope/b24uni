@@ -66,17 +66,16 @@
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
             <?php
                 if(isset($_POST['SubmitImport'])){
-                    $idTableImport = $_POST['idTableImport'];
-                    $idSheetImport = $_POST['idSheetImport'];
-                    $cellsImport = $_POST['cellsimport'];
-                    echo $idTableImport,'  ',$idSheetImport,'  ',$cellsImport,'  ||';
+                    $array = [];
                     $k = 0;
                     foreach($_POST as $value) {
-                        if ($k>2 && $k<count($_POST)) {
-                            echo $value, " ";
+                        if ($k<count($_POST)) {
+                            echo $value," ";
+                            $array[] =  $value
                             $k=$k+1;
                         }
                     }
+                    echo ' || ', $array;
                 }
             ?>
         </textarea>
