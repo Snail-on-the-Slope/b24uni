@@ -51,17 +51,24 @@ def get_urls(service, spreadsheetId, name, cells):
         sheet_values = results['valueRanges'][0]['values']
         item_table = []
         for i in sheet_values:
-            for j in i:
-                item_table.append(j)
+            if i==[]:
+                item_table.append('')
+            elif len(i)>1:
+                temp = ''
+                for j in i:
+                    temp+=j+' '
+                item_table.append(temp[:-1])
+            else:
+                item_table.append(i)
         table_data.append(item_table)
 
-    return table_data
     leng = len(table_data[0])
     for i in table_data:
         if len(i) != leng:
             return "Error list cells building"
 
-    table_data = list(map(list, zip(*table_data)))
+    if len(table_data)>1:
+        table_data = list(map(list, zip(*table_data)))
     return table_data
 
 def main(array):
