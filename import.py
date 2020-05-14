@@ -50,7 +50,6 @@ def get_urls(service, spreadsheetId, name, cells):
 
 def main(array):
     #print(type(array), array, array.append(1))
-    data  = json.loads(array)
     print(type(array), json.dumps(array))
 
 if __name__ == '__main__':
