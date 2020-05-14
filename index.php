@@ -71,8 +71,8 @@
                     foreach($_POST as $value) {
                         if ($k<count($_POST)) {
                             echo $value," ";
-                            $array[] =  $value
-                            $k=$k+1;
+                            $array[] =  $value;
+                            $k+=1;
                         }
                     }
                     echo ' || ', $array;
