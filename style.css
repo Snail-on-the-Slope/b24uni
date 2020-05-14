@@ -4,6 +4,7 @@ body {
     justify-content: center;
     margin-top: 3%;
     box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .parsing-google-sheets {
@@ -11,7 +12,9 @@ body {
     height: auto;
     padding: 5px 10px;
     margin-bottom: 3%;
-    margin-right: 10%;
+    margin-right: 5%;
+    padding-right: 5%;
+    border-right: 1px dashed #ccc;
 }
 
 .parsing-google-sheets form {
@@ -52,6 +55,73 @@ body {
     padding: 5px 10px;
 }
 
+.import-data form {
+    display: flex;
+    flex-direction: column;
+}
+
+.import-data .obligatory {
+    display: flex;
+    flex-direction: column;
+}
+
+.import-data .optional {
+    display: flex;
+    flex-direction: column;
+}
+
+.import-data .optional .all-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.import-data .optional .all-field .field-optional {
+    display: flex;
+    flex-direction: column;
+}
+
+.import-data .optional .all-field .cells-optional {
+    display: flex;
+    flex-direction: column;
+}
+
+.import-data .obligatory input[type=text] {
+    padding: 10px 2px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.import-data .optional .all-field input[type=text] {
+    width: 80%;
+    padding: 10px 2px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.plus-button {
+	border: 2px solid #ccc;
+    background-color: #fff;
+    color: #ccc;
+	font-size: 16px;
+	height: 27px;
+	width: 30px;
+    border-radius: 999px;
+    font-size: 18px;
+    margin: 5px 5px;
+}
+
+.hide { visibility: hidden; }
+
+.invalid { background-color: rgba(255, 0, 0, .2); } 
+
+.error { color: red; font-size: 14px; }
+
 .import-data input[type=submit] {
     background-color: #4CAF50;
     width: 100%;
@@ -80,9 +150,15 @@ body {
 
 @media screen and (max-width: 300px) {
     .parsing-google-sheets {
-      width: 100%;
+      width: 50%;
     }
     .import-data {
-      width: 100%;
+      width: 50%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .import-data .optional .all-field {
+        flex-direction: column;
     }
 }
