@@ -1,6 +1,7 @@
 import sys
 import json
 import pickle
+import re
 
 from googleapiclient import discovery
 import gspread
@@ -34,19 +35,33 @@ def connection_to_API(idTable, idSheet):
         return None
 
 def get_urls(service, spreadsheetId, name, cells):
-    ranges = [name+"!"+cells]
-    results = service.spreadsheets().values().batchGet(spreadsheetId = spreadsheetId, 
-                                        ranges = ranges, 
-                                        valueRenderOption = 'FORMATTED_VALUE',  
-                                        dateTimeRenderOption = 'FORMATTED_STRING').execute() 
-    sheet_values = results['valueRanges'][0]['values']
-    urls = []
-    for i in sheet_values:
-        for j in i:
-            urls.append([j])
-    return urls
+    table_data = []
+    for cell in cells:
+        x = ''
+        for item in re.findall(r'\w+',cell):
+            x+=item
+        if len(re.findall(r'\d+',cell))!=len(re.findall(r'\D+', x)):
+            return "Error cells "+cell
 
-    
+        ranges = [name+"!"+cell]
+        results = service.spreadsheets().values().batchGet(spreadsheetId = spreadsheetId, 
+                                            ranges = ranges, 
+                                            valueRenderOption = 'FORMATTED_VALUE',  
+                                            dateTimeRenderOption = 'FORMATTED_STRING').execute() 
+        sheet_values = results['valueRanges'][0]['values']
+        item_table = []
+        for i in sheet_values:
+            for j in i:
+                item_table.append(j)
+        table_data.append(item_table)
+
+    leng = len(table_data[0])
+    for i in table_data:
+        if len(i) != leng:
+            return "Error list cells building"
+
+    table_data = list(map(list, zip(*table_data)))
+    return table_data
 
 def main(array):
     data = json.loads(array)
@@ -65,7 +80,11 @@ def main(array):
     if service==None:
         print('Error connection to Google Sheets Table ')
         return
-    print('OKK')
+
+    table_data = get_urls(service, idTable, name, cells)
+    print(len(table_data), json.dumps(table_data))
+
+    #print('OKK')
     #print(json.dumps(cells))
 
 if __name__ == '__main__':

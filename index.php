@@ -76,8 +76,8 @@
                     }
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
-                    print_r($outputImport);
-                    // print_r(json_decode($outputImport));
+                    // print_r($outputImport);
+                    print_r(json_decode($outputImport));
                 }
             ?>
         </textarea>
