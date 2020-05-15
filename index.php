@@ -108,14 +108,27 @@
                     // curl_close($curl);
                 }
             ?>
-			<script>
-				var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
-				alert(permission);
-			</script>
         </textarea>
     </div>
 
     <script>
+		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
+		if (permission == 1) {
+			BX24.init(function(){
+				BX24.callMethod('user.current', {}, function(res){
+					var textarea = document.getElementById('import-area');
+					textarea.innerHTML += res.data().NAME + ' ' + res.data().LAST_NAME;
+					alert(res.data());
+				});
+
+				alert('B24 SDK is ready!', BX24.isAdmin());
+			});
+			
+			<?php $permission_to_connect_to_bitrix = 0;?>
+		}
+
+
+
         var k = 0;
         function addField() {
             let elem = document.getElementById('add_field_area');
