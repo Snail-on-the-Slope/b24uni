@@ -208,16 +208,14 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
     return $result;
 }
 
-function redirect($url)
-{
-    Header("HTTP 302 Found");
-    Header("Location: ".$url);
-    die();
+function redirect($url) {
+    header("HTTP 302 Found");
+    header("Location: ".$url);
+    //die();
 }
 
 function requestCode ($domain) {
     $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
-    echo $url;
     redirect($url);
     print_r($_REQUEST);
 }
