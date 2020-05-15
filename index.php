@@ -79,7 +79,28 @@
                     $data_table = json_decode($outputImport);
                     echo count($data_table[0])," компаний найдено. ";
 
+                    $_REQUEST['APP_ID'] = 'local.5e9c87d0066a39.52381824';
+                    $_REQUEST['APP_SECRET_CODE'] = 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D';
+                    $_REQUEST['APP_REG_URL'] = 'https://b24uni.herokuapp.com/';
                     print_r($_REQUEST);
+
+                    requestCode($domain);
+                    print_r($_REQUEST);
+                    // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
+                    // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
+
+                    // $curl = curl_init();
+                    // curl_setopt_array($curl, array(
+                    //     CURLOPT_SSL_VERIFYPEER => 0,
+                    //     CURLOPT_POST => 1,
+                    //     CURLOPT_HEADER => 0,
+                    //     CURLOPT_RETURNTRANSFER => 1,
+                    //     CURLOPT_URL => $queryUrl,
+                    //     CURLOPT_POSTFIELDS => $queryData,
+                    // ));
+
+                    // $result = json_decode(curl_exec($curl), true);
+                    // curl_close($curl);
                 }
             ?>
         </textarea>
@@ -160,3 +181,47 @@
     </script>
 </body>
 </html>
+
+<?php
+function executeHTTPRequest ($queryUrl, array $params = array()) {
+    $result = array();
+    $queryData = http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_POST => 1,
+        CURLOPT_HEADER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $queryUrl,
+        CURLOPT_POSTFIELDS => $queryData,
+    ));
+
+    $curlResult = curl_exec($curl);
+    curl_close($curl);
+
+    if ($curlResult != '') $result = json_decode($curlResult, true);
+
+    return $result;
+}
+
+function requestCode ($domain) {
+    $url = 'https://' . $domain . '/oauth/authorize/' .
+        '?client_id=' . urlencode(APP_ID);
+    redirect($url);
+}
+
+function requestAccessToken ($code, $server_domain) {
+    $url = 'https://' . $server_domain . '/oauth/token/?' .
+        'grant_type=authorization_code'.
+        '&client_id='.urlencode(APP_ID).
+        '&client_secret='.urlencode(APP_SECRET_CODE).
+        '&code='.urlencode($code);
+    return executeHTTPRequest($url);
+}
+
+function executeREST ($rest_url, $method, $params, $access_token) {
+    $url = $rest_url.$method.'.json';
+    return executeHTTPRequest($url, array_merge($params, array("auth" => $access_token)));
+}
+?>
