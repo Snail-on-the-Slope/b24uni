@@ -77,14 +77,14 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-                    echo count($data_table)," компаний найдено";
+                    echo $data_table," компаний найдено";
 
                     print_r($_REQUEST);
                     echo '  \n';
                     $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';$queryData = http_build_query(array(
                         "auth" => $_REQUEST['AUTH_ID']
                     ));
-            
+                    echo $queryUrl,'||';
                     $curl = curl_init();
                     curl_setopt_array($curl, array(
                         CURLOPT_SSL_VERIFYPEER => 0,
