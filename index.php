@@ -214,7 +214,8 @@ function redirect($url) {
 }
 
 function requestCode ($domain) {
-    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID);
+    http://my.bitrix24.com/oauth/authorize/?client_id=First_APP&response_type=code&redirect_uri= http%3A%2F%2Ftest.com%2Fbitrix%2Foauth%2Foauth_test.php
+    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL) ;
     redirect($url);
     print_r($_REQUEST);
 }
