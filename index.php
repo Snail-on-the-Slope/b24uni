@@ -220,12 +220,17 @@ function requestCode ($domain) {
     echo ' || ';
 
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $out = curl_exec($curl);
+    curl_setopt_array($curl, array(
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_HEADER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID),
+    ));
+
+    $curlResult = curl_exec($curl);
     curl_close($curl);
 
-    print_r($out);
+    print_r(json_decode($curlResult, true));
     echo ' || ';
 
     print_r($_REQUEST);
