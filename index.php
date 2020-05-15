@@ -77,10 +77,9 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-                    print_r($data_table);
-                    echo " компаний найдено. ";
+                    echo count($data_table[0])," компаний найдено. ";
 
-                    require 'somefile.php';
+                    include 'somefile.php';
                 }
             ?>
         </textarea>
