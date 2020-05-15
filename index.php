@@ -89,8 +89,6 @@
                     print_r($_REQUEST);
 
                     requestCode($_REQUEST['DOMAIN']);
-                    echo "\\\\\\\\\\\\\\\\\\\\ -- ";
-                    print_r($_REQUEST);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
 
@@ -227,6 +225,12 @@ function requestCode ($domain) {
     curl_close($myCurl);
 
     echo "Ответ на Ваш запрос: ".$response;
+    
+    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri= http%3A%2F%2Ftest.com%2Fbitrix%2Foauth%2Foauth_test.php';
+    echo $url;
+    redirect($url);
+    echo ' done ';
+    print_r($_REQUEST);
 }
 
 function requestAccessToken ($code, $server_domain) {
