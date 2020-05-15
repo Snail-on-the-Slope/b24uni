@@ -74,10 +74,11 @@
                             $k+=1;
                         }
                     }
-                    $outImport = "python import.py " . escapeshellarg(json_encode($array));
-                    $outputImport = shell_exec($outImport);
-                    $data_table = json_decode($outputImport);
-                    echo count($data_table[0])," компаний найдено. ";
+                    //$outImport = "python import.py " . escapeshellarg(json_encode($array));
+                    //$outputImport = shell_exec($outImport);
+                    //$data_table = json_decode($outputImport);
+                    //echo count($data_table[0])," компаний найдено. ";
+                    echo "||||- ";
 
                     define('APP_ID', 'local.5e9c87d0066a39.52381824'); // take it from Bitrix24 after adding a new application
                     define('APP_SECRET_CODE', 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D'); // take it from Bitrix24 after adding a new application
@@ -87,7 +88,7 @@
                     $_REQUEST['APP_REG_URL'] = 'https://b24uni.herokuapp.com/';
                     print_r($_REQUEST);
 
-                    requestCode($domain);
+                    requestCode($_REQUEST['DOMAIN']);
                     print_r($_REQUEST);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
