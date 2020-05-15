@@ -99,7 +99,8 @@
                     $result = json_decode(curl_exec($curl), true);
                     curl_close($curl);
             
-                    // print_r($result);
+                    print_r($result);
+                    echo '||';
                     echo $result['result']['NAME'].' '.$result['result']['LAST_NAME'];
                 }
             ?>
