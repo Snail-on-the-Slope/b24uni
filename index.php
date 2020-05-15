@@ -237,7 +237,7 @@ function requestCode ($domain) {
     $ref = json_decode($ref);
     $ref = (array)$ref;
     $new_token = $ref['code'];
-    print_r($new_token);
+    print_r($ref);
 }
 
 function requestAccessToken ($code, $server_domain) {
