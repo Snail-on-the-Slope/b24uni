@@ -1,0 +1,26 @@
+{
+  "name": "ujy/bitrix24_api_authorization",
+  "description": "Authorization class to easy get Bitrix24 Access Tokens for use in API",
+  "keywords": ["Bitrix24", "Access", "API", "Token"],
+  "type": "library",
+  "homepage": "https://github.com/xUJYx/bitrix24_api_authorization",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ievgenii Gardysh",
+      "email": "ujy@ukr.net",
+      "role": "Developer"
+    },
+    {
+      "name": "Oleg Pravdin",
+      "email": "opravdin@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "require": {
+    "mervick/curl-helper": "^1.1"
+  }
+}

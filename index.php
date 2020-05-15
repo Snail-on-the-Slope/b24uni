@@ -214,30 +214,21 @@ function requestCode ($domain) {
     // redirect($url);
     // print_r($_REQUEST);
 
-    // $myCurl = curl_init();
-    // curl_setopt_array($myCurl, array(
-    //     CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL),
-    //     CURLOPT_RETURNTRANSFER => true,
-    //     CURLOPT_POSTFIELDS => http_build_query(array())
-    // ));
-    // $response = curl_exec($myCurl);
-    // curl_close($myCurl);
+    $b24auth = new \Bitrix24Authorization\Bitrix24Authorization();
 
-    // echo "Ответ на Ваш запрос: ".$response;
-    // print_r($response);
-    // echo " || ";
-    // print_r($_REQUEST);
-    // echo " || ";
-    // print_r($myCurl);
-    // echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
+    // Change example data to your own
+    $b24auth->setApplicationId('local.5ebe63d7585bb6.31756347'); // Getting when registring Bitrix24 application
+    $b24auth->setApplicationSecret('ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO'); // Getting when registring Bitrix24 application
+    $b24auth->setApplicationScope('crm,user'); // write Bitrix24 instances which you want to use via API. They need to be choosen in application at Bitrix24
+    $b24auth->setBitrix24Domain('b24-19xsto.bitrix24.ru'); // Address of your Bitrix24 portal
+    $b24auth->setBitrix24Login('amane.kira007@gmail.com'); // login of your real user, he need to be an Admibistrator of instance you want to use
+    $b24auth->setBitrix24Password('admin123'); // password of your real user, he need to be an Admibistrator of instance you want to use
 
-    
+    $b24auth->initialize();
 
-    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL), true);
-    $ref = json_decode($ref);
-    echo $ref;
-    echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
-    print_r($_REQUEST);
+    // Now you can use object $b24auth
+
+    var_dump($b24auth->bitrix24_access);
 }
 
 function requestAccessToken ($code, $server_domain) {
