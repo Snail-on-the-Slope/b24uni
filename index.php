@@ -81,7 +81,7 @@
 
                     print_r($_REQUEST);
                     echo '  \n';
-                    $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'crm/company/list/';
+                    $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/crm/company/list/';
                     $queryData = http_build_query(array(
                         "auth" => $_REQUEST['AUTH_ID']
                     ));
