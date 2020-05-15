@@ -233,7 +233,8 @@ function requestCode ($domain) {
 
     
 
-    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
+    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL), true);
+    $ref = json_decode($ref);
     echo $ref;
     echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
     print_r($_REQUEST);
