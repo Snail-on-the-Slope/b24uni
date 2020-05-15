@@ -83,6 +83,7 @@
                     require 'somefile.php';
                 }
             ?>
+        </textarea>
     </div>
 
     <script>
