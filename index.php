@@ -214,7 +214,7 @@ function requestCode ($domain) {
     // redirect($url);
     // print_r($_REQUEST);
 
-    $b24auth = new \Bitrix24Authorization\src\Bitrix24Authorization();
+    $b24auth = new \Bitrix24Authorization\Bitrix24Authorization();
 
     // Change example data to your own
     $b24auth->setApplicationId('local.5ebe63d7585bb6.31756347'); // Getting when registring Bitrix24 application
