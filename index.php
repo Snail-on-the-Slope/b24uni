@@ -215,7 +215,7 @@ function requestCode ($domain) {
 
     $myCurl = curl_init();
     curl_setopt_array($myCurl, array(
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code',
+        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => http_build_query(array())
     ));
@@ -228,7 +228,15 @@ function requestCode ($domain) {
     print_r($_REQUEST);
     echo " || ";
     print_r($myCurl);
-    echo " || ";
+    echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
+
+    
+
+    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
+    $ref = json_decode($ref);
+    $ref = (array)$ref;
+    $new_token = $ref['access_token'];
+    print_r($new_token);
 }
 
 function requestAccessToken ($code, $server_domain) {
