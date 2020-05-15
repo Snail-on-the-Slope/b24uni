@@ -211,8 +211,8 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
 }
 
 function requestCode ($domain) {
-    $url = 'https://' . $domain . '/oauth/authorize/' .
-        '?client_id=' . urlencode(APP_ID);
+    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
+    echo $url;
     redirect($url);
 }
 
