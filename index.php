@@ -77,34 +77,41 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-                    echo $data_table," компаний найдено";
+                    print_r($data_table);
+                    echo " компаний найдено. ";
 
-                    print_r($_REQUEST);
-                    echo '  \n';
-                    $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/crm/company/list/';
-                    $queryData = http_build_query(array(
-                        "auth" => $_REQUEST['AUTH_ID']
-                    ));
-                    echo $queryUrl,'||';
-                    $curl = curl_init();
-                    curl_setopt_array($curl, array(
-                        CURLOPT_SSL_VERIFYPEER => 0,
-                        CURLOPT_POST => 1,
-                        CURLOPT_HEADER => 0,
-                        CURLOPT_RETURNTRANSFER => 1,
-                        CURLOPT_URL => $queryUrl,
-                        CURLOPT_POSTFIELDS => $queryData,
-                    ));
-            
-                    $result = json_decode(curl_exec($curl), true);
-                    curl_close($curl);
-            
-                    print_r($result);
-                    echo '||';
-                    echo $result['result']['NAME'].' '.$result['result']['LAST_NAME'];
+                    
                 }
             ?>
-        </textarea>
+            <?php
+                function redirect($url)
+                {
+                    Header("HTTP 302 Found");
+                    Header("Location: ".$url);
+                    die();
+                }
+
+                define('APP_ID', 'local.5e9c87d0066a39.52381824'); // take it from Bitrix24 after adding a new application
+                define('APP_SECRET_CODE', 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D'); // take it from Bitrix24 after adding a new application
+                define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); // the same URL you should set when adding a new application in Bitrix24
+                $_REQUEST['portal'] = "https://b24-19xsto.bitrix24.ru/"
+
+                $domain = isset($_REQUEST['portal']) ? $_REQUEST['portal'] : ( isset($_REQUEST['domain']) ? $_REQUEST['domain'] : 'empty');
+                $btokenRefreshed = null;
+
+                $arScope = array('user');
+                requestCode($domain);
+                echo "step 2 (getting an authorization code):";
+                print_r($_REQUEST);
+                echo "<br/>";
+                $arAccessParams = requestAccessToken($_REQUEST['code'], $_REQUEST['server_domain']);
+                echo "step 3 (getting an access token):";
+                print_r($arAccessParams);
+                echo "<br/>";
+                
+                $arCurrentB24User = executeREST($arAccessParams['client_endpoint'], 'user.current', array(), $arAccessParams['access_token']);
+                ?>
+                        </textarea>
     </div>
 
     <script>
@@ -182,3 +189,47 @@
     </script>
 </body>
 </html>
+
+<?php
+function executeHTTPRequest ($queryUrl, array $params = array()) {
+    $result = array();
+    $queryData = http_build_query($params);
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_POST => 1,
+        CURLOPT_HEADER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => $queryUrl,
+        CURLOPT_POSTFIELDS => $queryData,
+    ));
+
+    $curlResult = curl_exec($curl);
+    curl_close($curl);
+
+    if ($curlResult != '') $result = json_decode($curlResult, true);
+
+    return $result;
+}
+
+function requestCode ($domain) {
+    $url = 'https://' . $domain . '/oauth/authorize/' .
+        '?client_id=' . urlencode(APP_ID);
+    redirect($url);
+}
+
+function requestAccessToken ($code, $server_domain) {
+    $url = 'https://' . $server_domain . '/oauth/token/?' .
+        'grant_type=authorization_code'.
+        '&client_id='.urlencode(APP_ID).
+        '&client_secret='.urlencode(APP_SECRET_CODE).
+        '&code='.urlencode($code);
+    return executeHTTPRequest($url);
+}
+
+function executeREST ($rest_url, $method, $params, $access_token) {
+    $url = $rest_url.$method.'.json';
+    return executeHTTPRequest($url, array_merge($params, array("auth" => $access_token)));
+}
+?>
