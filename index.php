@@ -78,18 +78,15 @@
                     //$outputImport = shell_exec($outImport);
                     //$data_table = json_decode($outputImport);
                     //echo count($data_table[0])," компаний найдено. ";
-                    echo "||||- ";
 
-                    define('APP_ID', 'local.5ebe63d7585bb6.31756347'); // take it from Bitrix24 after adding a new application
-                    define('APP_SECRET_CODE', 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO'); // take it from Bitrix24 after adding a new application
-                    define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); // the same URL you should set when adding a new application in Bitrix24
-                    $_REQUEST['APP_ID'] = 'local.5ebe63d7585bb6.31756347';
-                    $_REQUEST['APP_SECRET_CODE'] = 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO';
-                    $_REQUEST['APP_REG_URL'] = 'https://b24uni.herokuapp.com/';
+                    define('APP_ID', 'local.5ebe63d7585bb6.31756347');
+                    define('APP_SECRET_CODE', 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO');
+                    define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); 
+
                     print_r($_REQUEST);
                     echo ' - ';
-                    //requestCode($_REQUEST['DOMAIN']);
-                    print_r($_REQUEST["auth"]);
+                    requestCode($_REQUEST['DOMAIN']);
+                    
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
 
@@ -210,13 +207,14 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
 }
 
 function redirect($url) {
-    header("HTTP 302 Found");
-    header("Location: ".$url);
+    //get_headers ("HTTP 302 Found");
+    print_r(get_headers($url,1));
+
     //die();
 }
 
 function requestCode ($domain) {
-    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
+    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID);
     redirect($url);
     print_r($_REQUEST);
 }
