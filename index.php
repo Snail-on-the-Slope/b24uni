@@ -216,12 +216,17 @@ function requestCode ($domain) {
     // redirect($url);
     //https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24-19xsto.bitrix24.ru/marketplace/local/list/
 
-    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=https://b24-19xsto.bitrix24.ru/marketplace/local/list/');
-    $ref = json_decode($ref);
-    $ref = (array)$ref;
-    $new_token = $ref['access_token'];
-    echo ' ---',$new_token;
-    $d = ($_REQUEST['PROTOCOL'] == 0 ? 'http' : 'https') . '://'.$_REQUEST['DOMAIN'];
+    $myCurl = curl_init();
+    curl_setopt_array($myCurl, array(
+        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query(array())
+    ));
+    $response = curl_exec($myCurl);
+    curl_close($myCurl);
+
+    echo "Ответ на Ваш запрос: ".$response;
 }
 
 function requestAccessToken ($code, $server_domain) {
