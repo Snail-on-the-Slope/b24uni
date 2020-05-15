@@ -85,10 +85,7 @@
 
                     print_r($_REQUEST);
                     echo ' - ';
-                    $arAccessParams = requestAccessToken('699cbe5e00476ef200469d88000000010000039baf9719290c98a6a2a1640823dd00fe',$_REQUEST['DOMAIN']);
-                    print_r($arAccessParams);
-                    $arCurrentB24User = executeREST($arAccessParams['client_endpoint'], 'user.current', array(),$arAccessParams['access_token']);
-                    //requestCode($_REQUEST['DOMAIN']);
+                    requestCode($_REQUEST['DOMAIN']);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
 
@@ -216,8 +213,21 @@ function redirect($url) {
 
 function requestCode ($domain) {
     // https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24uni.herokuapp.com/
-    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
-    redirect($url);
+    //$url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
+    //redirect($url);
+    $result = file_get_contents('https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID));
+    print_r($result);
+    echo ' || ';
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $out = curl_exec($curl);
+    curl_close($curl);
+
+    print_r($out);
+    echo ' || ';
+
     print_r($_REQUEST);
 }
 
