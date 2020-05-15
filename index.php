@@ -214,11 +214,10 @@ function requestCode ($domain) {
     // $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
     // echo $url;
     // redirect($url);
-    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID));
-    print_r($ref);
+    //https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24-19xsto.bitrix24.ru/marketplace/local/list/
+
+    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=https://b24-19xsto.bitrix24.ru/marketplace/local/list/');
     $ref = json_decode($ref);
-    echo ' - ';
-    print_r($ref);
     $ref = (array)$ref;
     $new_token = $ref['access_token'];
     echo ' ---',$new_token;
