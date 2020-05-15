@@ -209,34 +209,35 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
 }
 
 function requestCode ($domain) {
-    // $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
-    // echo $url;
-    // redirect($url);
-
-    $myCurl = curl_init();
-    curl_setopt_array($myCurl, array(
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POSTFIELDS => http_build_query(array())
-    ));
-    $response = curl_exec($myCurl);
-    curl_close($myCurl);
-
-    echo "Ответ на Ваш запрос: ".$response;
-    print_r($response);
-    echo " || ";
+    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
+    echo $url;
+    redirect($url);
     print_r($_REQUEST);
-    echo " || ";
-    print_r($myCurl);
-    echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
+
+    // $myCurl = curl_init();
+    // curl_setopt_array($myCurl, array(
+    //     CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL),
+    //     CURLOPT_RETURNTRANSFER => true,
+    //     CURLOPT_POSTFIELDS => http_build_query(array())
+    // ));
+    // $response = curl_exec($myCurl);
+    // curl_close($myCurl);
+
+    // echo "Ответ на Ваш запрос: ".$response;
+    // print_r($response);
+    // echo " || ";
+    // print_r($_REQUEST);
+    // echo " || ";
+    // print_r($myCurl);
+    // echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
 
     
 
-    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
-    $ref = json_decode($ref);
-    $ref = (array)$ref;
-    $new_token = $ref['access_token'];
-    print_r($new_token);
+    // $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
+    // $ref = json_decode($ref);
+    // $ref = (array)$ref;
+    // $new_token = $ref['access_token'];
+    // print_r($new_token);
 }
 
 function requestAccessToken ($code, $server_domain) {
