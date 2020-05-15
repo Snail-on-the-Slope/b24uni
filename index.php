@@ -105,8 +105,10 @@
 				{
 					if(result.error())
 						alert(result.error());
-					else
-						textarea.innerHTML += result.data() + '</br>';
+					else {
+						res = JSON.stringify(result.data());
+						textarea.innerHTML += res + '</br>';
+					}
 				}
 			);
 
