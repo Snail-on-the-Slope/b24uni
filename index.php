@@ -84,9 +84,9 @@
                     define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); 
 
                     print_r($_REQUEST);
+                    requestAccessToken('699cbe5e00476ef200469d88000000010000039baf9719290c98a6a2a1640823dd00fe',$_REQUEST['DOMAIN']);
                     echo ' - ';
-                    requestCode($_REQUEST['DOMAIN']);
-                    
+                    //requestCode($_REQUEST['DOMAIN']);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
 
@@ -213,12 +213,14 @@ function redirect($url) {
 }
 
 function requestCode ($domain) {
+    // https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24uni.herokuapp.com/
     $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
     redirect($url);
     print_r($_REQUEST);
 }
 
 function requestAccessToken ($code, $server_domain) {
+    // 'https://b24-19xsto.bitrix24.ru/oauth/token/?grant_type=authorization_code&client_id=local.5ebe63d7585bb6.31756347&client_secret=ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO&code=
     $url = 'https://' . $server_domain . '/oauth/token/?' .
         'grant_type=authorization_code'.
         '&client_id='.urlencode(APP_ID).
