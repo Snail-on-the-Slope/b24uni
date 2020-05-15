@@ -223,6 +223,12 @@ function requestCode ($domain) {
     curl_close($myCurl);
 
     echo "Ответ на Ваш запрос: ".$response;
+    print_r($response);
+    echo " || ";
+    print_r($_REQUEST);
+    echo " || ";
+    print_r($myCurl);
+    echo " || ";
 }
 
 function requestAccessToken ($code, $server_domain) {
