@@ -87,6 +87,7 @@
                     $_REQUEST['APP_SECRET_CODE'] = 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO';
                     $_REQUEST['APP_REG_URL'] = 'https://b24uni.herokuapp.com/';
                     print_r($_REQUEST);
+                    $_REQUEST['code'] = '9a64be5e00476ef200469d8800000001000003c2b18b8bf9ff7fe3fb8bb8238e0e6ae0';
 
                     requestCode($_REQUEST['DOMAIN']);
                     echo "\\\\\\\\\\\\\\\\\\\\ -- ";
