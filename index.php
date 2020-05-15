@@ -1,253 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-    <title>Pluging</title>
-</head>
-<body>
-    <div class="parsing-google-sheets">
-        <form action=""  method="post">
-            <label for="idTable">ID таблицы</label>
-            <input type="text" id="idTable" name="idTable" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
-            <label for="idSheet">ID листа</label>
-            <input type="text" id="idSheet" name="idSheet" value="332621208">
-            <label for="cells">Ячейки URL</label>
-            <input type="text" id="cells" name="cells" value="A4:A181">
-            <input type="submit" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
-            <p>процесс займет некоторое время...</p>
-        </form>
-        <h1>  
-        <?php
-            if(isset($_POST['SubmitParsing'])){
-                $idTable = $_POST['idTable'];
-                $idSheet = $_POST['idSheet'];
-                $cells = $_POST['cells'];
-                if ($idTable != null && $idSheet != null && $cells != null) {
-                    // $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
-                    // $output = shell_exec($out);
-                    $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
-                    echo "Парсинг завершен ", $time;
-                }
-            }
-        ?>
-        </h1>
-    </div>
-
-    <div class="import-data">
-        <form action="#" method="post">
-            <div class="obligatory">
-                <label for="idTableImport">ID таблицы</label>
-                <input type="text" id="idTableImport" name="idTableImport" value="1Q5bw0D9y3_WfyhFhimr7_GgJZxxUNSMltOEW7WAFsuo">
-                <label for="idSheetImport">ID листа</label>
-                <input type="text" id="idSheetImport" name="idSheetImport" value="332621208">
-            </div>
-            <p>Создание / Обновление карточки компании с полями и значениями:</p>
-            <div class="optional" id="add_field_area">
-                <div class="all-field">
-                    <div class="field-optional">
-                        <label for="fieldimport">Поле</label>
-                        <input type="text" id="fieldimport" name="fieldimport" value="URL">
-                    </div>
-                    <div class="cells-optional">
-                        <label for="cellsimport">Ячейки</label>
-                        <input type="text" id="cellsimport" name="cellsimport" value="A4:A181">
-                    </div>
-                    <button onclick="return addField();" class="plus-button">+</button>
-                    <button onclick="return deleteField(this);" class="plus-button hide">-</button>
-                </div>
-                <div class="error"></div>
-            </div>
-            <div id="new_fields"></div>
-            <input type="submit" name="SubmitImport" value="Импортировать данные из Google Sheets">
-        </form>
-        <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
-            <?php
-                if(isset($_POST['SubmitImport'])){
-                    $array = [];
-                    $k = 0;
-                    foreach($_POST as $value) {
-                        if ($k<(count($_POST)-1)) {
-                            $array[] =  $value;
-                            $k+=1;
-                        }
-                    }
-                    //$outImport = "python import.py " . escapeshellarg(json_encode($array));
-                    //$outputImport = shell_exec($outImport);
-                    //$data_table = json_decode($outputImport);
-                    //echo count($data_table[0])," компаний найдено. ";
-
-                    define('APP_ID', 'local.5ebe63d7585bb6.31756347');
-                    define('APP_SECRET_CODE', 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO');
-                    define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); 
-
-                    print_r($_REQUEST);
-                    echo ' - ';
-                    requestCode($_REQUEST['DOMAIN']);
-                    // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
-                    // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
-
-                    // $curl = curl_init();
-                    // curl_setopt_array($curl, array(
-                    //     CURLOPT_SSL_VERIFYPEER => 0,
-                    //     CURLOPT_POST => 1,
-                    //     CURLOPT_HEADER => 0,
-                    //     CURLOPT_RETURNTRANSFER => 1,
-                    //     CURLOPT_URL => $queryUrl,
-                    //     CURLOPT_POSTFIELDS => $queryData,
-                    // ));
-
-                    // $result = json_decode(curl_exec($curl), true);
-                    // curl_close($curl);
-                }
-            ?>
-        </textarea>
-    </div>
-
-    <script>
-        var k = 0;
-        function addField() {
-            let elem = document.getElementById('add_field_area');
-            let newFields = document.getElementById('new_fields');
-
-            let clone = elem.cloneNode(true);
-
-            k++;
-            clone.id = clone.id + k;
-            clone.children[0].children[0].children[1].id = clone.children[0].children[0].children[1].id + k;
-            clone.children[0].children[0].children[1].name = clone.children[0].children[0].children[1].name + k;
-            clone.children[0].children[0].children[1].value = "";
-
-            clone.children[0].children[1].children[1].id = clone.children[0].children[1].children[1].id + k;
-            clone.children[0].children[1].children[1].name = clone.children[0].children[1].children[1].name + k;
-            clone.children[0].children[1].children[1].value = "";
-
-            clone.children[0].children[3].classList.remove('hide');
-
-            newFields.appendChild(clone);
-
-            let cellsimport = document.getElementById('cellsimport');
-            let error = clone.children[1];
-            clone.children[0].children[1].children[1].onblur = function() {
-                var numEl = cellsimport.value.match(/\d+/g),
-                numI = this.value.match(/\d+/g),
-                kol = 0,
-                flag=0;
-
-                if ( numEl.length == 2 ) {
-                    kol = parseInt(numEl[1]) - parseInt(numEl[0]);
-                    if (!((numI != null) && ( numI.length == 2 ) && (parseInt(numI[1]) - parseInt(numI[0]) == kol)) ) {
-                        flag++;
-                    }
-                } else {
-                    flag++;
-                }
-
-                if (flag!=0) {
-                    this.classList.add('invalid');
-                    error.innerHTML = 'Количество ячеек данного поля не совпадает с количеством ячеек поля URL'
-                }
-            };
-            clone.children[0].children[1].children[1].onfocus = function() {
-                if (this.classList.contains('invalid')) {
-                    this.classList.remove('invalid');
-                    error.innerHTML = "";
-                }
-            };
-
-            clone.children[0].children[0].children[1].onblur = function() {
-                if ((this.value=="")||(this.value==null)) {
-                    this.classList.add('invalid');
-                    error.innerHTML = 'Не заполнено название поля'
-                }
-            };
-            clone.children[0].children[0].children[1].onfocus = function() {
-                if (this.classList.contains('invalid')) {
-                    this.classList.remove('invalid');
-                    error.innerHTML = "";
-                }
-            };
-            return false;
-        }
-
-        function deleteField(a) {
-            var contDiv = a.parentNode.parentNode;
-            contDiv.parentNode.removeChild(contDiv);
-            k--;
-            return false;
-        }
-    </script>
-</body>
-</html>
-
 <?php
-function executeHTTPRequest ($queryUrl, array $params = array()) {
-    $result = array();
-    $queryData = http_build_query($params);
+require("config.php");
 
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_POST => 1,
-        CURLOPT_HEADER => 0,
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $queryUrl,
-        CURLOPT_POSTFIELDS => $queryData,
-    ));
+$error = "";
 
-    $curlResult = curl_exec($curl);
-    curl_close($curl);
-
-    if ($curlResult != '') $result = json_decode($curlResult, true);
-
-    return $result;
+// clear auth session
+if(isset($_REQUEST["clear"]) || $_SERVER["REQUEST_METHOD"] == "POST")
+{
+	unset($_SESSION["query_data"]);
 }
 
-function redirect($url) {
-    header("HTTP 302 Found");
-    header("Location: ".$url);
-    die();
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+/******************* get code *************************************/
+	if(!empty($_POST["portal"]))
+	{
+		$domain = $_POST["portal"];
+		$params = array(
+			"response_type" => "code",
+			"client_id" => CLIENT_ID,
+			"redirect_uri" => REDIRECT_URI,
+		);
+		$path = "/oauth/authorize/";
+
+		redirect(PROTOCOL."://".$domain.$path."?".http_build_query($params));
+	}
+/******************** /get code ***********************************/
 }
 
-function requestCode ($domain) {
-    // https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24uni.herokuapp.com/
-    //$url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
-    //redirect($url);
-    $result = file_get_contents('https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID));
-    print_r($result);
-    echo ' || ';
+if(isset($_REQUEST["code"]))
+{
+/****************** get access_token ******************************/
+	$code = $_REQUEST["code"];
+	$domain = $_REQUEST["domain"];
+	$member_id = $_REQUEST["member_id"];
 
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_HEADER => 0,
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID),
-    ));
+	$params = array(
+		"grant_type" => "authorization_code",
+		"client_id" => CLIENT_ID,
+		"client_secret" => CLIENT_SECRET,
+		"redirect_uri" => REDIRECT_URI,
+		"scope" => SCOPE,
+		"code" => $code,
+	);
+	$path = "/oauth/token/";
 
-    $curlResult = curl_exec($curl);
-    curl_close($curl);
+	$query_data = query("GET", PROTOCOL."://".$domain.$path, $params);
 
-    print_r(json_decode($curlResult, true));
-    echo ' || ';
+	if(isset($query_data["access_token"]))
+	{
+		$_SESSION["query_data"] = $query_data;
+		$_SESSION["query_data"]["ts"] = time();
 
-    print_r($_REQUEST);
+		redirect(PATH);
+		die();
+	}
+	else
+	{
+		$error = "Произошла ошибка авторизации! ".print_r($query_data, 1);
+	}
+/********************** /get access_token *************************/
+}
+elseif(isset($_REQUEST["refresh"]))
+{
+/******************** refresh auth ********************************/
+	$params = array(
+		"grant_type" => "refresh_token",
+		"client_id" => CLIENT_ID,
+		"client_secret" => CLIENT_SECRET,
+		"redirect_uri" => REDIRECT_URI,
+		"scope" => SCOPE,
+		"refresh_token" => $_SESSION["query_data"]["refresh_token"],
+	);
+
+	$path = "/oauth/token/";
+
+	$query_data = query("GET", PROTOCOL."://".$_SESSION["query_data"]["domain"].$path, $params);
+
+	if(isset($query_data["access_token"]))
+	{
+		$_SESSION["query_data"] = $query_data;
+		$_SESSION["query_data"]["ts"] = time();
+
+		redirect(PATH);
+		die();
+	}
+	else
+	{
+		$error = "Произошла ошибка авторизации! ".print_r($query_data);
+	}
+/********************* /refresh auth ******************************/
 }
 
-function requestAccessToken ($code, $server_domain) {
-    // 'https://b24-19xsto.bitrix24.ru/oauth/token/?grant_type=authorization_code&client_id=local.5ebe63d7585bb6.31756347&client_secret=ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO&code=
-    $url = 'https://' . $server_domain . '/oauth/token/?' .
-        'grant_type=authorization_code'.
-        '&client_id='.urlencode(APP_ID).
-        '&client_secret='.urlencode(APP_SECRET_CODE).
-        '&code='.urlencode($code);
-    return executeHTTPRequest($url);
+require_once(dirname(__FILE__)."/header.php");
+
+if(!isset($_SESSION["query_data"]))
+{
+/******************************************************************/
+	if($error)
+	{
+		echo '<b>'.$error.'</b>';
+	}
+?>
+<form action="" method="post">
+	<input type="text" name="portal" placeholder="Адрес портала">
+	<input type="submit" value="Авторизоваться">
+</form>
+<?
+
+/******************************************************************/
+
+}
+else
+{
+/******************************************************************/
+
+	if(time() > $_SESSION["query_data"]["ts"] + $_SESSION["query_data"]["expires_in"])
+	{
+		echo "<b>Авторизационные данные истекли</b>";
+	}
+	else
+	{
+		echo "Авторизационные данные истекут через ".($_SESSION["query_data"]["ts"] + $_SESSION["query_data"]["expires_in"] - time())." секунд";
+	}
+?>
+
+<ul>
+	<li><a href="<?=PATH?>?test=user.current">Информация о пользователе</a>
+	<li><a href="<?=PATH?>?test=user.update">Загрузить новую аватарку пользователя</a>
+	<li><a href="<?=PATH?>?test=log.blogpost.add">Опубликовать запись в Живой Ленте</a>
+	<li><a href="<?=PATH?>?test=event.bind">Установить обработчик события</a>
+</ul>
+
+<a href="<?=PATH?>?refresh=1">Обновить данные авторизации</a><br />
+<a href="<?=PATH?>?clear=1">Очистить данные авторизации</a><br />
+
+<?
+	$test = isset($_REQUEST["test"]) ? $_REQUEST["test"] : "";
+	switch($test)
+	{
+		case 'user.current': // test: user info
+
+			$data = call($_SESSION["query_data"]["domain"], "user.current", array(
+				"auth" => $_SESSION["query_data"]["access_token"])
+			);
+
+		break;
+
+		case 'user.update': // test batch&files
+
+			$fileContent = file_get_contents(dirname(__FILE__)."/images/MM35_PG189a.jpg");
+
+			$batch = array(
+				'user' => 'user.current',
+				'user_update' => 'user.update?'
+					.http_build_query(array(
+						'ID' => '$result[user][ID]',
+						'PERSONAL_PHOTO' => array(
+							'avatar.jpg',
+							base64_encode($fileContent)
+						)
+					))
+			);
+
+			$data = call($_SESSION["query_data"]["domain"], "batch", array(
+				"auth" => $_SESSION["query_data"]["access_token"],
+				"cmd" => $batch,
+			));
+
+		break;
+
+		case 'event.bind': // bind event handler
+
+			$data = call($_SESSION["query_data"]["domain"], "event.bind", array(
+				"auth" => $_SESSION["query_data"]["access_token"],
+				"EVENT" => "ONCRMLEADADD",
+				"HANDLER" => REDIRECT_URI."event.php",
+			));
+
+		break;
+
+
+		default:
+
+			$data = $_SESSION["query_data"];
+
+		break;
+	}
+
+	echo '<pre>'; var_export($data); echo '</pre>';
+
+	/******************************************************************/
 }
 
-function executeREST ($rest_url, $method, $params, $access_token) {
-    $url = $rest_url.$method.'.json';
-    return executeHTTPRequest($url, array_merge($params, array("auth" => $access_token)));
-}
+require_once(dirname(__FILE__)."/footer.php");
 ?>
