@@ -80,32 +80,9 @@
                     //$outImport = "python import.py " . escapeshellarg(json_encode($array));
                     //$outputImport = shell_exec($outImport);
                     //$data_table = json_decode($outputImport);
+					echo "подключено к базе данных...  </br>";
 					//echo count($data_table[0])," компаний найдено. ";
-					echo "подключено к базе данных...  ";
 					$permission_to_connect_to_bitrix = 1;
-
-                    // define('APP_ID', 'local.5ebe63d7585bb6.31756347');
-                    // define('APP_SECRET_CODE', 'ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO');
-                    // define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); 
-
-                    // print_r($_REQUEST);
-                    // echo ' - ';
-                    // requestCode($_REQUEST['DOMAIN']);
-                    // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
-                    // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
-
-                    // $curl = curl_init();
-                    // curl_setopt_array($curl, array(
-                    //     CURLOPT_SSL_VERIFYPEER => 0,
-                    //     CURLOPT_POST => 1,
-                    //     CURLOPT_HEADER => 0,
-                    //     CURLOPT_RETURNTRANSFER => 1,
-                    //     CURLOPT_URL => $queryUrl,
-                    //     CURLOPT_POSTFIELDS => $queryData,
-                    // ));
-
-                    // $result = json_decode(curl_exec($curl), true);
-                    // curl_close($curl);
                 }
             ?>
         </textarea>
@@ -114,16 +91,25 @@
     <script>
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
+			var textarea = document.getElementById('import-area');
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
-					var textarea = document.getElementById('import-area');
-					textarea.innerHTML += res.data().NAME + ' ' + res.data().LAST_NAME;
-					alert(res.data());
+					textarea.innerHTML += res.data().NAME + ' ' + res.data().LAST_NAME + '</br>';
 				});
-
-				alert('B24 SDK is ready!', BX24.isAdmin());
 			});
-			
+
+			BX24.callMethod(
+				"crm.company.fields", 
+				{}, 
+				function(result) 
+				{
+					if(result.error())
+						alert(result.error());
+					else
+						textarea.innerHTML += result.data() + '</br>';
+				}
+			);
+
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
 
@@ -203,73 +189,3 @@
     </script>
 </body>
 </html>
-
-<?php
-function executeHTTPRequest ($queryUrl, array $params = array()) {
-    $result = array();
-    $queryData = http_build_query($params);
-
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_POST => 1,
-        CURLOPT_HEADER => 0,
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $queryUrl,
-        CURLOPT_POSTFIELDS => $queryData,
-    ));
-
-    $curlResult = curl_exec($curl);
-    curl_close($curl);
-
-    if ($curlResult != '') $result = json_decode($curlResult, true);
-
-    return $result;
-}
-
-function redirect($url) {
-    header("HTTP 302 Found");
-    header("Location: ".$url);
-    die();
-}
-
-function requestCode ($domain) {
-    // https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24uni.herokuapp.com/
-    //$url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
-    //redirect($url);
-    $result = file_get_contents('https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID));
-    print_r($result);
-    echo ' || ';
-
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_HEADER => 0,
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID),
-    ));
-
-    $curlResult = curl_exec($curl);
-    curl_close($curl);
-
-    print_r(json_decode($curlResult, true));
-    echo ' || ';
-
-    print_r($_REQUEST);
-}
-
-function requestAccessToken ($code, $server_domain) {
-    // 'https://b24-19xsto.bitrix24.ru/oauth/token/?grant_type=authorization_code&client_id=local.5ebe63d7585bb6.31756347&client_secret=ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO&code=
-    $url = 'https://' . $server_domain . '/oauth/token/?' .
-        'grant_type=authorization_code'.
-        '&client_id='.urlencode(APP_ID).
-        '&client_secret='.urlencode(APP_SECRET_CODE).
-        '&code='.urlencode($code);
-    return executeHTTPRequest($url);
-}
-
-function executeREST ($rest_url, $method, $params, $access_token) {
-    $url = $rest_url.$method.'.json';
-    return executeHTTPRequest($url, array_merge($params, array("auth" => $access_token)));
-}
-?>
