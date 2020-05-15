@@ -207,14 +207,13 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
 }
 
 function redirect($url) {
-    //get_headers ("HTTP 302 Found");
-    print_r(get_headers($url,1));
-
-    //die();
+    header("HTTP 302 Found");
+    header("Location: ".$url);
+    die();
 }
 
 function requestCode ($domain) {
-    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL) ;
+    $url = 'https://' . $domain . '/oauth/authorize/?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
     redirect($url);
     print_r($_REQUEST);
 }
