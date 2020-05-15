@@ -209,10 +209,10 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
 }
 
 function requestCode ($domain) {
-    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
-    echo $url;
-    redirect($url);
-    print_r($_REQUEST);
+    // $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
+    // echo $url;
+    // redirect($url);
+    // print_r($_REQUEST);
 
     // $myCurl = curl_init();
     // curl_setopt_array($myCurl, array(
@@ -238,6 +238,8 @@ function requestCode ($domain) {
     $ref = (array)$ref;
     $new_token = $ref['code'];
     print_r($ref);
+    echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
+    print_r($_REQUEST);
 }
 
 function requestAccessToken ($code, $server_domain) {
