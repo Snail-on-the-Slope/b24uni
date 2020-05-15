@@ -208,27 +208,18 @@ function executeHTTPRequest ($queryUrl, array $params = array()) {
     return $result;
 }
 
+function redirect($url)
+{
+    Header("HTTP 302 Found");
+    Header("Location: ".$url);
+    die();
+}
+
 function requestCode ($domain) {
-    // $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
-    // echo $url;
-    // redirect($url);
-    // print_r($_REQUEST);
-
-    $b24auth = new \Bitrix24Authorization\Bitrix24Authorization();
-
-    // Change example data to your own
-    $b24auth->setApplicationId('local.5ebe63d7585bb6.31756347'); // Getting when registring Bitrix24 application
-    $b24auth->setApplicationSecret('ievod89YV39EqGlJPqGYBbW6wC98Z0ZoBF4Ji3NZkiCEAz7NaO'); // Getting when registring Bitrix24 application
-    $b24auth->setApplicationScope('crm,user'); // write Bitrix24 instances which you want to use via API. They need to be choosen in application at Bitrix24
-    $b24auth->setBitrix24Domain('b24-19xsto.bitrix24.ru'); // Address of your Bitrix24 portal
-    $b24auth->setBitrix24Login('amane.kira007@gmail.com'); // login of your real user, he need to be an Admibistrator of instance you want to use
-    $b24auth->setBitrix24Password('admin123'); // password of your real user, he need to be an Admibistrator of instance you want to use
-
-    $b24auth->initialize();
-
-    // Now you can use object $b24auth
-
-    var_dump($b24auth->bitrix24_access);
+    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL);
+    echo $url;
+    redirect($url);
+    print_r($_REQUEST);
 }
 
 function requestAccessToken ($code, $server_domain) {
