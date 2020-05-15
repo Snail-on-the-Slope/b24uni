@@ -79,6 +79,9 @@
                     $data_table = json_decode($outputImport);
                     echo count($data_table[0])," компаний найдено. ";
 
+                    define('APP_ID', 'local.5e9c87d0066a39.52381824'); // take it from Bitrix24 after adding a new application
+                    define('APP_SECRET_CODE', 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D'); // take it from Bitrix24 after adding a new application
+                    define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); // the same URL you should set when adding a new application in Bitrix24
                     $_REQUEST['APP_ID'] = 'local.5e9c87d0066a39.52381824';
                     $_REQUEST['APP_SECRET_CODE'] = 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D';
                     $_REQUEST['APP_REG_URL'] = 'https://b24uni.herokuapp.com/';
