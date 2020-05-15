@@ -108,14 +108,14 @@
                     // curl_close($curl);
                 }
             ?>
+			<script>
+				var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
+				alert(permission);
+			</script>
         </textarea>
     </div>
 
     <script>
-		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
-		consol.log(permission);
-
-
         var k = 0;
         function addField() {
             let elem = document.getElementById('add_field_area');
