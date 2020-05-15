@@ -60,10 +60,10 @@ def get_urls(service, spreadsheetId, name, cells):
                     temp+=j+' '
                 item_table.append(temp[:-1])
             else:
-                item_table.append(i)
+                item_table.extend(i)
 
-        if len(item_table)< (quantity[1]-quantity[0]):
-            item_table.extend(['']*(quantity[1]-quantity[0]))
+        if len(item_table) < (quantity[1]-quantity[0]+1):
+            item_table.extend(['']*(quantity[1]-quantity[0]+1-len(item_table)))
 
         table_data.append(item_table)
 
