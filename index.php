@@ -94,7 +94,7 @@
                 define('APP_ID', 'local.5e9c87d0066a39.52381824'); // take it from Bitrix24 after adding a new application
                 define('APP_SECRET_CODE', 'l0nd2JaMBkWHNUJ40R8sj26AJt7pJ4MocRmUUMeWQl14RTZj2D'); // take it from Bitrix24 after adding a new application
                 define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); // the same URL you should set when adding a new application in Bitrix24
-                $_REQUEST['portal'] = "https://b24-19xsto.bitrix24.ru/"
+                $_REQUEST['portal'] = "https://b24-19xsto.bitrix24.ru/";
 
                 $domain = isset($_REQUEST['portal']) ? $_REQUEST['portal'] : ( isset($_REQUEST['domain']) ? $_REQUEST['domain'] : 'empty');
                 $btokenRefreshed = null;
