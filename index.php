@@ -212,25 +212,17 @@ function requestCode ($domain) {
     // $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID);
     // echo $url;
     // redirect($url);
-    //https://b24-19xsto.bitrix24.ru/oauth/authorize/?client_id=local.5ebe63d7585bb6.31756347&response_type=code&redirect_uri=https://b24-19xsto.bitrix24.ru/marketplace/local/list/
 
     $myCurl = curl_init();
     curl_setopt_array($myCurl, array(
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID),
+        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri= http%3A%2F%2Ftest.com%2Fbitrix%2Foauth%2Foauth_test.php',
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => http_build_query(array())
     ));
     $response = curl_exec($myCurl);
     curl_close($myCurl);
 
     echo "Ответ на Ваш запрос: ".$response;
-    
-    $url = 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri= http%3A%2F%2Ftest.com%2Fbitrix%2Foauth%2Foauth_test.php';
-    echo $url;
-    redirect($url);
-    echo ' done ';
-    print_r($_REQUEST);
 }
 
 function requestAccessToken ($code, $server_domain) {
