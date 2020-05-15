@@ -99,7 +99,7 @@ def main(array):
     if isinstance(table_data, str):
         print(table_data)
         return
-    print(len(table_data), json.dumps(table_data))
+    print(json.dumps(table_data))
 
     #print('OKK')
     #print(json.dumps(cells))
