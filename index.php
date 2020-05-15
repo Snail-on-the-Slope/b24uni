@@ -215,7 +215,7 @@ function requestCode ($domain) {
 
     $myCurl = curl_init();
     curl_setopt_array($myCurl, array(
-        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri= http%3A%2F%2Ftest.com%2Fbitrix%2Foauth%2Foauth_test.php',
+        CURLOPT_URL => 'https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POSTFIELDS => http_build_query(array())
     ));
