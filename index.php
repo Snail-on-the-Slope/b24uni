@@ -234,10 +234,7 @@ function requestCode ($domain) {
     
 
     $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
-    $ref = json_decode($ref);
-    $ref = (array)$ref;
-    $new_token = $ref['code'];
-    print_r($ref);
+    echo $ref;
     echo " || \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ || ";
     print_r($_REQUEST);
 }
