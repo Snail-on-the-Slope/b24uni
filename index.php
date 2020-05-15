@@ -84,8 +84,10 @@
                     define('APP_REG_URL', 'https://b24uni.herokuapp.com/'); 
 
                     print_r($_REQUEST);
-                    requestAccessToken('699cbe5e00476ef200469d88000000010000039baf9719290c98a6a2a1640823dd00fe',$_REQUEST['DOMAIN']);
                     echo ' - ';
+                    $arAccessParams = requestAccessToken('699cbe5e00476ef200469d88000000010000039baf9719290c98a6a2a1640823dd00fe',$_REQUEST['DOMAIN']);
+                    print_r($arAccessParams);
+                    $arCurrentB24User = executeREST($arAccessParams['client_endpoint'], 'user.current', array(),$arAccessParams['access_token']);
                     //requestCode($_REQUEST['DOMAIN']);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
