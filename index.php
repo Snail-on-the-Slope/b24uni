@@ -233,11 +233,11 @@ function requestCode ($domain) {
 
     
 
-    // $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
-    // $ref = json_decode($ref);
-    // $ref = (array)$ref;
-    // $new_token = $ref['access_token'];
-    // print_r($new_token);
+    $ref = file_get_contents('https://' . $domain . '/oauth/authorize/' . '?client_id=' . urlencode(APP_ID) . '&response_type=code&redirect_uri=' . urlencode(APP_REG_URL));
+    $ref = json_decode($ref);
+    $ref = (array)$ref;
+    $new_token = $ref['code'];
+    print_r($new_token);
 }
 
 function requestAccessToken ($code, $server_domain) {
