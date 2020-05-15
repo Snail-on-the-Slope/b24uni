@@ -89,7 +89,7 @@
                     print_r($_REQUEST);
                     echo ' - ';
                     //requestCode($_REQUEST['DOMAIN']);
-                    print_r($_REQUEST["auth"])
+                    print_r($_REQUEST["auth"]);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
 
