@@ -26,8 +26,8 @@
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
                 if ($idTable != null && $idSheet != null && $cells != null) {
-                    $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
-                    $output = shell_exec($out);
+                    // $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
+                    // $output = shell_exec($out);
                     $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
                     echo "Парсинг завершен ", $time;
                 }
@@ -89,6 +89,7 @@
                     print_r($_REQUEST);
 
                     requestCode($_REQUEST['DOMAIN']);
+                    echo "\\\\\\\\\\\\\\\\\\\\ -- ";
                     print_r($_REQUEST);
                     // $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';
                     // $queryData = http_build_query(array( "auth" => $_REQUEST['AUTH_ID'] ));
