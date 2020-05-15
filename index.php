@@ -79,7 +79,7 @@
                     $data_table = json_decode($outputImport);
                     echo count($data_table[0])," компаний найдено. ";
 
-                    include 'somefile.php';
+                    print_r($_REQUEST);
                 }
             ?>
         </textarea>
