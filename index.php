@@ -26,7 +26,7 @@
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
                 if ($idTable != null && $idSheet != null && $cells != null) {
-                    $out = "python myscript.py " . $idTable . " " . $idSheet . " " . $cells;
+                    $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
                     $output = shell_exec($out);
                     $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
                     echo "Парсинг завершен ", $time;
@@ -76,8 +76,30 @@
                     }
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
-                    print_r(json_decode($outputImport));
-                    //print_r(json_decode($outputImport));
+                    $data_table = json_decode($outputImport);
+                    echo count($data_table)," компаний найдено";
+
+                    print_r($_REQUEST);
+                    echo '  \n';
+                    $queryUrl = 'https://'.$_REQUEST['DOMAIN'].'/rest/user.current.json';$queryData = http_build_query(array(
+                        "auth" => $_REQUEST['AUTH_ID']
+                    ));
+            
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_SSL_VERIFYPEER => 0,
+                        CURLOPT_POST => 1,
+                        CURLOPT_HEADER => 0,
+                        CURLOPT_RETURNTRANSFER => 1,
+                        CURLOPT_URL => $queryUrl,
+                        CURLOPT_POSTFIELDS => $queryData,
+                    ));
+            
+                    $result = json_decode(curl_exec($curl), true);
+                    curl_close($curl);
+            
+                    // print_r($result);
+                    echo $result['result']['NAME'].' '.$result['result']['LAST_NAME'];
                 }
             ?>
         </textarea>

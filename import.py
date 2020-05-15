@@ -101,8 +101,5 @@ def main(array):
         return
     print(json.dumps(table_data))
 
-    #print('OKK')
-    #print(json.dumps(cells))
-
 if __name__ == '__main__':
     main(sys.argv[1])
