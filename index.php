@@ -80,8 +80,14 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-					echo "подключено к базе данных...  \n";
-                    echo count($data_table[0])," компаний найдено. ";
+                    echo "подключено к базе данных...  \n";
+                    if (k==0) {
+                        echo count($data_table[0])," компаний найдено. ";
+                        $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
+                    } else {
+                        echo count($data_table)," компаний найдено. ";
+                        $inport_data_table_to_js = '["' . implode('", "', $data_table) . '"]';
+                    }
 					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
@@ -92,14 +98,14 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
-            var obj = '<?php echo '["' . implode('", "', $data_table[0]) . '"]';?>';
-            alert(typeof obj);
+            var obj = '<?php echo $inport_data_table_to_js;?>';
+            // alert(typeof obj);
             alert(obj);
             var array = obj.substr(2, obj.length - 2).split('", "');
-            alert(typeof array);
+            // alert(typeof array);
             alert(array);
             alert(array[0]);
-            alert(array[1]);
+            // alert(array[1]);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
