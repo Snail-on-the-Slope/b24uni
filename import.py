@@ -86,6 +86,7 @@ def main(array):
     idTable = data[0]
     idSheet = data[1]
     cells = data[2:]
+    print(cells)
     # for i in range(len(data)-2):
     #     if i % 2 == 1:
     #         cells.append(data[i+2])
