@@ -29,8 +29,8 @@
                 $idSheet = $_POST['idSheet'];
                 $cells = $_POST['cells'];
                 if ($idTable != null && $idSheet != null && $cells != null) {
-                    // $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
-                    // $output = shell_exec($out);
+                    $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
+                    $output = shell_exec($out);
                     $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
                     echo "Парсинг завершен ", $time;
                 }
@@ -77,11 +77,11 @@
                             $k+=1;
                         }
                     }
-                    //$outImport = "python import.py " . escapeshellarg(json_encode($array));
-                    //$outputImport = shell_exec($outImport);
-                    //$data_table = json_decode($outputImport);
+                    $outImport = "python import.py " . escapeshellarg(json_encode($array));
+                    $outputImport = shell_exec($outImport);
+                    $data_table = json_decode($outputImport);
 					echo "подключено к базе данных...  </br>";
-					//echo count($data_table[0])," компаний найдено. ";
+					echo count($data_table[0])," компаний найдено. ";
 					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
@@ -92,25 +92,55 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
+            var array = '<?php echo $data_table[0];?>';
+            alert(array);
+
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
 					textarea.innerHTML += res.data().NAME + ' ' + res.data().LAST_NAME + '</br>';
 				});
 			});
 
-			BX24.callMethod(
-				"crm.company.fields", 
-				{}, 
-				function(result) 
-				{
-					if(result.error())
-						alert(result.error());
-					else {
-						res = JSON.stringify(result.data());
-						textarea.innerHTML += res + '</br>';
-					}
-				}
-			);
+			// BX24.callMethod(
+			// 	"crm.company.fields", 
+			// 	{}, 
+			// 	function(result) 
+			// 	{
+			// 		if(result.error())
+			// 			alert(result.error());
+			// 		else {
+			// 			res = JSON.stringify(result.data());
+			// 			textarea.innerHTML += res + '</br>';
+			// 		}
+			// 	}
+			// );
+
+            // BX24.callMethod(
+            //     "crm.company.add", 
+            //     {
+            //         fields:
+            //         { 
+            //             "TITLE": "ИП Титов",
+            //             "COMPANY_TYPE": "CUSTOMER",
+            //             "INDUSTRY": "MANUFACTURING",
+            //             "EMPLOYEES": "EMPLOYEES_2",
+            //             "CURRENCY_ID": "RUB",
+            //             "REVENUE" : 3000000,
+            //             "LOGO": { "fileData": document.getElementById('logo') },
+            //             "OPENED": "Y", 
+            //             "ASSIGNED_BY_ID": 1, 
+            //             "PHONE": [ { "VALUE": "555888", "VALUE_TYPE": "WORK" } ] 	
+            //         },
+            //         params: { "REGISTER_SONET_EVENT": "Y" }		
+            //     }, 
+            //     function(result) 
+            //     {
+            //         if(result.error())
+            //             console.error(result.error());
+            //         else
+            //             console.info("Создана компания с ID " + result.data());
+            //     }
+            // );
 
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
