@@ -85,11 +85,14 @@
                         echo count($data_table[0])," компаний найдено. ";
                         $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
                     } else {
-                        echo count($data_table)," компаний найдено. ";
+                        $count_company = count($data_table);
+                        $count_item = count($data_table[0]);
+                        echo $count_company," компаний найдено. ";
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
-                            print_r($value);
-                            $inport_data_table_to_js += '["' . implode('", "', $value) . '"]';
+                            foreach ($value as $item) {
+                                $inport_data_table_to_js += item . ', ';
+                            }
                         }
                     }
 					$permission_to_connect_to_bitrix = 1;
@@ -103,13 +106,20 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo $inport_data_table_to_js;?>';
-            // alert(typeof obj);
             alert(obj);
-            var array = obj.substr(2, obj.length - 2).split('", "');
-            // alert(typeof array);
-            alert(array);
-            alert(array[0]);
-            // alert(array[1]);
+            var k_import = '<?php echo $k;?>';
+            if (k_import == 4) {
+                alert(k_import);
+                // var array = obj.substr(2, obj.length - 2).split('", "');
+                // alert(typeof array);
+                // alert(array);
+                // alert(array[0]);
+                // alert(array[1]);
+            } else {
+                var count_company = '<?php echo $count_company;?>';
+                var count_item = '<?php echo $count_item;?>';
+                alert(count_company+' '+count_item);
+            }
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
