@@ -91,16 +91,16 @@ def main(array):
     #     if i % 2 == 1:
     #         cells.append(data[i+2])
     
-    service, name = connection_to_API(idTable, int(idSheet))
-    if service==None:
-        print('Error connection to Google Sheets Table ')
-        return
+    # service, name = connection_to_API(idTable, int(idSheet))
+    # if service==None:
+    #     print('Error connection to Google Sheets Table ')
+    #     return
 
-    table_data = get_urls(service, idTable, name, cells)
-    if isinstance(table_data, str):
-        print(table_data)
-        return
-    print(json.dumps(table_data))
+    # table_data = get_urls(service, idTable, name, cells)
+    # if isinstance(table_data, str):
+    #     print(table_data)
+    #     return
+    # print(json.dumps(table_data))
 
 if __name__ == '__main__':
     main(sys.argv[1])
