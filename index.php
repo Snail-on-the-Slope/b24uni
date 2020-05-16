@@ -117,7 +117,22 @@
                 var count_item = '<?php echo $count_item;?>';
                 alert(count_company+' '+count_item);
                 var temp = obj.substr(0, obj.length - 2).split(', ');
-                alert(temp);
+                var index_temp = 0;
+                var temp_temp = [];
+                for (i=0; i < temp.length; i++) {
+                    if (index_temp < count_item) {
+                        temp_temp.push(temp[i]);
+                        index_temp++;
+                    } else {
+                        array.push(temp_temp);
+                        temp_temp = [];
+                        index_temp = 0;
+                    }
+                }
+                alert(array);
+                alert(array[0]);
+                alert(array[0][0]);
+                alert(array.length);
             }
 
 			BX24.init(function(){
