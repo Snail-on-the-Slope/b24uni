@@ -91,7 +91,6 @@
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
                             foreach ($value as $item) {
-                                echo $item, ' - ';
                                 $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
                             }
                         }
@@ -108,18 +107,17 @@
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo $inport_data_table_to_js;?>';
             alert(obj);
+            var array = [];
             var k_import = '<?php echo $k;?>';
             if (k_import == 4) {
                 alert(k_import);
-                // var array = obj.substr(2, obj.length - 2).split('", "');
-                // alert(typeof array);
-                // alert(array);
-                // alert(array[0]);
-                // alert(array[1]);
+                array = obj.substr(2, obj.length - 2).split('", "');
             } else {
                 var count_company = '<?php echo $count_company;?>';
                 var count_item = '<?php echo $count_item;?>';
                 alert(count_company+' '+count_item);
+                var temp = obj.substr(0, obj.length - 2).split(', ');
+                alert(temp);
             }
 
 			BX24.init(function(){
