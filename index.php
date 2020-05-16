@@ -89,7 +89,7 @@
                     $flag_k = false;
                     foreach($_POST as $value) {
                         if ($k < (count($_POST)-1)) {
-                            if ($k < 1) {
+                            if ($k < 2) {
                                 $array[] =  $value;
                             } else {
                                 if ($k_items > 2) {
