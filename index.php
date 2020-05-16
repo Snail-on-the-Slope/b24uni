@@ -92,7 +92,7 @@
                         foreach ($data_table as $value) {
                             foreach ($value as $item) {
                                 echo $item, ' - ';
-                                $inport_data_table_to_js += $item . ', ';
+                                $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
                             }
                         }
                     }
@@ -107,7 +107,7 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo $inport_data_table_to_js;?>';
-            alert(obj.substr(0, 10));
+            alert(obj);
             var k_import = '<?php echo $k;?>';
             if (k_import == 4) {
                 alert(k_import);
