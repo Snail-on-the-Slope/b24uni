@@ -122,7 +122,7 @@
                     $data_table = json_decode($outputImport);
                     echo "подключено к базе данных...  \n";
                     
-                    if ($k==4) {
+                    if ($k==5) {
                         echo count($data_table[0])," компаний найдено. ";
                         $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
                     } else {
