@@ -94,14 +94,9 @@
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo '["' . implode('", "', $data_table[0]) . '"]';?>';
             alert(obj);
-
-            // textarea.innerHTML += '\n' + obj + '\n';
-            
-            // var array = [];
-            // for (var i = 0; i < obj.length; i++){ 
-            //     array.push(obj[i]);
-            // }
-            // alert(array);
+            var array = obj.substr(2, obj.length - 2).split('","');
+            alert(array);
+            alert(array[0]);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
