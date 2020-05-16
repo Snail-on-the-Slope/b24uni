@@ -70,11 +70,15 @@
             <?php
                 if(isset($_POST['SubmitImport'])){
                     $array = [];
+                    $name_fields = '';
                     $k = 0;
                     foreach($_POST as $value) {
                         if ($k<(count($_POST)-1)) {
                             $array[] =  $value;
                             $k+=1;
+                            if ($k>1 && $k%2==0){
+                                $name_fields = $name_fields . $value . ' ';
+                            }
                         }
                     }
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
@@ -106,16 +110,14 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo $inport_data_table_to_js;?>';
-            alert(obj);
             var array = [];
             var k_import = '<?php echo $k;?>';
+
             if (k_import == 4) {
-                alert(k_import);
                 array = obj.substr(2, obj.length - 2).split('", "');
             } else {
                 var count_company = '<?php echo $count_company;?>';
                 var count_item = '<?php echo $count_item;?>';
-                alert(count_company+' '+count_item);
                 var temp = obj.substr(0, obj.length - 2).split(', ');
                 var index_temp = 0;
                 var temp_temp = [];
@@ -126,7 +128,8 @@
                     } else {
                         array.push(temp_temp);
                         temp_temp = [];
-                        index_temp = 0;
+                        temp_temp.push(temp[i]);
+                        index_temp = 1;
                     }
                 }
                 alert(array);
@@ -134,6 +137,9 @@
                 alert(array[0][0]);
                 alert(array.length);
             }
+
+            var name_fields = '<?php echo $name_fields;?>'.split(' ');
+            alert(name_fields);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
