@@ -93,14 +93,14 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
-            var obj = '<?php print_r($data_table);?>';
+            var obj = '<?php echo json_encode($data_table);?>';
             alert(obj);
-
-            var array = '<?php echo $outputImport;?>';
+            
+            var array = [];
+            for (var i = 0; i < obj.length; i++){ 
+                array.push(obj[i]);
+            }
             alert(array);
-            // // alert(obj[0][0]);
-            // var array = JSON.parse(obj);
-            // alert(array);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
