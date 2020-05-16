@@ -121,6 +121,7 @@
                 var temp = obj.substr(0, obj.length - 2).split(', ');
                 var index_temp = 0;
                 var temp_temp = [];
+                alert(temp.length);
                 for (i=0; i < temp.length; i++) {
                     if (index_temp < count_item) {
                         temp_temp.push(temp[i]);
@@ -132,11 +133,12 @@
                         index_temp = 1;
                     }
                 }
-                alert(array);
-                alert(array[0]);
-                alert(array[0][0]);
-                alert(array[array.length-1]);
-                alert(array.length);
+
+                // alert(array);
+                // alert(array[0]);
+                // alert(array[0][0]);
+                // alert(array[array.length-1]);
+                // alert(array.length);
             }
 
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
