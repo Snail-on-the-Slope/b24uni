@@ -76,7 +76,7 @@
                         if ($k<(count($_POST)-1)) {
                             $array[] =  $value;
                             $k+=1;
-                            if ($k>1 && $k%2==0){
+                            if ($k>2 && $k%2==1){
                                 $name_fields = $name_fields . $value . ' ';
                             }
                         }
@@ -135,6 +135,7 @@
                 alert(array);
                 alert(array[0]);
                 alert(array[0][0]);
+                alert(array[array.length]);
                 alert(array.length);
             }
 
