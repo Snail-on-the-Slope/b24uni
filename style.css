@@ -95,10 +95,18 @@ body {
     resize: vertical;
 }
 
-.import-data .optional .all-field input[type=text] {
-    width: 80%;
+.import-data .optional .all-field input[type=text], select {
+    width: 86%;
     padding: 10px 2px;
     margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.add_name_field {
+    margin: 5px 0;
+    width: 173px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
