@@ -89,7 +89,9 @@
                     $flag_k = false;
                     foreach($_POST as $value) {
                         if ($k < (count($_POST)-1)) {
-                            if ($k > 1) {
+                            if ($k < 1) {
+                                $array[] =  $value;
+                            } else {
                                 if ($k_items > 2) {
                                     $k_items = 0;
                                 }
@@ -114,7 +116,7 @@
                             $k+=1;
                         }
                     }
-                    echo $k,' - ',$k_items,' - ',$array,' - ',$name_fields;
+                    //echo $k,' - ',$k_items,' - ',$array,' - ',$name_fields;
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
