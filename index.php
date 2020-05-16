@@ -135,11 +135,12 @@
                 alert(array);
                 alert(array[0]);
                 alert(array[0][0]);
-                alert(array[array.length]);
+                alert(array[array.length-1]);
                 alert(array.length);
             }
 
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
+            name_fields = name_fields.slice(0, name_fields.length-1);
             alert(name_fields);
 
 			BX24.init(function(){
