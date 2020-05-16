@@ -107,7 +107,7 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo $inport_data_table_to_js;?>';
-            alert(obj);
+            alert(obj.substr(0, 10));
             var k_import = '<?php echo $k;?>';
             if (k_import == 4) {
                 alert(k_import);
