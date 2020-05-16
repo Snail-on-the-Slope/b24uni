@@ -91,6 +91,7 @@
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
                             foreach ($value as $item) {
+                                echo $item, ' - ';
                                 $inport_data_table_to_js += $item . ', ';
                             }
                         }
