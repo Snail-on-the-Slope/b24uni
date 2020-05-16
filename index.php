@@ -93,7 +93,7 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
-            var obj = '<?php echo json_encode($data_table);?>';
+            var obj = '<?php echo json_encode($data_table[0]);?>';
             alert(obj);
             
             var array = [];
