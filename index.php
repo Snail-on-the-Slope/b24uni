@@ -91,10 +91,9 @@
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
                             foreach ($value as $item) {
-                                $inport_data_table_to_js += item . ', ';
+                                $inport_data_table_to_js += $item . ', ';
                             }
                         }
-                        echo $inport_data_table_to_js;
                     }
 					$permission_to_connect_to_bitrix = 1;
                 }
