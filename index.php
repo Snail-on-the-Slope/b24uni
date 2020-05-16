@@ -81,7 +81,8 @@
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
 					echo "подключено к базе данных...  \n";
-					echo count($data_table[0])," компаний найдено. ";
+                    echo count($data_table[0])," компаний найдено. ";
+                    echo $data_table[0];
 					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
@@ -92,10 +93,10 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
-            var obj = '<?php echo json_encode($data_table);?>';
-            alert(obj[0]);
+            // var obj = '<?php echo json_encode($data_table);?>';
+            // // alert(obj[0]);
             
-            alert(obj[0][0]);
+            // // alert(obj[0][0]);
             // var array = JSON.parse(obj);
             // alert(array);
 
