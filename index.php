@@ -95,7 +95,9 @@
 			var textarea = document.getElementById('import-area');
             var obj = '<?php print_r($data_table);?>';
             alert(obj);
-            
+
+            var array = '<?php echo $outputImport;?>';
+            alert(array);
             // // alert(obj[0][0]);
             // var array = JSON.parse(obj);
             // alert(array);
