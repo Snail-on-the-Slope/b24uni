@@ -114,6 +114,7 @@
                             $k+=1;
                         }
                     }
+                    echo $k,' - ',$k_items,' - ',$array,' - ',$name_fields;
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);

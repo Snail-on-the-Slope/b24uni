@@ -79,6 +79,7 @@ def get_urls(service, spreadsheetId, name, cells):
 
 def main(array):
     data = json.loads(array)
+    print(data)
     if len(data)<3:
         print('Error data')
         return
