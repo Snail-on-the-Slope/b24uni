@@ -93,10 +93,13 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo '["' . implode('", "', $data_table[0]) . '"]';?>';
+            alert(typeof obj);
             alert(obj);
             var array = obj.substr(2, obj.length - 2).split('","');
+            alert(typeof array);
             alert(array);
             alert(array[0]);
+            alert(array[1]);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
