@@ -80,7 +80,7 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-					echo "подключено к базе данных...  </br>";
+					echo "подключено к базе данных...  \n";
 					echo count($data_table[0])," компаний найдено. ";
 					$permission_to_connect_to_bitrix = 1;
                 }
@@ -92,12 +92,12 @@
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
-            var array = '<?php echo $data_table[0];?>';
+            var array = '<?php print_r($data_table[0]);?>';
             alert(array);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
-					textarea.innerHTML += res.data().NAME + ' ' + res.data().LAST_NAME + '</br>';
+					textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
 				});
 			});
 
