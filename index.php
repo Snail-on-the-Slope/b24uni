@@ -95,7 +95,7 @@
             var obj = '<?php echo '["' . implode('", "', $data_table[0]) . '"]';?>';
             alert(typeof obj);
             alert(obj);
-            var array = obj.substr(2, obj.length - 2).split('","');
+            var array = obj.substr(2, obj.length - 2).split('", "');
             alert(typeof array);
             alert(array);
             alert(array[0]);
