@@ -85,10 +85,10 @@ def main(array):
 
     idTable = data[0]
     idSheet = data[1]
-    cells = []
-    for i in range(len(data)-2):
-        if i % 2 == 1:
-            cells.append(data[i+2])
+    cells = data[2:]
+    # for i in range(len(data)-2):
+    #     if i % 2 == 1:
+    #         cells.append(data[i+2])
     
     service, name = connection_to_API(idTable, int(idSheet))
     if service==None:

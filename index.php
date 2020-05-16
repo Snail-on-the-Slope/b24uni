@@ -82,44 +82,57 @@
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
             <?php
                 if(isset($_POST['SubmitImport'])){
-                    print_r($_POST);
-                    // $array = [];
-                    // $name_fields = '';
-                    // $k = 0;
-                    // $flag_k = false;
-                    // foreach($_POST as $value) {
-                    //     if ($k<(count($_POST)-1)) {
-                    //         if (k>1 && $k%2==0) {
-                    //             if ($value == 'CUSTOM_FIELD'){
-                    //                 $flag_k = true;
-                    //             }
-                    //         }
-                    //         $array[] =  $value;
-                    //         $k+=1;
-                    //         if ($k>2 && $k%2==1){
-                    //             $name_fields = $name_fields . $value . ' ';
-                    //         }
-                    //     }
-                    // }
-                    // $outImport = "python import.py " . escapeshellarg(json_encode($array));
-                    // $outputImport = shell_exec($outImport);
-                    // $data_table = json_decode($outputImport);
-                    // echo "подключено к базе данных...  \n";
-                    // if ($k==4) {
-                    //     echo count($data_table[0])," компаний найдено. ";
-                    //     $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
-                    // } else {
-                    //     $count_company = count($data_table);
-                    //     $count_item = count($data_table[0]);
-                    //     echo $count_company," компаний найдено. ";
-                    //     $inport_data_table_to_js = '';
-                    //     foreach ($data_table as $value) {
-                    //         foreach ($value as $item) {
-                    //             $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
-                    //         }
-                    //     }
-                    // }
-					// $permission_to_connect_to_bitrix = 1;
+                    $array = [];
+                    $name_fields = '';
+                    $k = 0;
+                    $k_items = 0;
+                    $flag_k = false;
+                    foreach($_POST as $value) {
+                        if ($k < (count($_POST)-1)) {
+                            if ($k > 1) {
+                                if ($k_items > 2) {
+                                    $k_items = 0;
+                                }
+
+                                if ($k_items == 0) {
+                                    if ($value == 'CUSTOM_FIELD'){
+                                        $flag_k = true;
+                                    } else {
+                                        $name_fields = $name_fields . $value . ' ';
+                                    }
+                                } elseif ($k_items == 1) {
+                                    $array[] =  $value;
+                                } else {
+                                    if ($flag_k) {
+                                        $name_fields = $name_fields . $value . ' ';
+                                        $flag_k = false;
+                                    }
+                                }
+                                $k_items += 1;
+                            }
+                            
+                            $k+=1;
+                        }
+                    }
+                    $outImport = "python import.py " . escapeshellarg(json_encode($array));
+                    $outputImport = shell_exec($outImport);
+                    $data_table = json_decode($outputImport);
+                    echo "подключено к базе данных...  \n";
+                    if ($k==4) {
+                        echo count($data_table[0])," компаний найдено. ";
+                        $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
+                    } else {
+                        $count_company = count($data_table);
+                        $count_item = count($data_table[0]);
+                        echo $count_company," компаний найдено. ";
+                        $inport_data_table_to_js = '';
+                        foreach ($data_table as $value) {
+                            foreach ($value as $item) {
+                                $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
+                            }
+                        }
+                    }
+					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
         </textarea>
@@ -163,23 +176,23 @@
 					textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
 				});
 
-                BX24.callMethod( "crm.company.add", 
-                    {
-                        fields:
-                        { 
-                            "TITLE": "ИП Титов",
-                            "COMPANY_TYPE": "CUSTOMER"	
-                        },
-                        params: { "REGISTER_SONET_EVENT": "Y" }		
-                    }, 
-                    function(result) 
-                    {
-                        if(result.error())
-                            console.error(result.error());
-                        else
-                            console.info("Создана компания с ID " + result.data());
-                    }
-                );
+                // BX24.callMethod( "crm.company.add", 
+                //     {
+                //         fields:
+                //         { 
+                //             "TITLE": "ИП Титов",
+                //             "COMPANY_TYPE": "CUSTOMER"	
+                //         },
+                //         params: { "REGISTER_SONET_EVENT": "Y" }		
+                //     }, 
+                //     function(result) 
+                //     {
+                //         if(result.error())
+                //             console.error(result.error());
+                //         else
+                //             console.info("Создана компания с ID " + result.data());
+                //     }
+                // );
 			});
 
 			// BX24.callMethod(
@@ -237,6 +250,7 @@
             }
             clone.children[1].children[0].id = clone.children[1].children[0].id + k;
             clone.children[1].children[0].name = clone.children[1].children[0].name + k;
+            clone.children[1].children[0].value = "";
 
             clone.children[2].innerHTML = '';
 
