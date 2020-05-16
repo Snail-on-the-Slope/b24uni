@@ -116,12 +116,12 @@
                             $k+=1;
                         }
                     }
-                    //echo $k,' - ',$k_items,' - ',$array,' - ',$name_fields;
+                    
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
                     echo "подключено к базе данных...  \n";
-                    print_r($outputImport);
+                    
                     if ($k==4) {
                         echo count($data_table[0])," компаний найдено. ";
                         $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';

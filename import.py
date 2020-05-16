@@ -79,7 +79,6 @@ def get_urls(service, spreadsheetId, name, cells):
 
 def main(array):
     data = json.loads(array)
-    print(data)
     if len(data)<3:
         print('Error data')
         return
@@ -87,21 +86,21 @@ def main(array):
     idTable = data[0]
     idSheet = data[1]
     cells = data[2:]
-    print(cells)
-    # for i in range(len(data)-2):
-    #     if i % 2 == 1:
-    #         cells.append(data[i+2])
     
-    # service, name = connection_to_API(idTable, int(idSheet))
-    # if service==None:
-    #     print('Error connection to Google Sheets Table ')
-    #     return
+    for i in range(len(data)-2):
+        if i % 2 == 1:
+            cells.append(data[i+2])
+    
+    service, name = connection_to_API(idTable, int(idSheet))
+    if service==None:
+        print('Error connection to Google Sheets Table ')
+        return
 
-    # table_data = get_urls(service, idTable, name, cells)
-    # if isinstance(table_data, str):
-    #     print(table_data)
-    #     return
-    # print(json.dumps(table_data))
+    table_data = get_urls(service, idTable, name, cells)
+    if isinstance(table_data, str):
+        print(table_data)
+        return
+    print(json.dumps(table_data))
 
 if __name__ == '__main__':
     main(sys.argv[1])
