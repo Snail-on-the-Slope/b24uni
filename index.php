@@ -82,7 +82,9 @@
                     $data_table = json_decode($outputImport);
 					echo "подключено к базе данных...  \n";
                     echo count($data_table[0])," компаний найдено. ";
-                    echo $data_table;
+                    print_r($data_table[0]);
+                    echo " |||| ";
+                    echo '["' . implode('", "', $data_table[0]) . '"]';
 					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
@@ -94,13 +96,15 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo json_encode($data_table[0]);?>';
-            alert(obj);
+            // alert(obj);
+
+            // textarea.innerHTML += '\n' + obj + '\n';
             
-            var array = [];
-            for (var i = 0; i < obj.length; i++){ 
-                array.push(obj[i]);
-            }
-            alert(array);
+            // var array = [];
+            // for (var i = 0; i < obj.length; i++){ 
+            //     array.push(obj[i]);
+            // }
+            // alert(array);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
