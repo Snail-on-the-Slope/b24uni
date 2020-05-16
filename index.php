@@ -88,7 +88,7 @@
                         echo count($data_table)," компаний найдено. ";
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
-                            echo ' - ',$value;
+                            print_r($value);
                             $inport_data_table_to_js += '["' . implode('", "', $value) . '"]';
                         }
                     }
