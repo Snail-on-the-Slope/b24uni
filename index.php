@@ -93,9 +93,11 @@
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
             var obj = '<?php echo json_encode($data_table);?>';
-            alert(obj);
-            var array = JSON.parse(obj);
-            alert(array);
+            alert(obj[0]);
+            
+            alert(obj[0][0]);
+            // var array = JSON.parse(obj);
+            // alert(array);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
