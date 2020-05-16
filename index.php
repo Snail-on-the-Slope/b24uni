@@ -133,6 +133,7 @@
                         index_temp = 1;
                     }
                 }
+                alert(temp_temp);
 
                 // alert(array);
                 // alert(array[0]);
@@ -143,7 +144,7 @@
 
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
-            alert(name_fields);
+            // alert(name_fields);
 
 			BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
