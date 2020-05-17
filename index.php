@@ -159,7 +159,7 @@
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
                 alert('start b24 ' + title_ + ' ' + field);
-                async () => {
+                ( async () => {
                     alert('1111111 ' + title_);
                     var company_id = '';
                     await BX24.callMethod( "crm.company.list", 
@@ -213,7 +213,7 @@
                         );
                     }
                     alert('3333333 ' + title_);
-                }  
+                })();  
             }); 
             alert('end b24 ' + title_ + ' ' + field);
         }
