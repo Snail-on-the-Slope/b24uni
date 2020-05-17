@@ -177,7 +177,6 @@
                                     alert(i + ' ---- ' + result.data()[i]);
                                 }
                                 company_id = result.data();
-                                
                             }
                                 
                         }
@@ -186,38 +185,38 @@
                 
                     if (company_id == '') {
                         alert('33333333 ' + title_);
-                        BX24.callMethod( "crm.company.add", 
-                            {
-                                fields: field,
-                                params: { "REGISTER_SONET_EVENT": "Y" }		
-                            }, 
-                            function(result) 
-                            {
-                                if(result.error())
-                                    alert(result.error());
-                                else {
-                                    var textarea = document.getElementById('import-area');
-                                    textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
-                                }
-                            }
-                        );
+                        // BX24.callMethod( "crm.company.add", 
+                        //     {
+                        //         fields: field,
+                        //         params: { "REGISTER_SONET_EVENT": "Y" }		
+                        //     }, 
+                        //     function(result) 
+                        //     {
+                        //         if(result.error())
+                        //             alert(result.error());
+                        //         else {
+                        //             var textarea = document.getElementById('import-area');
+                        //             textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
+                        //         }
+                        //     }
+                        // );
                     } else {
-                        BX24.callMethod( "crm.company.update", 
-                            { 
-                                id: company_id,
-                                fields: field,
-                                params: { "REGISTER_SONET_EVENT": "Y" }				
-                            }, 
-                            function(result) 
-                            {
-                                if(result.error())
-                                    alert(result.error());
-                                else {
-                                    var textarea = document.getElementById('import-area');
-                                    textarea.innerHTML += "\n Данные компания " + title_ + " обновлены ";						
-                                }
-                            }
-                        );
+                        // BX24.callMethod( "crm.company.update", 
+                        //     { 
+                        //         id: company_id,
+                        //         fields: field,
+                        //         params: { "REGISTER_SONET_EVENT": "Y" }				
+                        //     }, 
+                        //     function(result) 
+                        //     {
+                        //         if(result.error())
+                        //             alert(result.error());
+                        //         else {
+                        //             var textarea = document.getElementById('import-area');
+                        //             textarea.innerHTML += "\n Данные компания " + title_ + " обновлены ";						
+                        //         }
+                        //     }
+                        // );
                     }
                     alert('4444444 ' + title_);
                 })();  
