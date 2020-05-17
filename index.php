@@ -271,7 +271,7 @@
                 for (j = 0; j < name_fields.length; j++) {
                     if (array[i][j]='')
                         array[i][j] = '-1'
-                    var type_value = get_type_field_b24(name_fields[j];
+                    var type_value = get_type_field_b24(name_fields[j]);
                     if (type_value == "integer") 
                         add_data_fields[name_fields[j]] = parseInt(array[i][j]);
                     if (type_value == "double") 
