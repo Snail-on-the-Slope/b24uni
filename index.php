@@ -175,15 +175,10 @@
         //         });
         // }
 
-        function get_type_field_b24(name_field) {
+        async function get_type_field_b24(name_field) {
             var print_result = '';
             alert('in get_type_field_b24 ' + name_field);
-            // (async () => {
-            // for (i = 0; i < 10; ++i) {
-            //     await demo(i);
-            // }
-            // })();
-            BX24.init(function(){
+            await BX24.init(function(){
                 alert('in get_type_field_b24 || BX24');
                     BX24.callMethod(
                         "crm.company.fields", 
@@ -195,11 +190,11 @@
                             else {
                                 var obj = result.data();
                                 print_result = obj[name_field]['type'];
-                                return print_result;
                             }
                         }
                     );
                 });
+            return print_result;
         }
  
         // ----------------------- заполнение select -----------------------
