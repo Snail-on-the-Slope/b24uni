@@ -275,7 +275,7 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        var type_value = get_type_field_b24(name_field[j]);
+                        var type_value = get_type_field_b24(name_fields[j]);
                         // BX24.init(function(){
                         //     BX24.callMethod(
                         //         "crm.company.fields", 
