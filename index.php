@@ -137,25 +137,26 @@
     </div>
 
     <script>
-        // function add_company_b24 (field) {
-        //     // BX24.init(function(){
-        //             BX24.callMethod( "crm.company.add", 
-        //                 {
-        //                     fields: field,
-        //                     params: { "REGISTER_SONET_EVENT": "Y" }		
-        //                 }, 
-        //                 function(result) 
-        //                 {
-        //                     if(result.error())
-        //                         console.error(result.error());
-        //                     else {
-        //                         var textarea = document.getElementById('import-area');
-        //                         textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
-        //                     }
-        //                 }
-        //             );
-        //         // });
-        // }
+        function add_company_b24 (field) {
+            BX24.init(function(){
+                alert('add_company_b24 BX24 '  + field);
+                    BX24.callMethod( "crm.company.add", 
+                        {
+                            fields: field,
+                            params: { "REGISTER_SONET_EVENT": "Y" }		
+                        }, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                console.error(result.error());
+                            else {
+                                var textarea = document.getElementById('import-area');
+                                textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
+                            }
+                        }
+                    );
+            });
+        }
 
         // function get_list_company_b24 (field) {
         //     BX24.init(function(){
@@ -448,7 +449,6 @@
                 if (k_import == 5) {
                     array = obj.substr(2, obj.length - 2).split('", "');
                 } else {
-                    alert('count_item ' + count_item);
                     var temp = obj.substr(0, obj.length - 2).split(', ');
                     var index_temp = 0;
                     var temp_temp = [];
@@ -469,33 +469,20 @@
                 name_fields = name_fields.slice(0, name_fields.length-1);
 
                 // создание компаний из полученного списка
-                // creation_of_companies_from_the_list_received(array, name_fields);
                 var add_data_fields = {};
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
-                    for (j = 0; j < name_fields.length; j++) {
-                        add_data_fields[name_fields[j]] = array[i][j];
+                    if count_item == 1:
+                        add_data_fields[name_fields[0]] = array[i];
+                    else {
+                        for (j = 0; j < name_fields.length; j++) {
+                            add_data_fields[name_fields[j]] = array[i][j];
+                        }
                     }
+                    
                     alert(JSON.stringify(add_data_fields));
-                    // add_data_fields = {};
-                    // for (j = 0; j < name_fields.length; j++) {
-                    //     // if (array[i][j]='')
-                    //     //     array[i][j] = '-1'
-
-                    //     // var type_value = get_type_field_b24(name_fields[j]);
-
-                    //     // if (type_value == "integer") 
-                    //     //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                    //     // if (type_value == "double") 
-                    //     //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                    //     // if (type_value == "string" || type_value == "char")
-                    //         add_data_fields[name_fields[j]] = array[i][j];
-                            
-                    //     alert(name_fields[j] + ' - ' + JSON.stringify(array)  + ' - ' + JSON.stringify(array[i]) + ' - ' + array[i][j] + ' - ' + JSON.stringify(add_data_fields));
-                    // }
-                    // alert(JSON.stringify(add_data_fields));
-                    // add_company_b24(add_data_fields);
+                    add_company_b24(add_data_fields);
                 }
 
                 <?php $permission_to_connect_to_bitrix = 0;?>
