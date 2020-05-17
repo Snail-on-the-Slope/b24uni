@@ -117,9 +117,11 @@
                     if ($k==5) {
                         echo count($data_table[0])," компаний найдено. ";
                         $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
+                        $count_item = 1;
                     } else {
                         $count_company = count($data_table);
                         $count_item = count($data_table[0]);
+                        print_r($data_table[0]);
                         echo $count_company," компаний найдено. ";
                         $inport_data_table_to_js = '';
                         foreach ($data_table as $value) {
@@ -440,13 +442,12 @@
                 // получение и обработка списка значений из таблицы
                 var obj = '<?php echo $inport_data_table_to_js;?>';
                 var array = [];
+                var count_item = '<?php echo $count_item;?>';
                 var k_import = '<?php echo $k;?>';
 
                 if (k_import == 5) {
                     array = obj.substr(2, obj.length - 2).split('", "');
                 } else {
-                    var count_company = '<?php echo $count_company;?>';
-                    var count_item = '<?php echo $count_item;?>';
                     alert('count_item ' + count_item);
                     var temp = obj.substr(0, obj.length - 2).split(', ');
                     var index_temp = 0;
@@ -473,7 +474,7 @@
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     alert('i: ' + JSON.stringify(array[i]));
-                    for (j = 0; j < array[i].length; j++) {
+                    for (j = 0; j < name_fields.length; j++) {
                         alert('j: ' + JSON.stringify(array[i][j]) + ' ' + name_fields[j]);
                     }
                     // add_data_fields = {};
