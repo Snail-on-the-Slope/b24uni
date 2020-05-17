@@ -156,8 +156,8 @@
             });
         }
 
-        async function add_or_update_company_b24(title_, field) {
-            BX24.init(function(){
+        function add_or_update_company_b24(title_, field) {
+            BX24.init(async function() {
                     var company_id = '';
                     await BX24.callMethod(
                         "crm.company.list", 
