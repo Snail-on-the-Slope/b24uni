@@ -172,7 +172,7 @@
                             if (result.error())
                                 console.error(result.error());
                             else {
-                                alert('22222222 ' + title_ + ' - ' + company_id + ' - ' + typeof  result.data() + ' ' +  result.data() );
+                                alert('22222222 ' + title_ + ' - ' + company_id + ' - ' + typeof  result.data() + ' - ' +  result.data() + ' : ' + result.data().length + ' - ' + result.data()['ID']);
                                 for (var i in result.data()){
                                     alert(i + ' ---- ' + result.data()[i]);
                                 }
