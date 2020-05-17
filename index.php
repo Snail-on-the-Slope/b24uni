@@ -274,10 +274,11 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        var type_value = '';
-                        get_type_field_b24(name_fields[j]).then((value) => {
-                            type_value = value;
-                        });
+                        var type_value = async () => {
+                            var result_async = await get_type_field_b24(name_fields[j]);
+
+                            return result_async;
+                        }
                         // BX24.init(function(){
                         //     BX24.callMethod(
                         //         "crm.company.fields", 
