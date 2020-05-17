@@ -175,27 +175,51 @@
         //         });
         // }
 
-        // async function get_type_field_b24(name_field) {
-        //     var print_result = '';
-        //     alert('in get_type_field_b24 ' + name_field);
-        //     await BX24.init(function(){
-        //         alert('in get_type_field_b24 || BX24');
-        //             BX24.callMethod(
-        //                 "crm.company.fields", 
-        //                 {}, 
-        //                 function(result) 
-        //                 {
-        //                     if(result.error())
-        //                         alert(result.error());
-        //                     else {
-        //                         var obj = result.data();
-        //                         print_result = obj[name_field]['type'];
-        //                         return print_result;
-        //                     }
-        //                 }
-        //             );
-        //         });
-        // }
+        async function get_type_field_b24(name_field) {
+            var print_result = '';
+            alert('in get_type_field_b24 ' + name_field);
+            await BX24.init(function(){
+                alert('in get_type_field_b24 || BX24');
+                    BX24.callMethod(
+                        "crm.company.fields", 
+                        {}, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                alert(result.error());
+                            else {
+                                var obj = result.data();
+                                print_result = obj[name_field]['type'];
+                            }
+                        }
+                    );
+                });
+            return print_result;
+        }
+
+        async function creation_of_companies_from_the_list_received(array, name_fields) {
+            var add_data_fields = {};
+            for (i=0; i < array.length; i++) {
+                add_data_fields = {};
+                for (j = 0; j < name_fields.length; j++) {
+                    if (array[i][j]='')
+                        array[i][j] = '-1'
+
+                    var type_value = await get_type_field_b24(name_fields[j]);
+
+                    if (type_value == "integer") 
+                        add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                    if (type_value == "double") 
+                        add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                    if (type_value == "string" || type_value == "char")
+                        add_data_fields[name_fields[j]] = array[i][j];
+                            
+                    alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+                }
+                alert(JSON.stringify(add_data_fields));
+                // add_company_b24(add_data_fields);
+            }
+        }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -232,71 +256,6 @@
                 );
             // ----------------------- END -----------------------
         });
-
-        // ----------------------- после отправки формы .import-data -----------------------
-            var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
-            if (permission == 1) {
-                var textarea = document.getElementById('import-area');
-                // получение и обработка списка значений из таблицы
-                var obj = '<?php echo $inport_data_table_to_js;?>';
-                var array = [];
-                var k_import = '<?php echo $k;?>';
-
-                if (k_import == 5) {
-                    array = obj.substr(2, obj.length - 2).split('", "');
-                } else {
-                    var count_company = '<?php echo $count_company;?>';
-                    var count_item = '<?php echo $count_item;?>';
-                    var temp = obj.substr(0, obj.length - 2).split(', ');
-                    var index_temp = 0;
-                    var temp_temp = [];
-                    for (i=0; i < temp.length; i++) {
-                        if (index_temp < count_item) {
-                            temp_temp.push(temp[i]);
-                            index_temp++;
-                        } else {
-                            array.push(temp_temp);
-                            temp_temp = [];
-                            temp_temp.push(temp[i]);
-                            index_temp = 1;
-                        }
-                    }
-                    array.push(temp_temp);
-                }
-                var name_fields = '<?php echo $name_fields;?>'.split(' ');
-                name_fields = name_fields.slice(0, name_fields.length-1);
-
-                // создание компаний из полученного списка
-                var add_data_fields = {};
-                for (i=0; i < array.length; i++) {
-                    add_data_fields = {};
-                    for (j = 0; j < name_fields.length; j++) {
-                        if (array[i][j]='')
-                            array[i][j] = '-1'
-
-                        // var type_value = get_type_field_b24(name_fields[j]);
-
-                        // if (type_value == "integer") 
-                        //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                        // if (type_value == "double") 
-                        //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                        // if (type_value == "string" || type_value == "char")
-                            add_data_fields[name_fields[j]] = array[i][j];
-                            
-                        // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
-                    }
-                    alert(JSON.stringify(add_data_fields));
-                    add_company_b24(add_data_fields);
-                }
-                // alert(JSON.stringify(add_data_fields));
-                // add_company_b24(add_data_fields);
-
-                <?php $permission_to_connect_to_bitrix = 0;?>
-            }
-        
-        // ----------------------- END -----------------------
-
-        
 
         // ----------------------- работа с динамичной обработкой и созданием ячеек в .import-data -----------------------
         var k = 0;
@@ -471,6 +430,71 @@
                 error.innerHTML = "";
             }
         };
+        // ----------------------- END -----------------------
+
+
+        // ----------------------- после отправки формы .import-data -----------------------
+        var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
+            if (permission == 1) {
+                var textarea = document.getElementById('import-area');
+                // получение и обработка списка значений из таблицы
+                var obj = '<?php echo $inport_data_table_to_js;?>';
+                var array = [];
+                var k_import = '<?php echo $k;?>';
+
+                if (k_import == 5) {
+                    array = obj.substr(2, obj.length - 2).split('", "');
+                } else {
+                    var count_company = '<?php echo $count_company;?>';
+                    var count_item = '<?php echo $count_item;?>';
+                    var temp = obj.substr(0, obj.length - 2).split(', ');
+                    var index_temp = 0;
+                    var temp_temp = [];
+                    for (i=0; i < temp.length; i++) {
+                        if (index_temp < count_item) {
+                            temp_temp.push(temp[i]);
+                            index_temp++;
+                        } else {
+                            array.push(temp_temp);
+                            temp_temp = [];
+                            temp_temp.push(temp[i]);
+                            index_temp = 1;
+                        }
+                    }
+                    array.push(temp_temp);
+                }
+                var name_fields = '<?php echo $name_fields;?>'.split(' ');
+                name_fields = name_fields.slice(0, name_fields.length-1);
+
+                // создание компаний из полученного списка
+                creation_of_companies_from_the_list_received(array, name_fields);
+                // var add_data_fields = {};
+                // for (i=0; i < array.length; i++) {
+                //     add_data_fields = {};
+                //     for (j = 0; j < name_fields.length; j++) {
+                //         if (array[i][j]='')
+                //             array[i][j] = '-1'
+
+                //         // var type_value = get_type_field_b24(name_fields[j]);
+
+                //         // if (type_value == "integer") 
+                //         //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                //         // if (type_value == "double") 
+                //         //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                //         // if (type_value == "string" || type_value == "char")
+                //             add_data_fields[name_fields[j]] = array[i][j];
+                            
+                //         // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+                //     }
+                //     alert(JSON.stringify(add_data_fields));
+                //     add_company_b24(add_data_fields);
+                // }
+                // alert(JSON.stringify(add_data_fields));
+                // add_company_b24(add_data_fields);
+
+                <?php $permission_to_connect_to_bitrix = 0;?>
+            }
+        
         // ----------------------- END -----------------------
     </script>
 </body>
