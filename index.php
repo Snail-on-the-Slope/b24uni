@@ -263,15 +263,14 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
-                			// res = JSON.stringify(result.data());
+                			res = JSON.stringify(result.data());
                             res__ = [];
-                            // alert(res);
-                            alert(typeof result.data() + ' - ' + result.data().length);
-                            alert(result.data());
-                            for (i=0; i < result.data().length; i++){
-                                if (i<2)
-                                    alert(i + ' - ' + res[i]);
-                            }
+                            alert(typeof res + ' - ' + res.length);
+                            alert(res);
+                            // for (i=0; i < result.data().length; i++){
+                            //     if (i<2)
+                            //         alert(i + ' - ' + res[i]);
+                            // }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
                             //     for (var j in res[i]) {
