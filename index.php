@@ -447,6 +447,7 @@
                 } else {
                     var count_company = '<?php echo $count_company;?>';
                     var count_item = '<?php echo $count_item;?>';
+                    alert('count_item ' + count_item);
                     var temp = obj.substr(0, obj.length - 2).split(', ');
                     var index_temp = 0;
                     var temp_temp = [];
@@ -473,7 +474,7 @@
                 for (i=0; i < array.length; i++) {
                     alert('i: ' + JSON.stringify(array[i]));
                     for (j = 0; j < array[i].length; j++) {
-                        alert('j: ' + JSON.stringify(array[i][j]) + ' ' + name_field[j]);
+                        alert('j: ' + JSON.stringify(array[i][j]) + ' ' + name_fields[j]);
                     }
                     // add_data_fields = {};
                     // for (j = 0; j < name_fields.length; j++) {
