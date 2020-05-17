@@ -207,11 +207,14 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
-                			res = JSON.stringify(result.data());
+                			// res = JSON.stringify(result.data());
                             res__ = [];
-                            alert(res);
+                            // alert(res);
                             alert(typeof result.data());
                             alert(result.data());
+                            for (var i in result.data()){
+                                alert(i + ' - ' + res[i]);
+                            }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
                             //     for (var j in res[i]) {
