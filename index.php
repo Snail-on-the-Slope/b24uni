@@ -280,11 +280,12 @@
                     if (type_value == "string" || type_value == "char")
                         add_data_fields[name_fields[j]] = array[i][j];
                 }
+                alert(JSON.stringify(add_data_fields));
             
                 // add_company_b24(add_data_fields);
             }
-            alert(JSON.stringify(add_data_fields));
-            add_company_b24(add_data_fields);
+            // alert(JSON.stringify(add_data_fields));
+            // add_company_b24(add_data_fields);
 
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
