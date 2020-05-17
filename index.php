@@ -135,65 +135,65 @@
     </div>
 
     <script>
-        function add_company_b24 (field) {
-            // BX24.init(function(){
-                    BX24.callMethod( "crm.company.add", 
-                        {
-                            fields: field,
-                            params: { "REGISTER_SONET_EVENT": "Y" }		
-                        }, 
-                        function(result) 
-                        {
-                            if(result.error())
-                                console.error(result.error());
-                            else {
-                                var textarea = document.getElementById('import-area');
-                                textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
-                            }
-                        }
-                    );
-                // });
-        }
+        // function add_company_b24 (field) {
+        //     // BX24.init(function(){
+        //             BX24.callMethod( "crm.company.add", 
+        //                 {
+        //                     fields: field,
+        //                     params: { "REGISTER_SONET_EVENT": "Y" }		
+        //                 }, 
+        //                 function(result) 
+        //                 {
+        //                     if(result.error())
+        //                         console.error(result.error());
+        //                     else {
+        //                         var textarea = document.getElementById('import-area');
+        //                         textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
+        //                     }
+        //                 }
+        //             );
+        //         // });
+        // }
 
-        function get_list_company_b24 (field) {
-            BX24.init(function(){
-                    BX24.callMethod( "crm.company.add", 
-                        {
-                            fields: field,
-                            params: { "REGISTER_SONET_EVENT": "Y" }		
-                        }, 
-                        function(result) 
-                        {
-                            if(result.error())
-                                console.error(result.error());
-                            else {
-                                var textarea = document.getElementById('import-area');
-                                textarea.innerHTML += "Создана компания с ID " + result.data();
-                            }
-                        }
-                    );
-                });
-        }
+        // function get_list_company_b24 (field) {
+        //     BX24.init(function(){
+        //             BX24.callMethod( "crm.company.add", 
+        //                 {
+        //                     fields: field,
+        //                     params: { "REGISTER_SONET_EVENT": "Y" }		
+        //                 }, 
+        //                 function(result) 
+        //                 {
+        //                     if(result.error())
+        //                         console.error(result.error());
+        //                     else {
+        //                         var textarea = document.getElementById('import-area');
+        //                         textarea.innerHTML += "Создана компания с ID " + result.data();
+        //                     }
+        //                 }
+        //             );
+        //         });
+        // }
 
-        function get_type_field_b24(name_field) {
-            var print_result = '';
-            alert('in get_type_field_b24 ' + name_field);
-                    BX24.callMethod(
-                        "crm.company.fields", 
-                        {}, 
-                        function(result) 
-                        {
-                            if(result.error())
-                                alert(result.error());
-                            else {
-                                var obj = result.data();
-                                print_result = obj[name_field]['type'];
-                                alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
-                            }
-                        }
-                    );
-            return print_result;
-        }
+        // function get_type_field_b24(name_field) {
+        //     var print_result = '';
+        //     alert('in get_type_field_b24 ' + name_field);
+        //             BX24.callMethod(
+        //                 "crm.company.fields", 
+        //                 {}, 
+        //                 function(result) 
+        //                 {
+        //                     if(result.error())
+        //                         alert(result.error());
+        //                     else {
+        //                         var obj = result.data();
+        //                         print_result = obj[name_field]['type'];
+        //                         alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
+        //                     }
+        //                 }
+        //             );
+        //     return print_result;
+        // }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -281,6 +281,7 @@
                                     alert(result.error());
                                 else {
                                     var obj = result.data();
+                                    alert(obj+ ' -- ' + JSON.stringify(obj) + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
                                     type_value = obj[name_field]['type'];
                                 }
                             }
