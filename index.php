@@ -269,10 +269,12 @@
                             alert(typeof obj + ' - ' + obj.length);
                             alert(obj);
                             for (var i in obj){
-                                alert('i: '+ i);
-                                for (var j in obj[i]) {
-                                    alert('j: '+ j);
-                                }
+                                alert('i: '+ i + ' - ' + obj[i]['isReadOnly']);
+                                // for (var j in obj[i]) {
+                                //     if (j=='isReadOnly' && obj[i][j] == false) {
+                                //         temp = [i, obj[i]['title']];
+                                //     }
+                                // }
                             }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
