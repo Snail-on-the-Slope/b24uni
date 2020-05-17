@@ -266,8 +266,9 @@
             name_fields = name_fields.slice(0, name_fields.length-1);
 
             // создание компаний из полученного списка
+            var add_data_fields = {};
             for (i=0; i < array.length; i++) {
-                var add_data_fields = {};
+                add_data_fields = {};
                 for (j = 0; j < name_fields.length; j++) {
                     if (array[i][j]='')
                         array[i][j] = '-1'
