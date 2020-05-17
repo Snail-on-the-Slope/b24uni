@@ -157,7 +157,8 @@
         }
 
         function add_or_update_company_b24(title_, field) {
-            async () => { BX24.init(function() {
+            BX24.init(function() {
+                async () => {
                     var company_id = '';
                     await BX24.callMethod(
                         "crm.company.list", 
@@ -210,8 +211,8 @@
                             }
                         );
                     }
-                    
-            }); }
+                }  
+            }); 
         }
  
         // ----------------------- заполнение select -----------------------
