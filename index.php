@@ -447,26 +447,26 @@
 
             // var select = document.querySelector('#field_selection').getElementsByTagName('option');
             var select = localStorage.test;
-            alert('||||| ' + typeof select + ' ----- ' + select.length + ' ----- ' + select[0]);
-            for (var i = 0; i < select.length; i++) {
-                alert('|||||||||||||||||||||| ' + select[i].value + ' ' + select[i].classList[0]);
-                if (select[i].value == name_field) 
-                    value_type = select[i].classList[0];
-            }
+            alert('||||| ' + typeof select + ' ----- ' + select.length + ' ----- ' + select);
+            // for (var i = 0; i < select.length; i++) {
+            //     alert('|||||||||||||||||||||| ' + select[i].value + ' ' + select[i].classList[0]);
+            //     if (select[i].value == name_field) 
+            //         value_type = select[i].classList[0];
+            // }
 
-            if (value_type == 'string' || value_type == 'char') 
-                result = item;
-            if (value_type == 'integer') {
-                if (item = "") 
-                    result = "-1";
-                result = parseInt(result);
-            }
-            if (value_type == 'double') {
-                if (item = "") 
-                    result = "-1";
-                result = parseFloat(result);
-            }
-            alert(value_type + " --- " + typeof result + " --- " + result);
+            // if (value_type == 'string' || value_type == 'char') 
+            //     result = item;
+            // if (value_type == 'integer') {
+            //     if (item = "") 
+            //         result = "-1";
+            //     result = parseInt(result);
+            // }
+            // if (value_type == 'double') {
+            //     if (item = "") 
+            //         result = "-1";
+            //     result = parseFloat(result);
+            // }
+            // alert(value_type + " --- " + typeof result + " --- " + result);
             return result;
         }
 
