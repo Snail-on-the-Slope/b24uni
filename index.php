@@ -462,7 +462,7 @@
                 result = parseFloat(result);
             }
 
-            alert(value_type + " --- " + typeof result + " --- " + result);
+            alert(name_field + " --- " + value_type + " --- " + typeof result + " --- " + result);
             if (isNaN(result)) {  
                 alert("Неверный тип данных поля " + name_field + " значения " + item + " (требуется тип " + value_type + ")");
             }
@@ -510,7 +510,7 @@
                         add_data_fields[name_fields[0]] = get_type_field_(name_fields[0], array[i]); // = array[i]
                     } else {
                         for (j = 0; j < name_fields.length; j++) {
-                            add_data_fields[name_fields[j]] =  get_type_field_(name_fields[0], array[i][j]); // = array[i][j];
+                            add_data_fields[name_fields[j]] =  get_type_field_(name_fields[j], array[i][j]); // = array[i][j];
                         }
                     }
                     
