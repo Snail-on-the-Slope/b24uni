@@ -175,27 +175,27 @@
         //         });
         // }
 
-        async function get_type_field_b24(name_field) {
-            var print_result = '';
-            alert('in get_type_field_b24 ' + name_field);
-            await BX24.init(function(){
-                alert('in get_type_field_b24 || BX24');
-                    BX24.callMethod(
-                        "crm.company.fields", 
-                        {}, 
-                        function(result) 
-                        {
-                            if(result.error())
-                                alert(result.error());
-                            else {
-                                var obj = result.data();
-                                print_result = obj[name_field]['type'];
-                                return print_result;
-                            }
-                        }
-                    );
-                });
-        }
+        // async function get_type_field_b24(name_field) {
+        //     var print_result = '';
+        //     alert('in get_type_field_b24 ' + name_field);
+        //     await BX24.init(function(){
+        //         alert('in get_type_field_b24 || BX24');
+        //             BX24.callMethod(
+        //                 "crm.company.fields", 
+        //                 {}, 
+        //                 function(result) 
+        //                 {
+        //                     if(result.error())
+        //                         alert(result.error());
+        //                     else {
+        //                         var obj = result.data();
+        //                         print_result = obj[name_field]['type'];
+        //                         return print_result;
+        //                     }
+        //                 }
+        //             );
+        //         });
+        // }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -274,22 +274,19 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        get_type_field_b24(name_fields[j]).then((value) => {
-                            var type_value = value;
+                        // var type_value = get_type_field_b24(name_fields[j]);
 
-                            if (type_value == "integer") 
-                                add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                            if (type_value == "double") 
-                                add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                            if (type_value == "string" || type_value == "char")
-                                add_data_fields[name_fields[j]] = array[i][j];
+                        // if (type_value == "integer") 
+                        //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                        // if (type_value == "double") 
+                        //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                        // if (type_value == "string" || type_value == "char")
+                            add_data_fields[name_fields[j]] = array[i][j];
                             
-                            alert(type_value + ' - ' + JSON.stringify(add_data_fields));
-                        });
+                        // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
                     }
                     alert(JSON.stringify(add_data_fields));
-                
-                    // add_company_b24(add_data_fields);
+                    add_company_b24(add_data_fields);
                 }
                 // alert(JSON.stringify(add_data_fields));
                 // add_company_b24(add_data_fields);
