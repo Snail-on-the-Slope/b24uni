@@ -164,7 +164,7 @@
                     await BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
-                            filter: { "TITLE": "title_" },
+                            filter: { "TITLE": title_ },
                             select: [ "ID" ]				
                         }, 
                         function(result) 
