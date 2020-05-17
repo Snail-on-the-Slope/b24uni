@@ -255,7 +255,9 @@
                             option.text = 'Пользовательское поле';
                             option.classList.add('string');
                             selectList.appendChild(option);
-                            localStorage.test = selectList;
+
+                            var select = document.querySelector('#field_selection').getElementsByTagName('option');
+                            localStorage.test = select;
                 		}
                 	}
                 );
