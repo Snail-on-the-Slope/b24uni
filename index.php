@@ -178,6 +178,11 @@
         function get_type_field_b24(name_field) {
             var print_result = '';
             alert('in get_type_field_b24 ' + name_field);
+            // (async () => {
+            // for (i = 0; i < 10; ++i) {
+            //     await demo(i);
+            // }
+            // })();
             BX24.init(function(){
                 alert('in get_type_field_b24 || BX24');
                     BX24.callMethod(
@@ -190,12 +195,11 @@
                             else {
                                 var obj = result.data();
                                 print_result = obj[name_field]['type'];
-                                alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
+                                return print_result;
                             }
                         }
                     );
                 });
-            return print_result;
         }
  
         // ----------------------- заполнение select -----------------------
