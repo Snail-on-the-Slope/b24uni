@@ -193,8 +193,7 @@
                             }
                         );
                     } else {
-                        BX24.callMethod(
-                            "crm.company.update", 
+                        BX24.callMethod( "crm.company.update", 
                             { 
                                 id: company_id,
                                 fields: field,
@@ -513,7 +512,7 @@
                     
                     // alert(JSON.stringify(add_data_fields));
                     if (title_company == '') {
-                        alert('ERROR Название компании - обязательное не пустое поле')ж
+                        alert('ERROR Название компании - обязательное не пустое поле');
                         continue;
                     }
                     // add_company_b24(title_company, add_data_fields); // добавление
