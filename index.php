@@ -436,7 +436,11 @@
         };
         // ----------------------- END -----------------------
 
-        function get_type_field_(name_field, item) {
+
+        // ----------------------- после отправки формы .import-data -----------------------
+
+        // проверка совпадения типа поля и вводимого значения
+        function get_type_field_(name_field, item) { 
             var result = item;
             var value_type = '';
 
@@ -458,12 +462,11 @@
                     result = "-1";
                 result = parseFloat(result);
             }
-
+            alert(value_type + " --- " + typeof result + " --- " + result);
             return result;
         }
 
-
-        // ----------------------- после отправки формы .import-data -----------------------
+        // если была нажата кнопка  "Импортировать данные из Google Sheets"
         var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
             if (permission == 1) {
                 var textarea = document.getElementById('import-area');
@@ -501,10 +504,10 @@
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
                     if (count_item == 1) {
-                        add_data_fields[name_fields[0]] = get_type_field_(name_fields[0], array[i]); // array[i]
+                        add_data_fields[name_fields[0]] = get_type_field_(name_fields[0], array[i]); // = array[i]
                     } else {
                         for (j = 0; j < name_fields.length; j++) {
-                            add_data_fields[name_fields[j]] =  get_type_field_(name_fields[0], array[i][j]); //array[i][j];
+                            add_data_fields[name_fields[j]] =  get_type_field_(name_fields[0], array[i][j]); // = array[i][j];
                         }
                     }
                     
