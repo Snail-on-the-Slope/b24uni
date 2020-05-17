@@ -211,9 +211,10 @@
                             res__ = [];
                             for (var i in res) {
                                 for (var j in res[i]) {
-                                    // console.log(res[i][j]);
-                                    // console.log(res[i][j]['isReadOnly']);
+                                    //(res[i][j]);
+                                    alert(j + ' - ' + res[i][j]['isReadOnly']);
                                     if (res[i][j]['isReadOnly'] == false) {
+                                        alert('!!!!!!!!!!!!!!!!!!!!!!!');
                                         temp = [j, res[i][j]['title']];
                                         res__.push(temp);
                                     }
