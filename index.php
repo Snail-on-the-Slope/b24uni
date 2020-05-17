@@ -267,7 +267,10 @@
                             
                             for (var i in obj){
                                 if (obj[i]['isReadOnly']==false) {
-                                    temp = [i, obj[i]['title']];
+                                    if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
+                                        temp = [i, obj[i]['title']];
+                                    else
+                                        temp = [i, obj[i]['listLabel']];
 
                                     var option = document.createElement("option");
                                     option.value = temp[0];
@@ -275,6 +278,10 @@
                                     selectList.appendChild(option);
                                 } 
                             }
+                            var option = document.createElement("option");
+                            option.value = 'CUSTOM_FIELD';
+                            option.text = 'Пользовательское поле';
+                            selectList.appendChild(option);
                 		}
                 	}
                 );
