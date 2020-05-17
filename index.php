@@ -246,18 +246,14 @@
                                     var option = document.createElement("option");
                                     option.value = temp[0];
                                     option.text = temp[1];
-                                    option.classList.add(temp[2]);
                                     selectList.appendChild(option);
+                                    localStorage.setItem(option.value, temp[2]);
                                 } 
                             }
                             var option = document.createElement("option");
                             option.value = 'CUSTOM_FIELD';
                             option.text = 'Пользовательское поле';
-                            option.classList.add('string');
                             selectList.appendChild(option);
-
-                            var select = document.querySelector('#field_selection').getElementsByTagName('option');
-                            localStorage.test = select;
                 		}
                 	}
                 );
@@ -448,8 +444,12 @@
             var value_type = '';
 
             // var select = document.querySelector('#field_selection').getElementsByTagName('option');
-            var select = localStorage.test;
-            alert('||||| ' + typeof select + ' ----- ' + select.length + ' ----- ' + select);
+            // var select = localStorage.test;
+            // alert('||||| ' + typeof select + ' ----- ' + select.length + ' ----- ' + select);
+            let keys = Object.keys(localStorage);
+            for(let key of keys) {
+                alert(`${key}: ${localStorage.getItem(key)}`);
+            }
             // for (var i = 0; i < select.length; i++) {
             //     alert('|||||||||||||||||||||| ' + select[i].value + ' ' + select[i].classList[0]);
             //     if (select[i].value == name_field) 
