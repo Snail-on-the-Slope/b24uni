@@ -143,6 +143,7 @@
     </div>
 
     <script>
+        // ----------------------- после отправки формы .import-data -----------------------
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
@@ -197,29 +198,29 @@
                 //             console.info("Создана компания с ID " + result.data());
                 //     }
                 // );
+
+                BX24.callMethod(
+                	"crm.company.fields", 
+                	{}, 
+                	function(result) 
+                	{
+                		if(result.error())
+                			alert(result.error());
+                		else {
+                			res = JSON.stringify(result.data());
+                			textarea.innerHTML += res + '</br>';
+                		}
+                	}
+                );
 			});
-
-			// BX24.callMethod(
-			// 	"crm.company.fields", 
-			// 	{}, 
-			// 	function(result) 
-			// 	{
-			// 		if(result.error())
-			// 			alert(result.error());
-			// 		else {
-			// 			res = JSON.stringify(result.data());
-			// 			textarea.innerHTML += res + '</br>';
-			// 		}
-			// 	}
-			// );
-
-            
 
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
 
+        // ----------------------- END -----------------------
 
 
+        // ----------------------- работа с динамичной обработкой и созданием ячеек в .import-data -----------------------
         var k = 0;
         function addField() {
             let elem = document.getElementById('add_field_area');
@@ -388,6 +389,7 @@
                 error.innerHTML = "";
             }
         };
+        // ----------------------- END -----------------------
     </script>
 </body>
 </html>
