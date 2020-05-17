@@ -190,11 +190,11 @@
                             else {
                                 var obj = result.data();
                                 print_result = obj[name_field]['type'];
+                                return print_result;
                             }
                         }
                     );
                 });
-            return print_result;
         }
  
         // ----------------------- заполнение select -----------------------
@@ -274,37 +274,18 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        var async_type_value = async () => {
-                            var result_async = await get_type_field_b24(name_fields[j]);
+                        get_type_field_b24(name_fields[j]).then((value) => {
+                            var type_value = value;
 
-                            return result_async;
-                        }
-                        type_value = async_type_value();
-                        // BX24.init(function(){
-                        //     BX24.callMethod(
-                        //         "crm.company.fields", 
-                        //         {}, 
-                        //         function(result) 
-                        //         {
-                        //             if(result.error())
-                        //                 alert(result.error());
-                        //             else {
-                        //                 var obj = result.data();
-                        //                 alert(obj+ ' -- ' + JSON.stringify(obj) + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
-                        //                 type_value = obj[name_field]['type'];
-                        //             }
-                        //         }
-                        //     );
-                        // });
-
-                        if (type_value == "integer") 
-                            add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                        if (type_value == "double") 
-                            add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                        if (type_value == "string" || type_value == "char")
-                            add_data_fields[name_fields[j]] = array[i][j];
-                        
-                        alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+                            if (type_value == "integer") 
+                                add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                            if (type_value == "double") 
+                                add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                            if (type_value == "string" || type_value == "char")
+                                add_data_fields[name_fields[j]] = array[i][j];
+                            
+                            alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+                        });
                     }
                     alert(JSON.stringify(add_data_fields));
                 
