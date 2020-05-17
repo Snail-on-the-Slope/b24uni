@@ -164,9 +164,9 @@
                 }
                 array.push(temp_temp);
             }
-
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
+            alert(array.length + ' ' + name_fields + ' '+ JSON.stringify(array));
 
             for (i=0; i < array.length; i++) {
                 var add_data_fields = {};
