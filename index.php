@@ -160,6 +160,7 @@
             BX24.init(function() {
                 alert('start b24 ' + title_ + ' ' + field);
                 async () => {
+                    alert('1111111 ' + title_);
                     var company_id = '';
                     await BX24.callMethod( "crm.company.list", 
                         { 
@@ -169,12 +170,13 @@
                         }, 
                         function(result) 
                         {
-                            if(result.error())
+                            if (result.error())
                                 console.error(result.error());
                             else
                                 company_id = result.data();	
                         }
                     );
+                    alert(22222222 ' + title_);
                 
                     if (company_id == '') {
                         BX24.callMethod( "crm.company.add", 
@@ -210,7 +212,7 @@
                             }
                         );
                     }
-                    alert('!!!!!!!!!!!!!!!!');
+                    alert('3333333 ' + title_);
                 }  
             }); 
             alert('end b24 ' + title_ + ' ' + field);
