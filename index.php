@@ -194,7 +194,7 @@
                         }
                     );
                 });
-            return print_result;
+            return Promise.resolve(print_result);
         }
  
         // ----------------------- заполнение select -----------------------
