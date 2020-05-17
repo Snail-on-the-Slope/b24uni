@@ -473,10 +473,11 @@
                 var add_data_fields = {};
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
-                    alert('i: ' + JSON.stringify(array[i]));
+                    add_data_fields = {};
                     for (j = 0; j < name_fields.length; j++) {
-                        alert('j: ' + JSON.stringify(array[i][j]) + ' ' + name_fields[j]);
+                        add_data_fields[name_fields[j]] = array[i][j];
                     }
+                    alert(JSON.stringify(add_data_fields));
                     // add_data_fields = {};
                     // for (j = 0; j < name_fields.length; j++) {
                     //     // if (array[i][j]='')
@@ -496,8 +497,6 @@
                     // alert(JSON.stringify(add_data_fields));
                     // add_company_b24(add_data_fields);
                 }
-                // alert(JSON.stringify(add_data_fields));
-                // add_company_b24(add_data_fields);
 
                 <?php $permission_to_connect_to_bitrix = 0;?>
             }
