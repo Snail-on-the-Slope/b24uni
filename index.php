@@ -279,6 +279,8 @@
                         add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
                     if (type_value == "string" || type_value == "char")
                         add_data_fields[name_fields[j]] = array[i][j];
+                    
+                    alert(type_value + ' - ' + JSON.stringify(add_data_fields));
                 }
                 alert(JSON.stringify(add_data_fields));
             
