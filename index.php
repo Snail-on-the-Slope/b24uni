@@ -175,25 +175,28 @@
         //         });
         // }
 
-        // function get_type_field_b24(name_field) {
-        //     var print_result = '';
-        //     alert('in get_type_field_b24 ' + name_field);
-        //             BX24.callMethod(
-        //                 "crm.company.fields", 
-        //                 {}, 
-        //                 function(result) 
-        //                 {
-        //                     if(result.error())
-        //                         alert(result.error());
-        //                     else {
-        //                         var obj = result.data();
-        //                         print_result = obj[name_field]['type'];
-        //                         alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
-        //                     }
-        //                 }
-        //             );
-        //     return print_result;
-        // }
+        function get_type_field_b24(name_field) {
+            var print_result = '';
+            alert('in get_type_field_b24 ' + name_field);
+            BX24.init(function(){
+                alert('in get_type_field_b24 || BX24');
+                    BX24.callMethod(
+                        "crm.company.fields", 
+                        {}, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                alert(result.error());
+                            else {
+                                var obj = result.data();
+                                print_result = obj[name_field]['type'];
+                                alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
+                            }
+                        }
+                    );
+                });
+            return print_result;
+        }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -229,8 +232,9 @@
                 	}
                 );
             // ----------------------- END -----------------------
+        });
 
-            // ----------------------- после отправки формы .import-data -----------------------
+        // ----------------------- после отправки формы .import-data -----------------------
             var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
             if (permission == 1) {
                 var textarea = document.getElementById('import-area');
@@ -271,21 +275,23 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        var type_value = '';
-                        BX24.callMethod(
-                            "crm.company.fields", 
-                            {}, 
-                            function(result) 
-                            {
-                                if(result.error())
-                                    alert(result.error());
-                                else {
-                                    var obj = result.data();
-                                    alert(obj+ ' -- ' + JSON.stringify(obj) + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
-                                    type_value = obj[name_field]['type'];
-                                }
-                            }
-                        );
+                        var type_value = get_type_field_b24(name_field[j]);
+                        // BX24.init(function(){
+                        //     BX24.callMethod(
+                        //         "crm.company.fields", 
+                        //         {}, 
+                        //         function(result) 
+                        //         {
+                        //             if(result.error())
+                        //                 alert(result.error());
+                        //             else {
+                        //                 var obj = result.data();
+                        //                 alert(obj+ ' -- ' + JSON.stringify(obj) + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
+                        //                 type_value = obj[name_field]['type'];
+                        //             }
+                        //         }
+                        //     );
+                        // });
 
                         if (type_value == "integer") 
                             add_data_fields[name_fields[j]] = parseInt(array[i][j]);
@@ -306,9 +312,7 @@
                 <?php $permission_to_connect_to_bitrix = 0;?>
             }
         
-            // ----------------------- END -----------------------
-
-        });
+        // ----------------------- END -----------------------
 
         
 
