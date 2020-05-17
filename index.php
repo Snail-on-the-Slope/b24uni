@@ -473,7 +473,7 @@
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
-                    if count_item == 1:
+                    if count_item == 1
                         add_data_fields[name_fields[0]] = array[i];
                     else {
                         for (j = 0; j < name_fields.length; j++) {
