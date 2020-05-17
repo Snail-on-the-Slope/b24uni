@@ -446,7 +446,7 @@
             var value_type = '';
 
             // var select = document.querySelector('#field_selection').getElementsByTagName('option');
-            var select = localStorage.test.getElementsByTagName('option');
+            var select = localStorage.test;
             alert('||||| ' + typeof select + ' ----- ' + select.length + ' ----- ' + select[0]);
             for (var i = 0; i < select.length; i++) {
                 alert('|||||||||||||||||||||| ' + select[i].value + ' ' + select[i].classList[0]);
