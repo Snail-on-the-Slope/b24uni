@@ -135,10 +135,108 @@
     </div>
 
     <script>
+        function add_company_b24 (field) {
+            BX24.init(function(){
+                    BX24.callMethod( "crm.company.add", 
+                        {
+                            fields: field,
+                            params: { "REGISTER_SONET_EVENT": "Y" }		
+                        }, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                console.error(result.error());
+                            else {
+                                var textarea = document.getElementById('import-area');
+                                textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
+                            }
+                        }
+                    );
+                });
+        }
+
+        function get_list_company_b24 (field) {
+            BX24.init(function(){
+                    BX24.callMethod( "crm.company.add", 
+                        {
+                            fields: field,
+                            params: { "REGISTER_SONET_EVENT": "Y" }		
+                        }, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                console.error(result.error());
+                            else {
+                                var textarea = document.getElementById('import-area');
+                                textarea.innerHTML += "Создана компания с ID " + result.data();
+                            }
+                        }
+                    );
+                });
+        }
+
+        function get_type_field_b24 (name_field) {
+            var print_result = '';
+            BX24.init(function(){
+                    BX24.callMethod(
+                        "crm.company.fields", 
+                        {}, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                alert(result.error());
+                            else {
+                                var obj = result.data();
+                                print_result = obj[name_field]['type'];
+                            }
+                        }
+                    );
+            });
+            return print_result;
+        }
+ 
+        // ----------------------- заполнение select -----------------------
+        BX24.init(function(){
+                BX24.callMethod(
+                	"crm.company.fields", 
+                	{}, 
+                	function(result) 
+                	{
+                		if(result.error())
+                			alert(result.error());
+                		else {
+                            var selectList = document.getElementById('field_selection');
+                            var obj = result.data();
+                            
+                            for (var i in obj){
+                                if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
+                                    if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
+                                        temp = [i, obj[i]['title']]; 
+                                    else
+                                        temp = [i, obj[i]['listLabel']]; 
+
+                                    var option = document.createElement("option");
+                                    option.value = temp[0];
+                                    option.text = temp[1];
+                                    selectList.appendChild(option);
+                                } 
+                            }
+                            var option = document.createElement("option");
+                            option.value = 'CUSTOM_FIELD';
+                            option.text = 'Пользовательское поле';
+                            selectList.appendChild(option);
+                		}
+                	}
+                );
+        });
+
+        // ----------------------- END -----------------------
+
         // ----------------------- после отправки формы .import-data -----------------------
 		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
 		if (permission == 1) {
 			var textarea = document.getElementById('import-area');
+            // получение и обработка списка значений из таблицы
             var obj = '<?php echo $inport_data_table_to_js;?>';
             var array = [];
             var k_import = '<?php echo $k;?>';
@@ -166,79 +264,28 @@
             }
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
-            alert(array.length + ' ' + name_fields + ' '+ JSON.stringify(array));
 
+            // создание компаний из полученного списка
             for (i=0; i < array.length; i++) {
                 var add_data_fields = {};
                 for (j = 0; j < name_fields.length; j++) {
-                    add_data_fields[name_fields[j]] = array[i][j];
+                    if (array[i][j]='')
+                        array[i][j] = '-1'
+                    var type_value = get_type_field_b24(name_fields[j];
+                    if (type_value == "integer") 
+                        add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                    if (type_value == "double") 
+                        add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                    if (type_value == "string" || type_value == "char")
+                        add_data_fields[name_fields[j]] = array[i][j];
                 }
-                alert(JSON.stringify(add_data_fields));
             
-                BX24.init(function(){
-                    // BX24.callMethod( "crm.company.add", 
-                    //     {
-                    //         fields:
-                    //         { 
-                    //             "TITLE": "ИП Титов",
-                    //             "COMPANY_TYPE": "CUSTOMER"	
-                    //         },
-                    //         params: { "REGISTER_SONET_EVENT": "Y" }		
-                    //     }, 
-                    //     function(result) 
-                    //     {
-                    //         if(result.error())
-                    //             console.error(result.error());
-                    //         else
-                    //             console.info("Создана компания с ID " + result.data());
-                    //     }
-                    // );
-                });
-
+                add_company_b24(add_data_fields);
             }
 
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
     
-        // ----------------------- END -----------------------
- 
-        // ----------------------- заполнение select -----------------------
-        BX24.init(function(){
-                BX24.callMethod(
-                	"crm.company.fields", 
-                	{}, 
-                	function(result) 
-                	{
-                		if(result.error())
-                			alert(result.error());
-                		else {
-                            var selectList = document.getElementById('field_selection');
-                            var obj = result.data();
-                            
-                            for (var i in obj){
-                                if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
-                                    if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
-                                        temp = [i, obj[i]['title']]; // temp = [i, obj[i]['title'], obj[i]['type']];
-                                    else
-                                        temp = [i, obj[i]['listLabel']]; // temp = [i, obj[i]['listLabel']];
-
-                                    var option = document.createElement("option");
-                                    option.value = temp[0];
-                                    option.text = temp[1];
-                                    // option.classList.add(temp[2]);
-                                    selectList.appendChild(option);
-                                } 
-                            }
-                            var option = document.createElement("option");
-                            option.value = 'CUSTOM_FIELD';
-                            option.text = 'Пользовательское поле';
-                            // option.classList.add('string');
-                            selectList.appendChild(option);
-                		}
-                	}
-                );
-        });
-
         // ----------------------- END -----------------------
 
 
