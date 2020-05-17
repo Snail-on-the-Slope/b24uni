@@ -194,7 +194,7 @@
                         }
                     );
                 });
-            return Promise.resolve(print_result);
+            return print_result;
         }
  
         // ----------------------- заполнение select -----------------------
@@ -274,7 +274,10 @@
                         if (array[i][j]='')
                             array[i][j] = '-1'
 
-                        var type_value = get_type_field_b24(name_fields[j]);
+                        var type_value = '';
+                        get_type_field_b24(name_fields[j]).then(.then((value) => {
+                            type_value = value;
+                        }););
                         // BX24.init(function(){
                         //     BX24.callMethod(
                         //         "crm.company.fields", 
