@@ -205,16 +205,16 @@
                     if (array[i][j]='')
                         array[i][j] = '-1'
 
-                    var type_value = await get_type_field_b24(name_fields[j]);
+                    // var type_value = await get_type_field_b24(name_fields[j]);
 
-                    if (type_value == "integer") 
-                        add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                    if (type_value == "double") 
-                        add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                    if (type_value == "string" || type_value == "char")
+                    // if (type_value == "integer") 
+                    //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                    // if (type_value == "double") 
+                    //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                    // if (type_value == "string" || type_value == "char")
                         add_data_fields[name_fields[j]] = array[i][j];
                             
-                    alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+                    // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
                 }
                 alert(JSON.stringify(add_data_fields));
                 // add_company_b24(add_data_fields);
