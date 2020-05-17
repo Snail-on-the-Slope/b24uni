@@ -164,11 +164,16 @@
                 }
                 array.push(temp_temp);
             }
+            alert(array.length);
             alert(array[0]);
             alert(array[0][0]);
+
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
             alert(name_fields);
+
+            // for (i=0, i < array)
+            var add_data_fields = {};
 			BX24.init(function(){
 				// BX24.callMethod('user.current', {}, function(res){
 				// 	textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
@@ -214,19 +219,21 @@
                             for (var i in obj){
                                 if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
                                     if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
-                                        temp = [i, obj[i]['title']];
+                                        temp = [i, obj[i]['title']]; // temp = [i, obj[i]['title'], obj[i]['type']];
                                     else
-                                        temp = [i, obj[i]['listLabel']];
+                                        temp = [i, obj[i]['listLabel']]; // temp = [i, obj[i]['listLabel']];
 
                                     var option = document.createElement("option");
                                     option.value = temp[0];
                                     option.text = temp[1];
+                                    // option.classList.add(temp[2]);
                                     selectList.appendChild(option);
                                 } 
                             }
                             var option = document.createElement("option");
                             option.value = 'CUSTOM_FIELD';
                             option.text = 'Пользовательское поле';
+                            // option.classList.add('string');
                             selectList.appendChild(option);
                 		}
                 	}
