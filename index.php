@@ -175,51 +175,51 @@
         //         });
         // }
 
-        async function get_type_field_b24(name_field) {
-            var print_result = '';
-            alert('in get_type_field_b24 ' + name_field);
-            await BX24.init(function(){
-                alert('in get_type_field_b24 || BX24');
-                    BX24.callMethod(
-                        "crm.company.fields", 
-                        {}, 
-                        function(result) 
-                        {
-                            if(result.error())
-                                alert(result.error());
-                            else {
-                                var obj = result.data();
-                                print_result = obj[name_field]['type'];
-                            }
-                        }
-                    );
-                });
-            return print_result;
-        }
+        // async function get_type_field_b24(name_field) {
+        //     var print_result = '';
+        //     alert('in get_type_field_b24 ' + name_field);
+        //     await BX24.init(function(){
+        //         alert('in get_type_field_b24 || BX24');
+        //             BX24.callMethod(
+        //                 "crm.company.fields", 
+        //                 {}, 
+        //                 function(result) 
+        //                 {
+        //                     if(result.error())
+        //                         alert(result.error());
+        //                     else {
+        //                         var obj = result.data();
+        //                         print_result = obj[name_field]['type'];
+        //                     }
+        //                 }
+        //             );
+        //         });
+        //     return print_result;
+        // }
 
-        async function creation_of_companies_from_the_list_received(array, name_fields) {
-            var add_data_fields = {};
-            for (i=0; i < array.length; i++) {
-                add_data_fields = {};
-                for (j = 0; j < name_fields.length; j++) {
-                    if (array[i][j]='')
-                        array[i][j] = '-1'
+        // async function creation_of_companies_from_the_list_received(array, name_fields) {
+        //     var add_data_fields = {};
+        //     for (i=0; i < array.length; i++) {
+        //         add_data_fields = {};
+        //         for (j = 0; j < name_fields.length; j++) {
+        //             if (array[i][j]='')
+        //                 array[i][j] = '-1'
 
-                    // var type_value = await get_type_field_b24(name_fields[j]);
+        //             // var type_value = await get_type_field_b24(name_fields[j]);
 
-                    // if (type_value == "integer") 
-                    //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                    // if (type_value == "double") 
-                    //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                    // if (type_value == "string" || type_value == "char")
-                        add_data_fields[name_fields[j]] = array[i][j];
+        //             // if (type_value == "integer") 
+        //             //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+        //             // if (type_value == "double") 
+        //             //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+        //             // if (type_value == "string" || type_value == "char")
+        //                 add_data_fields[name_fields[j]] = array[i][j];
                             
-                    // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
-                }
-                alert(JSON.stringify(add_data_fields));
-                // add_company_b24(add_data_fields);
-            }
-        }
+        //             alert(type_value + ' - ' + JSON.stringify(add_data_fields));
+        //         }
+        //         alert(JSON.stringify(add_data_fields));
+        //         // add_company_b24(add_data_fields);
+        //     }
+        // }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -467,28 +467,28 @@
                 name_fields = name_fields.slice(0, name_fields.length-1);
 
                 // создание компаний из полученного списка
-                creation_of_companies_from_the_list_received(array, name_fields);
-                // var add_data_fields = {};
-                // for (i=0; i < array.length; i++) {
-                //     add_data_fields = {};
-                //     for (j = 0; j < name_fields.length; j++) {
-                //         if (array[i][j]='')
-                //             array[i][j] = '-1'
+                // creation_of_companies_from_the_list_received(array, name_fields);
+                var add_data_fields = {};
+                for (i=0; i < array.length; i++) {
+                    add_data_fields = {};
+                    for (j = 0; j < name_fields.length; j++) {
+                        if (array[i][j]='')
+                            array[i][j] = '-1'
 
-                //         // var type_value = get_type_field_b24(name_fields[j]);
+                        // var type_value = get_type_field_b24(name_fields[j]);
 
-                //         // if (type_value == "integer") 
-                //         //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-                //         // if (type_value == "double") 
-                //         //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-                //         // if (type_value == "string" || type_value == "char")
-                //             add_data_fields[name_fields[j]] = array[i][j];
+                        // if (type_value == "integer") 
+                        //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
+                        // if (type_value == "double") 
+                        //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
+                        // if (type_value == "string" || type_value == "char")
+                            add_data_fields[name_fields[j]] = array[i][j];
                             
-                //         // alert(type_value + ' - ' + JSON.stringify(add_data_fields));
-                //     }
-                //     alert(JSON.stringify(add_data_fields));
-                //     add_company_b24(add_data_fields);
-                // }
+                        alert(name_fields[j] + ' - ' + JSON.stringify(array)  + ' - ' + JSON.stringify(array[i]) + ' - ' + array[i][j] + ' - ' + JSON.stringify(add_data_fields));
+                    }
+                    alert(JSON.stringify(add_data_fields));
+                    // add_company_b24(add_data_fields);
+                }
                 // alert(JSON.stringify(add_data_fields));
                 // add_company_b24(add_data_fields);
 
