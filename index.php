@@ -143,7 +143,7 @@
             var array = [];
             var k_import = '<?php echo $k;?>';
 
-            if (k_import == 4) {
+            if (k_import == 5) {
                 array = obj.substr(2, obj.length - 2).split('", "');
             } else {
                 var count_company = '<?php echo $count_company;?>';
@@ -164,7 +164,8 @@
                 }
                 array.push(temp_temp);
             }
-            alert(array);
+            alert(array[0]);
+            alert(array[0][0]);
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
             alert(name_fields);
@@ -211,7 +212,7 @@
                             var obj = result.data();
                             
                             for (var i in obj){
-                                if (obj[i]['isReadOnly']==false) {
+                                if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
                                     if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
                                         temp = [i, obj[i]['title']];
                                     else
@@ -316,6 +317,10 @@
                 if ((!this.classList.contains('hide')) && ((this.value == "") || (this.value == null))) {
                     this.classList.add('invalid');
                     error.innerHTML = 'Не заполнено название поля'
+                }
+                if ((!this.classList.contains('hide')) && ((this.value.length > 13))) {
+                    this.classList.add('invalid');
+                    error.innerHTML = 'Слишком длинное название'
                 }
             };
             item2.onfocus = function () {
