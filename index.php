@@ -263,13 +263,16 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
-                			res = JSON.stringify(result.data());
-                            var obj = JSON.parse(JSON.stringify(result.data()));
+                			// res = JSON.stringify(result.data());
+                            var obj = result.data());
                             res__ = [];
                             alert(typeof obj + ' - ' + obj.length);
                             alert(obj);
                             for (var i in obj){
-                                res__.push(i);
+                                alert('i: '+ i);
+                                for (var j in obj[i]) {
+                                    alert('j: '+ j);
+                                }
                             }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
