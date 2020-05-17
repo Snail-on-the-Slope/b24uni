@@ -172,8 +172,8 @@
                             if (result.error())
                                 console.error(result.error());
                             else {
-                                company_id = result.data();	
-                                alert('22222222 ' + title_ + ' - ' + company_id);
+                                company_id = result.data();
+                                alert('22222222 ' + title_ + ' - ' + company_id + ' - ' + typeof  result.data() + ' ' +  result.data() );
                             }
                                 
                         }
