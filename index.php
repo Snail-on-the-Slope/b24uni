@@ -158,7 +158,6 @@
 
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
-                // alert('start b24 ' + title_ + ' ' + field);
                 ( async () => {
                     alert('1111111 ' + title_);
                     var company_id = '';
@@ -172,13 +171,17 @@
                         {
                             if (result.error())
                                 console.error(result.error());
-                            else
+                            else {
                                 company_id = result.data();	
+                                alert(('22222222 ' + title_ + ' - ' + company_id);
+                            }
+                                
                         }
                     );
                     // alert('22222222 ' + title_);
                 
                     if (company_id == '') {
+                        alert('33333333 ' + title_);
                         BX24.callMethod( "crm.company.add", 
                             {
                                 fields: field,
@@ -212,10 +215,9 @@
                             }
                         );
                     }
-                    alert('3333333 ' + title_);
+                    alert('4444444 ' + title_);
                 })();  
             }); 
-            // alert('end b24 ' + title_ + ' ' + field);
         }
  
         // ----------------------- заполнение select -----------------------
