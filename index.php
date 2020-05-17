@@ -446,6 +446,7 @@
 
             var select = document.querySelector('#field_selection').getElementsByTagName('option');
             for (var i = 0; i < select.length; i++) {
+                alert('|||||||||||||||||||||| ' + select[i].value + ' ' + select[i].classList[0]);
                 if (select[i].value == name_field) 
                     value_type = select[i].classList[0];
             }
