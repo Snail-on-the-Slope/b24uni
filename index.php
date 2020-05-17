@@ -264,7 +264,7 @@
                 			alert(result.error());
                 		else {
                 			// res = JSON.stringify(result.data());
-                            var obj = result.data());
+                            var obj = result.data();
                             res__ = [];
                             alert(typeof obj + ' - ' + obj.length);
                             alert(obj);
