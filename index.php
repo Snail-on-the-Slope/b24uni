@@ -471,7 +471,10 @@
                 var add_data_fields = {};
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
-                    alert(JSON.stringify(array[i]));
+                    alert('i: ' + JSON.stringify(array[i]));
+                    for (j = 0; j < array[i].length; j++) {
+                        alert('j: ' + JSON.stringify(array[i][j]) + ' ' + name_field[j]);
+                    }
                     // add_data_fields = {};
                     // for (j = 0; j < name_fields.length; j++) {
                     //     // if (array[i][j]='')
