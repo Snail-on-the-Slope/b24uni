@@ -264,13 +264,13 @@
                 			alert(result.error());
                 		else {
                 			res = JSON.stringify(result.data());
+                            var obj = JSON.parse(JSON.stringify(result.data()));
                             res__ = [];
-                            alert(typeof res + ' - ' + res.length);
-                            alert(res);
-                            // for (i=0; i < result.data().length; i++){
-                            //     if (i<2)
-                            //         alert(i + ' - ' + res[i]);
-                            // }
+                            alert(typeof obj + ' - ' + obj.length);
+                            alert(obj);
+                            for (var i in obj){
+                                res__.push(i);
+                            }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
                             //     for (var j in res[i]) {
