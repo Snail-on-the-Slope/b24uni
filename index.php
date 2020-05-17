@@ -239,19 +239,21 @@
                             for (var i in obj){
                                 if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
                                     if (obj[i]['title'].indexOf('UF_CRM_') == -1) 
-                                        temp = [i, obj[i]['title']]; 
+                                        temp = [i, obj[i]['title'], obj[i]['type']]; 
                                     else
-                                        temp = [i, obj[i]['listLabel']]; 
+                                        temp = [i, obj[i]['listLabel'], obj[i]['type']]; 
 
                                     var option = document.createElement("option");
                                     option.value = temp[0];
                                     option.text = temp[1];
+                                    option.classList.add(temp[2]);
                                     selectList.appendChild(option);
                                 } 
                             }
                             var option = document.createElement("option");
                             option.value = 'CUSTOM_FIELD';
                             option.text = 'Пользовательское поле';
+                            option.classList.add('string');
                             selectList.appendChild(option);
                 		}
                 	}
@@ -434,6 +436,32 @@
         };
         // ----------------------- END -----------------------
 
+        function get_type_field_(name_field, item) {
+            var result = item;
+            var value_type = '';
+
+            var select = document.querySelector('#field_selection').getElementsByTagName('option');
+            for (var i = 0; i < select.length; i++) {
+                if (select[i].value == name_field) 
+                    value_type = select[i].classList[0];
+            }
+
+            if (value_type == 'string' || value_type == 'char') 
+                result = item;
+            if (value_type == 'integer') {
+                if (item = "") 
+                    result = "-1";
+                result = parseInt(result);
+            }
+            if (value_type == 'double') {
+                if (item = "") 
+                    result = "-1";
+                result = parseFloat(result);
+            }
+
+            return result;
+        }
+
 
         // ----------------------- после отправки формы .import-data -----------------------
         var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
@@ -472,16 +500,16 @@
                 alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
-                    if (count_item == 1)
-                        add_data_fields[name_fields[0]] = array[i];
-                    else {
+                    if (count_item == 1) {
+                        add_data_fields[name_fields[0]] = get_type_field_(name_fields[0], array[i]); // array[i]
+                    } else {
                         for (j = 0; j < name_fields.length; j++) {
-                            add_data_fields[name_fields[j]] = array[i][j];
+                            add_data_fields[name_fields[j]] =  get_type_field_(name_fields[0], array[i][j]); //array[i][j];
                         }
                     }
                     
                     alert(JSON.stringify(add_data_fields));
-                    add_company_b24(add_data_fields);
+                    // add_company_b24(add_data_fields); // добавление
                 }
 
                 <?php $permission_to_connect_to_bitrix = 0;?>
