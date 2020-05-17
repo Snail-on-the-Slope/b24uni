@@ -136,9 +136,8 @@
     </div>
 
     <script>
-        function add_company_b24 (field) {
+        function add_company_b24 (title_, field) {
             BX24.init(function(){
-                alert('add_company_b24 BX24 '  + field);
                     BX24.callMethod( "crm.company.add", 
                         {
                             fields: field,
@@ -150,78 +149,70 @@
                                 console.error(result.error());
                             else {
                                 var textarea = document.getElementById('import-area');
-                                textarea.innerHTML += "Создана компания с ID " + result.data() + "\n";
+                                textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
                             }
                         }
                     );
             });
         }
 
-        // function get_list_company_b24 (field) {
-        //     BX24.init(function(){
-        //             BX24.callMethod( "crm.company.add", 
-        //                 {
-        //                     fields: field,
-        //                     params: { "REGISTER_SONET_EVENT": "Y" }		
-        //                 }, 
-        //                 function(result) 
-        //                 {
-        //                     if(result.error())
-        //                         console.error(result.error());
-        //                     else {
-        //                         var textarea = document.getElementById('import-area');
-        //                         textarea.innerHTML += "Создана компания с ID " + result.data();
-        //                     }
-        //                 }
-        //             );
-        //         });
-        // }
-
-        // async function get_type_field_b24(name_field) {
-        //     var print_result = '';
-        //     alert('in get_type_field_b24 ' + name_field);
-        //     await BX24.init(function(){
-        //         alert('in get_type_field_b24 || BX24');
-        //             BX24.callMethod(
-        //                 "crm.company.fields", 
-        //                 {}, 
-        //                 function(result) 
-        //                 {
-        //                     if(result.error())
-        //                         alert(result.error());
-        //                     else {
-        //                         var obj = result.data();
-        //                         print_result = obj[name_field]['type'];
-        //                     }
-        //                 }
-        //             );
-        //         });
-        //     return print_result;
-        // }
-
-        // async function creation_of_companies_from_the_list_received(array, name_fields) {
-        //     var add_data_fields = {};
-        //     for (i=0; i < array.length; i++) {
-        //         add_data_fields = {};
-        //         for (j = 0; j < name_fields.length; j++) {
-        //             if (array[i][j]='')
-        //                 array[i][j] = '-1'
-
-        //             // var type_value = await get_type_field_b24(name_fields[j]);
-
-        //             // if (type_value == "integer") 
-        //             //     add_data_fields[name_fields[j]] = parseInt(array[i][j]);
-        //             // if (type_value == "double") 
-        //             //     add_data_fields[name_fields[j]] = parseFloat(array[i][j]);
-        //             // if (type_value == "string" || type_value == "char")
-        //                 add_data_fields[name_fields[j]] = array[i][j];
-                            
-        //             alert(type_value + ' - ' + JSON.stringify(add_data_fields));
-        //         }
-        //         alert(JSON.stringify(add_data_fields));
-        //         // add_company_b24(add_data_fields);
-        //     }
-        // }
+        async function add_or_update_company_b24(title_, field) {
+            BX24.init(function(){
+                    var company_id = '';
+                    await BX24.callMethod(
+                        "crm.company.list", 
+                        { 
+                            order: { "DATE_CREATE": "ASC" },
+                            filter: { "TITLE": "title_" },
+                            select: [ "ID" ]				
+                        }, 
+                        function(result) 
+                        {
+                            if(result.error())
+                                console.error(result.error());
+                            else
+                                company_id = result.data();	
+                        }
+                    );
+                
+                    if (company_id == '') {
+                        BX24.callMethod( "crm.company.add", 
+                            {
+                                fields: field,
+                                params: { "REGISTER_SONET_EVENT": "Y" }		
+                            }, 
+                            function(result) 
+                            {
+                                if(result.error())
+                                    alert(result.error());
+                                else {
+                                    var textarea = document.getElementById('import-area');
+                                    textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
+                                }
+                            }
+                        );
+                    } else {
+                        BX24.callMethod(
+                            "crm.company.update", 
+                            { 
+                                id: company_id,
+                                fields: field,
+                                params: { "REGISTER_SONET_EVENT": "Y" }				
+                            }, 
+                            function(result) 
+                            {
+                                if(result.error())
+                                    alert(result.error());
+                                else {
+                                    var textarea = document.getElementById('import-area');
+                                    textarea.innerHTML += "\n Данные компания " + title_ + " обновлены ";						
+                                }
+                            }
+                        );
+                    }
+                    
+            });
+        }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
@@ -462,8 +453,8 @@
                 result = parseFloat(result);
             }
 
-            alert(name_field + " --- " + value_type + " --- " + typeof result + " --- " + result);
-            if (isNaN(result)) {  
+            // alert(name_field + " --- " + value_type + " --- " + typeof result + " --- " + result);
+            if ((typeof result != 'string') && isNaN(result)) {  
                 alert("Неверный тип данных поля " + name_field + " значения " + item + " (требуется тип " + value_type + ")");
             }
             return result;
@@ -503,19 +494,29 @@
 
                 // создание компаний из полученного списка
                 var add_data_fields = {};
-                alert(JSON.stringify(array));
+                var title_company = '';
+                // alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
                     if (count_item == 1) {
                         add_data_fields[name_fields[0]] = get_type_field_(name_fields[0], array[i]); // = array[i]
+                        if (name_fields[0] == 'TITLE')
+                            title_company = add_data_fields[name_fields[0]];
                     } else {
                         for (j = 0; j < name_fields.length; j++) {
                             add_data_fields[name_fields[j]] =  get_type_field_(name_fields[j], array[i][j]); // = array[i][j];
+                            if (name_fields[0] == 'TITLE')
+                                title_company = add_data_fields[name_fields[0]];
                         }
                     }
                     
-                    alert(JSON.stringify(add_data_fields));
-                    // add_company_b24(add_data_fields); // добавление
+                    // alert(JSON.stringify(add_data_fields));
+                    if (title_company == '') {
+                        alert('ERROR Название компании - обязательное не пустое поле')ж
+                        continue;
+                    }
+                    // add_company_b24(title_company, add_data_fields); // добавление
+                    add_or_update_company_b24(title_company, add_data_fields);
                 }
 
                 <?php $permission_to_connect_to_bitrix = 0;?>
