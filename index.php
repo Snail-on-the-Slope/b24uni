@@ -175,8 +175,9 @@
                 });
         }
 
-        function get_type_field_b24 (name_field) {
+        function get_type_field_b24(name_field) {
             var print_result = '';
+            alert('in get_type_field_b24 ' + name_field);
             BX24.init(function(){
                     BX24.callMethod(
                         "crm.company.fields", 
@@ -188,6 +189,7 @@
                             else {
                                 var obj = result.data();
                                 print_result = obj[name_field]['type'];
+                                alert(obj + ' -- ' + obj[name_field] + ' -- ' + obj[name_field]['type']);
                             }
                         }
                     );
