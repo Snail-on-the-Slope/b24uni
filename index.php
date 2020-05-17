@@ -158,10 +158,10 @@
 
         function add_or_update_company_b24(title_, field) {
             BX24.init(function() {
+                alert('start b24 ' + title_ + ' ' + field);
                 async () => {
                     var company_id = '';
-                    await BX24.callMethod(
-                        "crm.company.list", 
+                    await BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
                             filter: { "TITLE": "title_" },
@@ -210,8 +210,10 @@
                             }
                         );
                     }
+                    alert('!!!!!!!!!!!!!!!!');
                 }  
             }); 
+            alert('end b24 ' + title_ + ' ' + field);
         }
  
         // ----------------------- заполнение select -----------------------
