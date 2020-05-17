@@ -164,39 +164,42 @@
                 }
                 array.push(temp_temp);
             }
-            alert(array.length);
-            alert(array[0]);
-            alert(array[0][0]);
+            // alert(array.length);
+            // alert(array[0]);
+            // alert(array[0][0]);
 
             var name_fields = '<?php echo $name_fields;?>'.split(' ');
             name_fields = name_fields.slice(0, name_fields.length-1);
-            alert(name_fields);
+            // alert(name_fields);
 
-            // for (i=0, i < array)
-            var add_data_fields = {};
-			BX24.init(function(){
-				// BX24.callMethod('user.current', {}, function(res){
-				// 	textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
-				// });
-                
-                // BX24.callMethod( "crm.company.add", 
-                //     {
-                //         fields:
-                //         { 
-                //             "TITLE": "ИП Титов",
-                //             "COMPANY_TYPE": "CUSTOMER"	
-                //         },
-                //         params: { "REGISTER_SONET_EVENT": "Y" }		
-                //     }, 
-                //     function(result) 
-                //     {
-                //         if(result.error())
-                //             console.error(result.error());
-                //         else
-                //             console.info("Создана компания с ID " + result.data());
-                //     }
-                // );
-			});
+            for (i=0, i < array.length; i++) {
+                var add_data_fields = {};
+                for (j = 0; j < name_fields.length; j++) {
+                    add_data_fields[name_fields[j]] = array[i][j];
+                }
+                alert(JSON.stringify(add_data_fields));
+            
+                BX24.init(function(){
+                    // BX24.callMethod( "crm.company.add", 
+                    //     {
+                    //         fields:
+                    //         { 
+                    //             "TITLE": "ИП Титов",
+                    //             "COMPANY_TYPE": "CUSTOMER"	
+                    //         },
+                    //         params: { "REGISTER_SONET_EVENT": "Y" }		
+                    //     }, 
+                    //     function(result) 
+                    //     {
+                    //         if(result.error())
+                    //             console.error(result.error());
+                    //         else
+                    //             console.info("Создана компания с ID " + result.data());
+                    //     }
+                    // );
+                });
+
+            }
 
 			<?php $permission_to_connect_to_bitrix = 0;?>
 		}
@@ -417,6 +420,13 @@
             }
         };
         // ----------------------- END -----------------------
+
+
+        
+                    // BX24.callMethod('user.current', {}, function(res){
+                    // 	textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
+                    // });
     </script>
 </body>
 </html>
+
