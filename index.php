@@ -209,12 +209,14 @@
                 		else {
                 			res = JSON.stringify(result.data());
                             res__ = [];
+                            alert(res);
                             for (var i in res) {
+                                alert(i + ' - ' + res[i])
                                 for (var j in res[i]) {
                                     //(res[i][j]);
-                                    alert(j + ' - ' + res[i][j]['isReadOnly']);
+                                    // alert(j + ' - ' + res[i][j]['isReadOnly']);
                                     if (res[i][j]['isReadOnly'] == false) {
-                                        alert('!!!!!!!!!!!!!!!!!!!!!!!');
+                                        // alert('!!!!!!!!!!!!!!!!!!!!!!!');
                                         temp = [j, res[i][j]['title']];
                                         res__.push(temp);
                                     }
