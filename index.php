@@ -208,7 +208,14 @@
                 			alert(result.error());
                 		else {
                 			res = JSON.stringify(result.data());
-                			textarea.innerHTML += res + '</br>';
+                            res__ = '';
+                            for (i=0; i < res.length; i++) {
+                			    textarea.innerHTML += '-'+ res[i] + '|||||||' + res[i][isReadOnly] + '\n';
+                                if (res[i][isReadOnly]=='false') {
+                                    res__+= res[i];
+                                }
+                            }
+                			textarea.innerHTML += '\\\\\\ \n' + res__ + '\n';
                 		}
                 	}
                 );
