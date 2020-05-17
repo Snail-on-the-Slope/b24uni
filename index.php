@@ -263,31 +263,16 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
-                			// res = JSON.stringify(result.data());
                             var obj = result.data();
                             res__ = [];
                             alert(typeof obj + ' - ' + obj.length);
                             alert(obj);
                             for (var i in obj){
-                                alert('i: '+ i + ' - ' + obj[i]['isReadOnly']);
-                                // for (var j in obj[i]) {
-                                //     if (j=='isReadOnly' && obj[i][j] == false) {
-                                //         temp = [i, obj[i]['title']];
-                                //     }
-                                // }
+                                if (obj[i]['isReadOnly']==false) {
+                                    temp = [i, obj[i]['title']];
+                                    res__.push(temp);
+                                } 
                             }
-                            // for (var i in res) {
-                            //     alert(i + ' - ' + res[i])
-                            //     for (var j in res[i]) {
-                            //         //(res[i][j]);
-                            //         // alert(j + ' - ' + res[i][j]['isReadOnly']);
-                            //         if (res[i][j]['isReadOnly'] == false) {
-                            //             // alert('!!!!!!!!!!!!!!!!!!!!!!!');
-                            //             temp = [j, res[i][j]['title']];
-                            //             res__.push(temp);
-                            //         }
-                            //     }
-                            // } 
                 			textarea.innerHTML += '\n' + res__ + '\n';
                 		}
                 	}
