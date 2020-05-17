@@ -210,18 +210,20 @@
                 			res = JSON.stringify(result.data());
                             res__ = [];
                             alert(res);
-                            for (var i in res) {
-                                alert(i + ' - ' + res[i])
-                                for (var j in res[i]) {
-                                    //(res[i][j]);
-                                    // alert(j + ' - ' + res[i][j]['isReadOnly']);
-                                    if (res[i][j]['isReadOnly'] == false) {
-                                        // alert('!!!!!!!!!!!!!!!!!!!!!!!');
-                                        temp = [j, res[i][j]['title']];
-                                        res__.push(temp);
-                                    }
-                                }
-                            } 
+                            alert(typeof result.data());
+                            alert(result.data());
+                            // for (var i in res) {
+                            //     alert(i + ' - ' + res[i])
+                            //     for (var j in res[i]) {
+                            //         //(res[i][j]);
+                            //         // alert(j + ' - ' + res[i][j]['isReadOnly']);
+                            //         if (res[i][j]['isReadOnly'] == false) {
+                            //             // alert('!!!!!!!!!!!!!!!!!!!!!!!');
+                            //             temp = [j, res[i][j]['title']];
+                            //             res__.push(temp);
+                            //         }
+                            //     }
+                            // } 
 
                             // res.forEach(function(data, index) {
                             //     textarea.innerHTML += '-'+ data + '|||||||' + data['isReadOnly'] + '\n';
