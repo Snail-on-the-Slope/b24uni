@@ -81,123 +81,179 @@
         </form>
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
             <?php
-                if(isset($_POST['SubmitImport'])){
-                    $array = [];
-                    $name_fields = '';
-                    $k = 0;
-                    $k_items = 0;
-                    $flag_k = false;
-                    foreach($_POST as $value) {
-                        if ($k < (count($_POST)-1)) {
-                            if ($k < 2) {
-                                $array[] =  $value;
-                            } else {
-                                if ($k_items > 2) {
-                                    $k_items = 0;
-                                }
+                // if(isset($_POST['SubmitImport'])){
+                //     $array = [];
+                //     $name_fields = '';
+                //     $k = 0;
+                //     $k_items = 0;
+                //     $flag_k = false;
+                //     foreach($_POST as $value) {
+                //         if ($k < (count($_POST)-1)) {
+                //             if ($k < 2) {
+                //                 $array[] =  $value;
+                //             } else {
+                //                 if ($k_items > 2) {
+                //                     $k_items = 0;
+                //                 }
 
-                                if ($k_items == 0) {
-                                    if ($value == 'CUSTOM_FIELD'){
-                                        $flag_k = true;
-                                    } else {
-                                        $name_fields = $name_fields . $value . ' ';
-                                    }
-                                } elseif ($k_items == 1) {
-                                    $array[] =  $value;
-                                } else {
-                                    if ($flag_k) {
-                                        $name_fields = $name_fields . $value . ' ';
-                                        $flag_k = false;
-                                    }
-                                }
-                                $k_items += 1;
-                            }
+                //                 if ($k_items == 0) {
+                //                     if ($value == 'CUSTOM_FIELD'){
+                //                         $flag_k = true;
+                //                     } else {
+                //                         $name_fields = $name_fields . $value . ' ';
+                //                     }
+                //                 } elseif ($k_items == 1) {
+                //                     $array[] =  $value;
+                //                 } else {
+                //                     if ($flag_k) {
+                //                         $name_fields = $name_fields . $value . ' ';
+                //                         $flag_k = false;
+                //                     }
+                //                 }
+                //                 $k_items += 1;
+                //             }
                             
-                            $k+=1;
-                        }
-                    }
+                //             $k+=1;
+                //         }
+                //     }
                     
-                    $outImport = "python import.py " . escapeshellarg(json_encode($array));
-                    $outputImport = shell_exec($outImport);
-                    $data_table = json_decode($outputImport);
-                    echo "подключено к базе данных...  \n";
+                //     $outImport = "python import.py " . escapeshellarg(json_encode($array));
+                //     $outputImport = shell_exec($outImport);
+                //     $data_table = json_decode($outputImport);
+                //     echo "подключено к базе данных...  \n";
                     
-                    if ($k==5) {
-                        echo count($data_table[0])," компаний найдено. ";
-                        $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
-                    } else {
-                        $count_company = count($data_table);
-                        $count_item = count($data_table[0]);
-                        echo $count_company," компаний найдено. ";
-                        $inport_data_table_to_js = '';
-                        foreach ($data_table as $value) {
-                            foreach ($value as $item) {
-                                $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
-                            }
-                        }
-                    }
-					$permission_to_connect_to_bitrix = 1;
-                }
+                //     if ($k==5) {
+                //         echo count($data_table[0])," компаний найдено. ";
+                //         $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
+                //     } else {
+                //         $count_company = count($data_table);
+                //         $count_item = count($data_table[0]);
+                //         echo $count_company," компаний найдено. ";
+                //         $inport_data_table_to_js = '';
+                //         foreach ($data_table as $value) {
+                //             foreach ($value as $item) {
+                //                 $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
+                //             }
+                //         }
+                //     }
+				// 	$permission_to_connect_to_bitrix = 1;
+                // }
             ?>
         </textarea>
     </div>
 
     <script>
         // ----------------------- после отправки формы .import-data -----------------------
-		var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
-		if (permission == 1) {
-			var textarea = document.getElementById('import-area');
-            var obj = '<?php echo $inport_data_table_to_js;?>';
-            var array = [];
-            var k_import = '<?php echo $k;?>';
+		// var permission = '<?php echo $permission_to_connect_to_bitrix;?>';
+		// if (permission == 1) {
+		// 	var textarea = document.getElementById('import-area');
+        //     var obj = '<?php echo $inport_data_table_to_js;?>';
+        //     var array = [];
+        //     var k_import = '<?php echo $k;?>';
 
-            if (k_import == 4) {
-                array = obj.substr(2, obj.length - 2).split('", "');
-            } else {
-                var count_company = '<?php echo $count_company;?>';
-                var count_item = '<?php echo $count_item;?>';
-                var temp = obj.substr(0, obj.length - 2).split(', ');
-                var index_temp = 0;
-                var temp_temp = [];
-                for (i=0; i < temp.length; i++) {
-                    if (index_temp < count_item) {
-                        temp_temp.push(temp[i]);
-                        index_temp++;
-                    } else {
-                        array.push(temp_temp);
-                        temp_temp = [];
-                        temp_temp.push(temp[i]);
-                        index_temp = 1;
-                    }
-                }
-                array.push(temp_temp);
-            }
+        //     if (k_import == 4) {
+        //         array = obj.substr(2, obj.length - 2).split('", "');
+        //     } else {
+        //         var count_company = '<?php echo $count_company;?>';
+        //         var count_item = '<?php echo $count_item;?>';
+        //         var temp = obj.substr(0, obj.length - 2).split(', ');
+        //         var index_temp = 0;
+        //         var temp_temp = [];
+        //         for (i=0; i < temp.length; i++) {
+        //             if (index_temp < count_item) {
+        //                 temp_temp.push(temp[i]);
+        //                 index_temp++;
+        //             } else {
+        //                 array.push(temp_temp);
+        //                 temp_temp = [];
+        //                 temp_temp.push(temp[i]);
+        //                 index_temp = 1;
+        //             }
+        //         }
+        //         array.push(temp_temp);
+        //     }
 
-            var name_fields = '<?php echo $name_fields;?>'.split(' ');
-            name_fields = name_fields.slice(0, name_fields.length-1);
+        //     var name_fields = '<?php echo $name_fields;?>'.split(' ');
+        //     name_fields = name_fields.slice(0, name_fields.length-1);
 
-			BX24.init(function(){
+		// 	BX24.init(function(){
+		// 		BX24.callMethod('user.current', {}, function(res){
+		// 			textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
+		// 		});
+
+        //         // BX24.callMethod( "crm.company.add", 
+        //         //     {
+        //         //         fields:
+        //         //         { 
+        //         //             "TITLE": "ИП Титов",
+        //         //             "COMPANY_TYPE": "CUSTOMER"	
+        //         //         },
+        //         //         params: { "REGISTER_SONET_EVENT": "Y" }		
+        //         //     }, 
+        //         //     function(result) 
+        //         //     {
+        //         //         if(result.error())
+        //         //             console.error(result.error());
+        //         //         else
+        //         //             console.info("Создана компания с ID " + result.data());
+        //         //     }
+        //         // );
+
+        //         BX24.callMethod(
+        //         	"crm.company.fields", 
+        //         	{}, 
+        //         	function(result) 
+        //         	{
+        //         		if(result.error())
+        //         			alert(result.error());
+        //         		else {
+        //         			// res = JSON.stringify(result.data());
+        //                     res__ = [];
+        //                     // alert(res);
+        //                     alert(typeof result.data());
+        //                     alert(result.data());
+        //                     for (var i in result.data()){
+        //                         alert(i + ' - ' + res[i]);
+        //                     }
+        //                     // for (var i in res) {
+        //                     //     alert(i + ' - ' + res[i])
+        //                     //     for (var j in res[i]) {
+        //                     //         //(res[i][j]);
+        //                     //         // alert(j + ' - ' + res[i][j]['isReadOnly']);
+        //                     //         if (res[i][j]['isReadOnly'] == false) {
+        //                     //             // alert('!!!!!!!!!!!!!!!!!!!!!!!');
+        //                     //             temp = [j, res[i][j]['title']];
+        //                     //             res__.push(temp);
+        //                     //         }
+        //                     //     }
+        //                     // } 
+
+        //                     // res.forEach(function(data, index) {
+        //                     //     textarea.innerHTML += '-'+ data + '|||||||' + data['isReadOnly'] + '\n';
+        //                     //     if (data['isReadOnly']==false) {
+        //                     //         res__.push(data);
+        //                     //     }
+        //                     // });
+
+        //                     // for (i=0; i < res.length; i++) {
+        //         			//     textarea.innerHTML += '-'+ res[i] + '|||||||' + res[i]['isReadOnly'] + '\n';
+        //                     //     if (res[i]['isReadOnly']=='false') {
+        //                     //         res__+= res[i];
+        //                     //     }
+        //                     // }
+        //         			textarea.innerHTML += '\n' + res__ + '\n';
+        //         		}
+        //         	}
+        //         );
+		// 	});
+
+		// 	<?php $permission_to_connect_to_bitrix = 0;?>
+		// }
+
+        BX24.init(function(){
 				BX24.callMethod('user.current', {}, function(res){
 					textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
 				});
-
-                // BX24.callMethod( "crm.company.add", 
-                //     {
-                //         fields:
-                //         { 
-                //             "TITLE": "ИП Титов",
-                //             "COMPANY_TYPE": "CUSTOMER"	
-                //         },
-                //         params: { "REGISTER_SONET_EVENT": "Y" }		
-                //     }, 
-                //     function(result) 
-                //     {
-                //         if(result.error())
-                //             console.error(result.error());
-                //         else
-                //             console.info("Создана компания с ID " + result.data());
-                //     }
-                // );
 
                 BX24.callMethod(
                 	"crm.company.fields", 
@@ -210,10 +266,11 @@
                 			// res = JSON.stringify(result.data());
                             res__ = [];
                             // alert(res);
-                            alert(typeof result.data());
+                            alert(typeof result.data() + ' - ' + result.data().length);
                             alert(result.data());
-                            for (var i in result.data()){
-                                alert(i + ' - ' + res[i]);
+                            for (i=0; i < result.data().length; i++){
+                                if (i<2)
+                                    alert(i + ' - ' + res[i]);
                             }
                             // for (var i in res) {
                             //     alert(i + ' - ' + res[i])
@@ -227,28 +284,11 @@
                             //         }
                             //     }
                             // } 
-
-                            // res.forEach(function(data, index) {
-                            //     textarea.innerHTML += '-'+ data + '|||||||' + data['isReadOnly'] + '\n';
-                            //     if (data['isReadOnly']==false) {
-                            //         res__.push(data);
-                            //     }
-                            // });
-
-                            // for (i=0; i < res.length; i++) {
-                			//     textarea.innerHTML += '-'+ res[i] + '|||||||' + res[i]['isReadOnly'] + '\n';
-                            //     if (res[i]['isReadOnly']=='false') {
-                            //         res__+= res[i];
-                            //     }
-                            // }
                 			textarea.innerHTML += '\n' + res__ + '\n';
                 		}
                 	}
                 );
-			});
-
-			<?php $permission_to_connect_to_bitrix = 0;?>
-		}
+        });
 
         // ----------------------- END -----------------------
 
