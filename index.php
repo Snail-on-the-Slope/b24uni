@@ -54,14 +54,14 @@
                     <div class="field-optional">
                         <label for="fieldimport">Поле</label>
                         <select id="field_selection" name="field_selection">
-                            <option value="TITLE">Название компании</option>
+                            <!-- <option value="TITLE">Название компании</option>
                             <option value="COMPANY_TYPE">Тип компании</option>
                             <option value="WEB">Сайт</option>
                             <option value="INDUSTRY">Сфера деятельности</option>
                             <option value="REVENUE">Годовой оборот</option>
                             <option value="EMPLOYESS">Кол-во сотрудников</option>
                             <option value="COMMENTS">Комментарий</option>
-                            <option value="CUSTOM_FIELD">Пользовательское поле</option>
+                            <option value="CUSTOM_FIELD">Пользовательское поле</option> -->
                         </select>
                     </div>
                     <div class="cells-optional">
@@ -249,12 +249,11 @@
 
 		// 	<?php $permission_to_connect_to_bitrix = 0;?>
 		// }
-
+    
+        // ----------------------- END -----------------------
+ 
+        // ----------------------- заполнение select -----------------------
         BX24.init(function(){
-				BX24.callMethod('user.current', {}, function(res){
-					textarea.innerHTML += '\n' + res.data().NAME + ' ' + res.data().LAST_NAME + '\n';
-				});
-
                 BX24.callMethod(
                 	"crm.company.fields", 
                 	{}, 
@@ -263,17 +262,19 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
+                            var selectList = document.getElementById('field_selection');
                             var obj = result.data();
-                            res__ = [];
-                            alert(typeof obj + ' - ' + obj.length);
-                            alert(obj);
+                            
                             for (var i in obj){
                                 if (obj[i]['isReadOnly']==false) {
                                     temp = [i, obj[i]['title']];
-                                    res__.push(temp);
+
+                                    var option = document.createElement("option");
+                                    option.value = temp[0];
+                                    option.text = temp[1];
+                                    selectList.appendChild(option);
                                 } 
                             }
-                			textarea.innerHTML += '\n' + res__ + '\n';
                 		}
                 	}
                 );
