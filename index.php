@@ -172,8 +172,8 @@
                             if (result.error())
                                 alert('ERROR' + result.error());
                             else {
-                                alert(title_ + ' : ' + typeof result.data() + ' -- ' + result.data() + ' -- ' + result.data()[0]);
-                                company_id = result.data()[0]['ID'];
+                                if (result.data()[0] != undefined)
+                                    company_id = result.data()[0]['ID'];
                                 callback(true);
                             }
                         }
@@ -181,7 +181,11 @@
                 }
 
                 load_b24_method(value => {
-                    alert('5555 !!! ' + value + ' - ' + company_id);
+                    if (company_id == '') {
+                        alert('++++');
+                    } else {
+                        alert('!!!!');
+                    }
                 });
             }); 
         }
