@@ -170,7 +170,7 @@
                         function(result) 
                         {
                             if (result.error())
-                                console.error(result.error());
+                                alert('ERROR' + result.error());
                             else {
                                 company_id = result.data()[0]['ID'];
                                 alert('2222' + ' ----- ' + company_id);
@@ -183,9 +183,6 @@
                 load_b24_method(value => {
                     alert('5555 !!! ' + value + ' - ' + company_id);
                 });
-                if (company_id = '') {
-                    alert('444444')
-                }
             }); 
         }
 
