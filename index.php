@@ -160,8 +160,7 @@
             BX24.init( function() {
                 var company_id = '';
                 ( async () => {
-                    alert('1111');
-                    var execution = await BX24.callMethod( "crm.company.list", 
+                    let promise = BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
                             filter: { "TITLE": title_ },
@@ -178,13 +177,13 @@
                             }
                         }
                     );
-                    alert('3333');
-                    return execution;
+                    let result = await promise;
+                    return result;
                 })().then( (val) => {
                     if (company_id == '') {
-                        alert('4444');
+                        alert('4444'+ val);
                     } else {
-                        alert('5555');
+                        alert('5555'+ val);
                     }
                 });  
             }); 
