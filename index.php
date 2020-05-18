@@ -158,9 +158,9 @@
 
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
+                var company_id = '';
                 ( async () => {
-                    alert('1111111 ' + title_);
-                    var company_id = '';
+                    alert('1111');
                     await BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
@@ -172,20 +172,26 @@
                             if (result.error())
                                 console.error(result.error());
                             else {
-                                alert('22222222 ' + title_ + ' - ' + company_id + ' - ' + typeof  result.data() + ' - ' +  result.data() + ' : ' + result.data().length + ' - ' + result.data()['ID']);
-                                for (var i in result.data()){
-                                    for (j in result.data()[i])
-                                        alert(i + ' ---- ' + result.data()[i] + ' ||| ' + j + ' ---- ' + result.data()[i][j]);
-                                }
-                                company_id = result.data();
+                                company_id = result.data()[0]['ID'];
+                                alert('2222');
                             }
                                 
                         }
                     );
-                    // alert('22222222 ' + title_);
-                
+                    alert('3333');
+                    return true;
+                })().then( (val) => {
                     if (company_id == '') {
-                        alert('33333333 ' + title_);
+                        alert('4444');
+                    } else {
+                        alert('5555');
+                    }
+                });  
+            }); 
+        }
+
+
+        // if (company_id == '') {
                         // BX24.callMethod( "crm.company.add", 
                         //     {
                         //         fields: field,
@@ -201,7 +207,7 @@
                         //         }
                         //     }
                         // );
-                    } else {
+                    // } else {
                         // BX24.callMethod( "crm.company.update", 
                         //     { 
                         //         id: company_id,
@@ -218,11 +224,7 @@
                         //         }
                         //     }
                         // );
-                    }
-                    alert('4444444 ' + title_);
-                })();  
-            }); 
-        }
+                    // }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
