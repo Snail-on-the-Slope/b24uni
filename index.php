@@ -158,9 +158,10 @@
 
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
-                var company_id = '';
-                ( async () => {
-                    let promise = BX24.callMethod( "crm.company.list", 
+                let company_id = '';
+                
+                function load_b24_method(callback) {
+                    BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
                             filter: { "TITLE": title_ },
@@ -173,19 +174,20 @@
                             else {
                                 company_id = result.data()[0]['ID'];
                                 alert('2222');
-                                return true;
+                                callback(true);
                             }
                         }
                     );
-                    let result = await promise;
-                    return result;
-                })().then( (val) => {
+                }
+
+                load_b24_method(value => {
+                    alert('!!! ' + value + ' - ' + company_id);
                     if (company_id == '') {
-                        alert('4444'+ val);
+                        alert('4444');
                     } else {
-                        alert('5555'+ val);
+                        alert('5555');
                     }
-                });  
+                });
             }); 
         }
 
