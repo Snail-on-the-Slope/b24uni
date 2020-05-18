@@ -173,7 +173,7 @@
                                 console.error(result.error());
                             else {
                                 company_id = result.data()[0]['ID'];
-                                alert('2222');
+                                alert('2222' + ' ----- ' + company_id);
                                 callback(true);
                             }
                         }
@@ -181,13 +181,11 @@
                 }
 
                 load_b24_method(value => {
-                    alert('!!! ' + value + ' - ' + company_id);
-                    if (company_id == '') {
-                        alert('4444');
-                    } else {
-                        alert('5555');
-                    }
+                    alert('5555 !!! ' + value + ' - ' + company_id);
                 });
+                if (company_id = '') {
+                    alert('444444')
+                }
             }); 
         }
 
