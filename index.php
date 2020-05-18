@@ -159,7 +159,6 @@
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
                 let company_id = '';
-                
                 function load_b24_method(callback) {
                     BX24.callMethod( "crm.company.list", 
                         { 
@@ -182,49 +181,42 @@
 
                 load_b24_method(value => {
                     if (company_id == '') {
-                        alert('++++');
+                        BX24.callMethod( "crm.company.add", 
+                            {
+                                fields: field,
+                                params: { "REGISTER_SONET_EVENT": "Y" }		
+                            }, 
+                            function(result) 
+                            {
+                                if(result.error())
+                                    alert(result.error());
+                                else {
+                                    var textarea = document.getElementById('import-area');
+                                    textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
+                                }
+                            }
+                        );
                     } else {
-                        alert('!!!!');
+                        BX24.callMethod( "crm.company.update", 
+                            { 
+                                id: company_id,
+                                fields: field,
+                                params: { "REGISTER_SONET_EVENT": "Y" }				
+                            }, 
+                            function(result) 
+                            {
+                                if(result.error())
+                                    alert(result.error());
+                                else {
+                                    var textarea = document.getElementById('import-area');
+                                    textarea.innerHTML += "\n Данные компания " + title_ + " обновлены ";						
+                                }
+                            }
+                        );
                     }
                 });
             }); 
         }
-
-
-        // if (company_id == '') {
-                        // BX24.callMethod( "crm.company.add", 
-                        //     {
-                        //         fields: field,
-                        //         params: { "REGISTER_SONET_EVENT": "Y" }		
-                        //     }, 
-                        //     function(result) 
-                        //     {
-                        //         if(result.error())
-                        //             alert(result.error());
-                        //         else {
-                        //             var textarea = document.getElementById('import-area');
-                        //             textarea.innerHTML += "\n Создана компания " + title_ + " с ID " + result.data();
-                        //         }
-                        //     }
-                        // );
-                    // } else {
-                        // BX24.callMethod( "crm.company.update", 
-                        //     { 
-                        //         id: company_id,
-                        //         fields: field,
-                        //         params: { "REGISTER_SONET_EVENT": "Y" }				
-                        //     }, 
-                        //     function(result) 
-                        //     {
-                        //         if(result.error())
-                        //             alert(result.error());
-                        //         else {
-                        //             var textarea = document.getElementById('import-area');
-                        //             textarea.innerHTML += "\n Данные компания " + title_ + " обновлены ";						
-                        //         }
-                        //     }
-                        // );
-                    // }
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
