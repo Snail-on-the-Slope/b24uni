@@ -161,7 +161,7 @@
                 var company_id = '';
                 ( async () => {
                     alert('1111');
-                    await BX24.callMethod( "crm.company.list", 
+                    var execution = await BX24.callMethod( "crm.company.list", 
                         { 
                             order: { "DATE_CREATE": "ASC" },
                             filter: { "TITLE": title_ },
@@ -174,12 +174,12 @@
                             else {
                                 company_id = result.data()[0]['ID'];
                                 alert('2222');
+                                return true;
                             }
-                                
                         }
                     );
                     alert('3333');
-                    return true;
+                    return execution;
                 })().then( (val) => {
                     if (company_id == '') {
                         alert('4444');
