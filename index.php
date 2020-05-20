@@ -239,7 +239,7 @@
             option.text = 'Пользовательское поле';
             selectList.appendChild(option);
         }
-
+        localStorage.setItem("option.value",null);
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
             if (localStorage.getItem("option.value") == null) {
@@ -485,6 +485,7 @@
             // проверка, что ровно одно из полей - название компании
             // проверка заполненности всех полей
             let result = true;
+            let new_custom_field = false;
             let quantity_name_field = 0;
 
             if (select.value == 'TITLE') 
@@ -506,11 +507,15 @@
                     quantity_name_field++;
                 if (temp.selectedIndex == -1) 
                     result = false; 
+                if (temp.value == 'CUSTOM_FIELD')
+                    new_custom_field = true;
             }
             if (quantity_name_field != 1) 
                 result = false;
 
             if (result) {
+                if (new_custom_field)
+                    localStorage.setItem("option.value",null);
                 return true;
             } else {
                 alert('ERROR');
