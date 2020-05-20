@@ -17,7 +17,7 @@
             <input type="text" id="idSheet" name="idSheet" value="332621208">
             <label for="cells">Ячейки URL</label>
             <input type="text" id="cells" name="cells" value="A4:A181">
-            <input type="submit" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
+            <input type="submit" onclick="return verification_parsing();" id="SubmitParsing" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
             <p>процесс займет некоторое время...</p>
         </form>
         <h1>  
@@ -69,7 +69,7 @@
                 <div class="error"></div>
             </div>
             <div id="new_fields"></div>
-            <input type="submit" name="SubmitImport" value="Импортировать данные из Google Sheets">
+            <input type="submit" onclick="return verification_import();" id="SubmitImport" name="SubmitImport" value="Импортировать данные из Google Sheets">
         </form>
         <textarea name="import-area" id="import-area" cols="30" rows="10" disabled>
             <?php
@@ -112,24 +112,28 @@
                     $outImport = "python import.py " . escapeshellarg(json_encode($array));
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
-                    echo "подключено к базе данных...  \n";
-                    
-                    if ($k==5) {
-                        echo count($data_table[0])," компаний найдено. ";
-                        $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
-                        $count_item = 1;
-                    } else {
-                        $count_company = count($data_table);
-                        $count_item = count($data_table[0]);
-                        echo $count_company," компаний найдено. ";
-                        $inport_data_table_to_js = '';
-                        foreach ($data_table as $value) {
-                            foreach ($value as $item) {
-                                $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
+
+                    if (strripos($outputImport, 'DATA IMPORT ERROR!') != false) {
+                        echo "Подключено к базе данных...  \n";
+                        if ($k==5) {
+                            echo count($data_table[0])," компаний найдено. ";
+                            $inport_data_table_to_js = '["' . implode('", "', $data_table[0]) . '"]';
+                            $count_item = 1;
+                        } else {
+                            $count_company = count($data_table);
+                            $count_item = count($data_table[0]);
+                            echo $count_company," компаний найдено. ";
+                            $inport_data_table_to_js = '';
+                            foreach ($data_table as $value) {
+                                foreach ($value as $item) {
+                                    $inport_data_table_to_js = $inport_data_table_to_js . $item . ', ';
+                                }
                             }
                         }
+                        $permission_to_connect_to_bitrix = 1;
+                    } else {
+                        echo "Неудалось подключиться к базе данных.  ", $outputImport;
                     }
-					$permission_to_connect_to_bitrix = 1;
                 }
             ?>
         </textarea>
@@ -220,6 +224,8 @@
  
         // ----------------------- заполнение select -----------------------
         BX24.init(function(){
+            var selectList = document.getElementById('field_selection');
+            if (localStorage.getItem("option.value") == null) {
                 BX24.callMethod(
                 	"crm.company.fields", 
                 	{}, 
@@ -228,8 +234,8 @@
                 		if(result.error())
                 			alert(result.error());
                 		else {
-                            var selectList = document.getElementById('field_selection');
                             var obj = result.data();
+                            var str_option = '';
                             
                             for (var i in obj){
                                 if (obj[i]['isReadOnly']==false && (obj[i]['type']=='string' || obj[i]['type']=='integer' || obj[i]['type']=='double' || obj[i]['type']=='char')) {
@@ -243,20 +249,32 @@
                                     option.text = temp[1];
                                     selectList.appendChild(option);
                                     localStorage.setItem(option.value, temp[2]);
+                                    str_option += temp[0] + ' ' + temp[1] + ' ';
                                 } 
                             }
-                            var option = document.createElement("option");
-                            option.value = 'CUSTOM_FIELD';
-                            option.text = 'Пользовательское поле';
-                            selectList.appendChild(option);
+                            localStorage.setItem("option.value", str_option.substr(0, str_option.length - 1));
                 		}
                 	}
                 );
+            } else {
+                var array_oprion = localStorage.getItem("option.value").split(' ');
+                for (var i = 0; i < array_oprion.length; i+=2) {
+                    var option = document.createElement("option");
+                    option.value = array_oprion[i];
+                    option.text = array_oprion[i+1];
+                    selectList.appendChild(option);
+                }
+            }
+            var option = document.createElement("option");
+            option.value = 'CUSTOM_FIELD';
+            option.text = 'Пользовательское поле';
+            selectList.appendChild(option);
             // ----------------------- END -----------------------
         });
 
         // ----------------------- работа с динамичной обработкой и созданием ячеек в .import-data -----------------------
         var k = 0;
+        var button_import = document.getElementById('SubmitImport');
         function addField() {
             let elem = document.getElementById('add_field_area');
             let newFields = document.getElementById('new_fields');
@@ -267,7 +285,7 @@
             clone.id = clone.id + k;
             clone.children[0].children[0].children[1].id = clone.children[0].children[0].children[1].id + k;
             clone.children[0].children[0].children[1].name = clone.children[0].children[0].children[1].name + k;
-            clone.children[0].children[0].children[1].value = "";
+            clone.children[0].children[0].children[1].value = "TITLE";
             if (clone.children[0].children[0].children[1].classList.contains('invalid')) {
                 clone.children[0].children[0].children[1].classList.remove('invalid');
             }
@@ -322,12 +340,14 @@
 
                 if (flag != 0) {
                     this.classList.add('invalid');
+                    button_import.disabled = true;
                     error.innerHTML = 'Количество ячеек данного поля не совпадает с количеством ячеек поля URL'
                 }
             };
             item3.onfocus = function () {
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
+                    button_import.disabled = false;
                     error.innerHTML = "";
                 }
             };
@@ -335,16 +355,19 @@
             item2.onblur = function () {
                 if ((!this.classList.contains('hide')) && ((this.value == "") || (this.value == null))) {
                     this.classList.add('invalid');
+                    button_import.disabled = true;
                     error.innerHTML = 'Не заполнено название поля'
                 }
                 if ((!this.classList.contains('hide')) && ((this.value.length > 13))) {
                     this.classList.add('invalid');
+                    button_import.disabled = true;
                     error.innerHTML = 'Слишком длинное название'
                 }
             };
             item2.onfocus = function () {
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
+                    button_import.disabled = false;
                     error.innerHTML = "";
                 }
             };
@@ -352,12 +375,14 @@
             item1.onblur = function () {
                 if (this.selectedIndex == -1) {
                     this.classList.add('invalid');
+                    button_import.disabled = true;
                     error.innerHTML = 'Не выбрано название поля'
                 }
             };
             item1.onfocus = function () {
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
+                    button_import.disabled = false;
                     error.innerHTML = "";
                 }
             };
@@ -368,6 +393,26 @@
             contDiv.parentNode.removeChild(contDiv);
             k--;
             return false;
+        }
+
+        function verification_import() {
+            // проверка, что заполненности полей
+            if (true) {
+                return true;
+            } else {
+                alert 'ERROR';
+                return false;
+            }
+        }
+
+        function verification_import() {
+            // проверка, что одно из полей - название компании
+            if (true) {
+                return true;
+            } else {
+                alert 'ERROR';
+                return false;
+            }
         }
 
         function inputAddNameField(select, div) {
@@ -393,12 +438,14 @@
         document.getElementById("cellsimport").onblur = function () {
             if ((this.value == "") || (this.value == null)) {
                 this.classList.add('invalid');
+                button_import.disabled = true;
                 error.innerHTML = 'Не заполнено поле ячеек'
             }
         };
         document.getElementById("cellsimport").onfocus = function () {
             if (this.classList.contains('invalid')) {
                 this.classList.remove('invalid');
+                button_import.disabled = false;
                 error.innerHTML = "";
             }
         };
@@ -406,12 +453,14 @@
         div.onblur = function () {
             if ((!this.classList.contains('hide')) && ((this.value == "") || (this.value == null))) {
                 this.classList.add('invalid');
+                button_import.disabled = true;
                 error.innerHTML = 'Не заполнено название поля'
             }
         };
         div.onfocus = function () {
             if (this.classList.contains('invalid')) {
                 this.classList.remove('invalid');
+                button_import.disabled = false;
                 error.innerHTML = "";
             }
         };
@@ -419,12 +468,14 @@
         select.onblur = function () {
             if (this.selectedIndex == -1) {
                 this.classList.add('invalid');
+                button_import.disabled = true;
                 error.innerHTML = 'Не выбрано название поля'
             }
         };
         select.onfocus = function () {
             if (this.classList.contains('invalid')) {
                 this.classList.remove('invalid');
+                button_import.disabled = false;
                 error.innerHTML = "";
             }
         };
@@ -457,7 +508,6 @@
                 result = parseFloat(result);
             }
 
-            // alert(name_field + " --- " + value_type + " --- " + typeof result + " --- " + result);
             if ((typeof result != 'string') && isNaN(result)) {  
                 alert("Неверный тип данных поля " + name_field + " значения " + item + " (требуется тип " + value_type + ")");
             }
@@ -499,7 +549,6 @@
                 // создание компаний из полученного списка
                 var add_data_fields = {};
                 var title_company = '';
-                // alert(JSON.stringify(array));
                 for (i=0; i < array.length; i++) {
                     add_data_fields = {};
                     if (count_item == 1) {
@@ -514,7 +563,6 @@
                         }
                     }
                     
-                    // alert(JSON.stringify(add_data_fields));
                     if (title_company == '') {
                         alert('ERROR Название компании - обязательное не пустое поле');
                         continue;

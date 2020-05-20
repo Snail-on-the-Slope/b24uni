@@ -42,7 +42,7 @@ def get_urls(service, spreadsheetId, name, cells):
         for item in re.findall(r'\w+',cell):
             x+=item
         if len(quantity)!=len(re.findall(r'\D+', x)):
-            return "Error cells "+cell
+            return "DATA IMPORT ERROR! cells: "+cell
 
         ranges = [name+"!"+cell]
         results = service.spreadsheets().values().batchGet(spreadsheetId = spreadsheetId, 
@@ -71,7 +71,7 @@ def get_urls(service, spreadsheetId, name, cells):
     for i in table_data:
         if len(i) != leng:
             print(i, leng)
-            return "Error list cells building"
+            return "DATA IMPORT ERROR! in list cells building"
 
     if len(table_data)>1:
         table_data = list(map(list, zip(*table_data)))
@@ -80,20 +80,16 @@ def get_urls(service, spreadsheetId, name, cells):
 def main(array):
     data = json.loads(array)
     if len(data)<3:
-        print('Error data')
+        print('DATA IMPORT ERROR! imported data')
         return
 
     idTable = data[0]
     idSheet = data[1]
     cells = data[2:]
     
-    # for i in range(len(data)-2):
-    #     if i % 2 == 1:
-    #         cells.append(data[i+2])
-    
     service, name = connection_to_API(idTable, int(idSheet))
     if service==None:
-        print('Error connection to Google Sheets Table ')
+        print('DATA IMPORT ERROR! connection to Google Sheets Table not established')
         return
 
     table_data = get_urls(service, idTable, name, cells)
