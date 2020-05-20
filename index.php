@@ -132,7 +132,7 @@
                         }
                         $permission_to_connect_to_bitrix = 1;
                     } else {
-                        echo "Неудалось подключиться к базе данных.  ", $outputImport;
+                        echo "Не удалось подключиться к базе данных.  ", $outputImport;
                     }
                 }
             ?>
@@ -258,7 +258,7 @@
                 );
             } else {
                 var array_oprion = localStorage.getItem("option.value").split(' ');
-                for (var i = 0; i < array_oprion.length; i+=2) {
+                for (i = 0; i < array_oprion.length; i+=2) {
                     var option = document.createElement("option");
                     option.value = array_oprion[i];
                     option.text = array_oprion[i+1];
