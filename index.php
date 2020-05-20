@@ -269,6 +269,7 @@
                             }
                             localStorage.setItem("option.value", str_option.substr(0, str_option.length - 1));
                             custon_field(selectList);
+                            alert(str_option);
                 		}
                 	}
                 );
@@ -429,57 +430,24 @@
 
         var error =  field.querySelector('.error');
 
-        function onblur_onfocus_import(id_element, error_) {
+        function onblur_onfocus_div_import(id_element) {
             document.getElementById(id_element).onblur = function () {
                 if ((this.value == "") || (this.value == null)) {
                     this.classList.add('invalid');
                     button_import.disabled = true;
-                    if (error_ != 0)
-                        error_.innerHTML = 'Не заполнено поле ячеек'
                 }
             };
             document.getElementById(id_element).onfocus = function () {
                 if (this.classList.contains('invalid')) {
                     this.classList.remove('invalid');
                     button_import.disabled = false;
-                    if (error_ != 0)
-                        error_.innerHTML = "";
                 }
             };
         }
-        // onblur_onfocus_import("cellsimport", error);
-        onblur_onfocus_import("idTableImport", 0);
-        onblur_onfocus_import("idSheetImport", 0);
         
-        // div.onblur = function () {
-        //     if ((!this.classList.contains('hide')) && ((this.value == "") || (this.value == null))) {
-        //         this.classList.add('invalid');
-        //         button_import.disabled = true;
-        //         error.innerHTML = 'Не заполнено название поля'
-        //     }
-        // };
-        // div.onfocus = function () {
-        //     if (this.classList.contains('invalid')) {
-        //         this.classList.remove('invalid');
-        //         button_import.disabled = false;
-        //         error.innerHTML = "";
-        //     }
-        // };
+        onblur_onfocus_div_import("idTableImport");
+        onblur_onfocus_div_import("idSheetImport");
 
-        // select.onblur = function () {
-        //     if (this.selectedIndex == -1) {
-        //         this.classList.add('invalid');
-        //         button_import.disabled = true;
-        //         error.innerHTML = 'Не выбрано название поля'
-        //     }
-        // };
-        // select.onfocus = function () {
-        //     if (this.classList.contains('invalid')) {
-        //         this.classList.remove('invalid');
-        //         button_import.disabled = false;
-        //         error.innerHTML = "";
-        //     }
-        // };
         // ----------------------- END -----------------------
 
 
