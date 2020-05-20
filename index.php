@@ -239,7 +239,7 @@
             option.text = 'Пользовательское поле';
             selectList.appendChild(option);
         }
-        localStorage.setItem("option.value",null);
+        
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
             if (localStorage.getItem("option.value") == null) {
