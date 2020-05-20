@@ -266,7 +266,7 @@
                                     option.text = temp[1];
                                     selectList.appendChild(option);
                                     localStorage.setItem(option.value, temp[2]);
-                                    str_option += '"'temp[0] + '", "' + temp[1] + '", ';
+                                    str_option += '"' + temp[0] + '", "' + temp[1] + '", ';
                                 } 
                             }
                             localStorage.setItem("option.value", str_option.substr(1, str_option.length - 3));
