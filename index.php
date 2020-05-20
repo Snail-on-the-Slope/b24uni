@@ -242,7 +242,9 @@
         
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
+            alert('!!!!!!!!!!!!');
             if (localStorage.getItem("option.value") == null) {
+                alert('1111111111');
                 BX24.callMethod(
                 	"crm.company.fields", 
                 	{}, 
@@ -275,6 +277,7 @@
                 	}
                 );
             } else {
+                alert('2222222');
                 var array_oprion = localStorage.getItem("option.value").split('", "');
                 for (i = 0; i < array_oprion.length; i+=2) {
                     var option = document.createElement("option");
