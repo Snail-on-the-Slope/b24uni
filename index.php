@@ -17,7 +17,7 @@
             <input type="text" id="idSheet" name="idSheet" value="332621208">
             <label for="cells">Ячейки URL</label>
             <input type="text" id="cells" name="cells" value="A4:A181">
-            <input type="submit" onclick="return verification_parsing();" id="SubmitParsing" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
+            <input type="submit" id="SubmitParsing" name="SubmitParsing" value="Парсинг и категоризация данных в таблице">
             <p>процесс займет некоторое время...</p>
         </form>
         <h1>  
@@ -31,8 +31,13 @@
                 if ($idTable != null && $idSheet != null && $cells != null) {
                     $out = "python parsing.py " . $idTable . " " . $idSheet . " " . $cells;
                     $output = shell_exec($out);
-                    $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
-                    echo "Парсинг завершен ", $time;
+                    if ($output == "OK") {
+                        $time  = date("H:i:s", mktime(date("H")+3, date("i")+3, date("s")+3, 0, 0, 0));
+                        echo "Парсинг завершен ", $time;
+                    } else {
+                        echo "Ошибка во время парсинга   ";
+                        print_r($output);
+                    }
                 }
             }
         ?>
@@ -113,7 +118,7 @@
                     $outputImport = shell_exec($outImport);
                     $data_table = json_decode($outputImport);
 
-                    if (strripos($outputImport, 'DATA IMPORT ERROR!') != false) {
+                    if (strripos($outputImport, 'DATA IMPORT ERROR!') == false) {
                         echo "Подключено к базе данных...  \n";
                         if ($k==5) {
                             echo count($data_table[0])," компаний найдено. ";
@@ -139,7 +144,9 @@
         </textarea>
     </div>
 
-    <script>
+
+    <script> 
+        // добавление компании (название и поля)
         function add_company_b24 (title_, field) {
             BX24.init(function(){
                     BX24.callMethod( "crm.company.add", 
@@ -160,6 +167,7 @@
             });
         }
 
+        // добавление или обновление компании (название и поля)
         function add_or_update_company_b24(title_, field) {
             BX24.init( function() {
                 let company_id = '';
@@ -223,6 +231,13 @@
         }
  
         // ----------------------- заполнение select -----------------------
+        function custon_field(selectList) {
+            var option = document.createElement("option");
+            option.value = 'CUSTOM_FIELD';
+            option.text = 'Пользовательское поле';
+            selectList.appendChild(option);
+        }
+
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
             if (localStorage.getItem("option.value") == null) {
@@ -253,6 +268,7 @@
                                 } 
                             }
                             localStorage.setItem("option.value", str_option.substr(0, str_option.length - 1));
+                            custon_field(selectList);
                 		}
                 	}
                 );
@@ -264,22 +280,23 @@
                     option.text = array_oprion[i+1];
                     selectList.appendChild(option);
                 }
+                custon_field(selectList);
             }
-            var option = document.createElement("option");
-            option.value = 'CUSTOM_FIELD';
-            option.text = 'Пользовательское поле';
-            selectList.appendChild(option);
-            // ----------------------- END -----------------------
         });
+        // ----------------------- END -----------------------
+
 
         // ----------------------- работа с динамичной обработкой и созданием ячеек в .import-data -----------------------
         var k = 0;
         var button_import = document.getElementById('SubmitImport');
-        function addField() {
-            let elem = document.getElementById('add_field_area');
-            let newFields = document.getElementById('new_fields');
 
-            let clone = elem.cloneNode(true);
+        var field = document.getElementById("add_field_area");
+        var select = document.getElementById("field_selection");
+        var div = document.getElementById("add_name_custom_field");
+
+        function addField() {
+            let newFields = document.getElementById('new_fields');
+            let clone = field.cloneNode(true);
 
             k++;
             clone.id = clone.id + k;
@@ -394,27 +411,7 @@
             k--;
             return false;
         }
-
-        function verification_import() {
-            // проверка, что заполненности полей
-            if (true) {
-                return true;
-            } else {
-                alert('ERROR');
-                return false;
-            }
-        }
-
-        function verification_import() {
-            // проверка, что одно из полей - название компании
-            if (true) {
-                return true;
-            } else {
-                alert('ERROR');
-                return false;
-            }
-        }
-
+        
         function inputAddNameField(select, div) {
             if (select.value == "CUSTOM_FIELD") {
                 if (div.classList.contains('hide')) {
@@ -426,10 +423,6 @@
                 }
             }
         }
-
-        var field = document.getElementById("add_field_area");
-        var select = document.getElementById("field_selection");
-        var div = document.getElementById("add_name_custom_field");
 
         onblur_onfocus(select, div, document.getElementById("cellsimport"), field.querySelector('.error'));
         select.addEventListener("click", function () { inputAddNameField(select, div) });
@@ -482,8 +475,58 @@
         // ----------------------- END -----------------------
 
 
-        // ----------------------- после отправки формы .import-data -----------------------
+        // ----------------------- проверка заполненности полей в .parsing-google-sheets -----------------------
 
+        function onblur_onfocus_div_parsing(id_element) {
+            let button_parsing = document.getElementById("SubmitParsing");
+            document.getElementById(id_element).onblur = function () {
+                if ((this.value == "") || (this.value == null)) {
+                    this.classList.add('invalid');
+                    button_parsing.disabled = true;
+                }
+            };
+            document.getElementById(id_element).onfocus = function () {
+                if (this.classList.contains('invalid')) {
+                    this.classList.remove('invalid');
+                    button_parsing.disabled = false;
+                }
+            };
+        }
+
+        onblur_onfocus_div_parsing("idTable");
+        onblur_onfocus_div_parsing("idSheet");
+        onblur_onfocus_div_parsing("cells");
+
+        // ----------------------- END -----------------------
+        
+
+        // ----------------------- проверка данных в формах перед отправкой -----------------------
+
+        function verification_import() {
+            // проверка, что ровно одно из полей - название компании
+            let result = true;
+            let quantity_name_field = 0;
+
+            if (select.value == 'TITLE') {
+                quantity_name_field++;
+            }
+            for (i=0; i<k; i++) {
+                if (document.getElementById("field_selection"+i).value == 'TITLE') 
+                    quantity_name_field++;
+            }
+            if (quantity_name_field != 1) 
+                result = false;
+
+            if (result) {
+                return true;
+            } else {
+                alert('ERROR');
+                return false;
+            }
+        }
+        // ----------------------- END -----------------------
+
+        // ----------------------- после отправки формы .import-data -----------------------
         // проверка совпадения типа поля и вводимого значения
         function get_type_field_(name_field, item) { 
             var result = item;

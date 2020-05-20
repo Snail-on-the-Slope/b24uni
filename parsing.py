@@ -103,7 +103,7 @@ def uploading_data_to_table(service, spreadsheetId, name, urls, id_cell):
             if data[item][0]==i:
                 return [data[item][5],9,data[item][6],data[item][4],
                         data[item][7],data[item][8],data[item][9],classified[item]]
-        return ['Нет информации на сайте',0,'','','','','','']
+        return ['Нет информации на сайте',0,'','','','','',''] # изменить !!!!!!!!!!!!!
 
     print_list = []
     for i in range(len(urls)):
@@ -128,9 +128,9 @@ def main(idTable, idSheet, cells):
         print('Error connection to Google Sheets Table ')
         return
     urls, id_cell = get_urls(service, idTable, name, cells)
-    print(len(urls))
     #parser1.main(urls)
     #uploading_data_to_table(service, idTable, name, urls, id_cell)
+    print('OK')
 
 if __name__ == '__main__':
     main(sys.argv[1], sys.argv[2], sys.argv[3])
