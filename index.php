@@ -239,10 +239,9 @@
             option.text = 'Пользовательское поле';
             selectList.appendChild(option);
         }
-        
+        localStorage.removeItem("option.value");
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
-            alert('!!!!!!!!!!!!');
             if (localStorage.getItem("option.value") == null) {
                 alert('1111111111');
                 BX24.callMethod(
@@ -288,7 +287,6 @@
                 custon_field(selectList);
             }
         });
-        alert(localStorage.getItem("option.value"));
         // ----------------------- END -----------------------
 
 
@@ -518,7 +516,7 @@
 
             if (result) {
                 if (new_custom_field)
-                    localStorage.setItem("option.value",null);
+                localStorage.removeItem("option.value");
                 return true;
             } else {
                 alert('ERROR');
