@@ -38,6 +38,8 @@
                         echo "Ошибка во время парсинга   ";
                         print_r($output);
                     }
+                } else {
+                    echo "Ошибка отправки данных. Есть незаполненные поля";
                 }
             }
         ?>
@@ -284,6 +286,7 @@
                 custon_field(selectList);
             }
         });
+        alert(localStorage.getItem("option.value"));
         // ----------------------- END -----------------------
 
 
@@ -351,15 +354,16 @@
                     kol = parseInt(numEl[1]) - parseInt(numEl[0]);
                     if (!((numI != null) && (numI.length == 2) && (parseInt(numI[1]) - parseInt(numI[0]) == kol))) {
                         flag++;
+                        error.innerHTML = 'Количество ячеек данного поля не совпадает с количеством ячеек первого поля'
                     }
                 } else {
                     flag++;
+                    error.innerHTML = 'Не верно заполненно первое поле'
                 }
 
                 if (flag != 0) {
                     this.classList.add('invalid');
                     button_import.disabled = true;
-                    error.innerHTML = 'Количество ячеек данного поля не совпадает с количеством ячеек первого поля'
                 }
             };
             item3.onfocus = function () {
@@ -480,15 +484,29 @@
 
         function verification_import() {
             // проверка, что ровно одно из полей - название компании
+            // проверка заполненности всех полей
             let result = true;
             let quantity_name_field = 0;
 
-            if (select.value == 'TITLE') {
+            if (select.value == 'TITLE') 
                 quantity_name_field++;
-            }
+            if (select.selectedIndex == -1) 
+                result = false; 
+            if ((select.value == "") || (select.value == null)) 
+                result = false; 
+
+            if ((document.getElementById("idTableImport").value == "") || (document.getElementById("idTableImport").value == null)) 
+                result = false; 
+
+            if ((document.getElementById("idSheetImport").value == "") || (document.getElementById("idSheetImport").value == null)) 
+                result = false; 
+
             for (i=0; i<k; i++) {
-                if (document.getElementById("field_selection"+i).value == 'TITLE') 
+                let temp = document.getElementById("field_selection"+i);
+                if (temp.value == 'TITLE') 
                     quantity_name_field++;
+                if (temp.selectedIndex == -1) 
+                    result = false; 
             }
             if (quantity_name_field != 1) 
                 result = false;
