@@ -266,10 +266,10 @@
                                     option.text = temp[1];
                                     selectList.appendChild(option);
                                     localStorage.setItem(option.value, temp[2]);
-                                    str_option += '"' + temp[0] + '", "' + temp[1] + '", ';
+                                    str_option += temp[0] + ' ' + temp[1] + ' ';
                                 } 
                             }
-                            localStorage.setItem("option.value", str_option.substr(0, str_option.length - 2));
+                            localStorage.setItem("option.value", str_option.substr(0, str_option.length - 1));
                             custon_field(selectList);
                 		}
                 	}
@@ -285,7 +285,7 @@
                 custon_field(selectList);
             }
         });
-        //alert(localStorage.getItem("option.value"));
+        alert(localStorage.getItem("option.value"));
         // ----------------------- END -----------------------
 
 
