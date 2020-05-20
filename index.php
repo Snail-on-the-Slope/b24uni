@@ -400,7 +400,7 @@
             if (true) {
                 return true;
             } else {
-                alert 'ERROR';
+                alert('ERROR');
                 return false;
             }
         }
@@ -410,7 +410,7 @@
             if (true) {
                 return true;
             } else {
-                alert 'ERROR';
+                alert('ERROR');
                 return false;
             }
         }
