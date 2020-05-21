@@ -86,10 +86,10 @@ def model_ml(data):
 
 def filling_table(service,spreadsheetId,name,print_list,id_cell):
     results = service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, body = {
-        "valueInputOption": "USER_ENTERED", # Данные воспринимаются, как вводимые пользователем (считается значение формул)
+        "valueInputOption": "USER_ENTERED",
         "data": [
             {"range": name+"!T"+id_cell[0]+":AA"+id_cell[1],
-            "majorDimension": "ROWS",     # Сначала заполнять строки, затем столбцы
+            "majorDimension": "ROWS",
             "values": print_list}
         ]
     }).execute()
@@ -109,14 +109,14 @@ def uploading_data_to_table(service, spreadsheetId, name, urls, id_cell):
     for i in range(len(urls)):
         print_list.append(index_item(i+id_cell[0]))
 
-    results = service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, body = {
-        "valueInputOption": "USER_ENTERED",
-        "data": [
-            {"range": name+"!T2:AA2",
-            "majorDimension": "ROWS",
-            "values": [['Комментарий','Результат','Оборот','Предприятие','Возраст компании','Количество сотрудников','Вид деятельности','Категория']]}
-        ]
-    }).execute()
+    # results = service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, body = {
+    #     "valueInputOption": "USER_ENTERED",
+    #     "data": [
+    #         {"range": name+"!T2:AA2",
+    #         "majorDimension": "ROWS",
+    #         "values": [['Комментарий','Результат','Оборот','Предприятие','Возраст компании','Количество сотрудников','Вид деятельности','Категория']]}
+    #     ]
+    # }).execute()
 
     filling_table(service,spreadsheetId,name,print_list,id_cell)
 
@@ -128,8 +128,8 @@ def main(idTable, idSheet, cells):
         print('Error connection to Google Sheets Table ')
         return
     urls, id_cell = get_urls(service, idTable, name, cells)
-    #parser1.main(urls)
-    #uploading_data_to_table(service, idTable, name, urls, id_cell)
+    parser1.main(urls)
+    uploading_data_to_table(service, idTable, name, urls, id_cell)
     print('OK')
 
 if __name__ == '__main__':

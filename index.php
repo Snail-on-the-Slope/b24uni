@@ -239,7 +239,7 @@
             option.text = 'Пользовательское поле';
             selectList.appendChild(option);
         }
-        // localStorage.removeItem("option.value");
+        
         BX24.init(function(){
             var selectList = document.getElementById('field_selection');
             if (localStorage.getItem("option.value") == null) {
@@ -269,15 +269,13 @@
                                     str_option += '"' + temp[0] + '", "' + temp[1] + '", ';
                                 } 
                             }
-                            localStorage.setItem("option.value", str_option.substr(1, str_option.length - 3));
+                            localStorage.setItem("option.value", str_option.substr(1, str_option.length - 4));
                             custon_field(selectList);
                 		}
                 	}
                 );
             } else {
-                alert('2222222 ', localStorage.getItem("option.value"));
                 var array_oprion = localStorage.getItem("option.value").split('", "');
-                alert(array_oprion);
                 for (i = 0; i < array_oprion.length; i+=2) {
                     var option = document.createElement("option");
                     option.value = array_oprion[i];
